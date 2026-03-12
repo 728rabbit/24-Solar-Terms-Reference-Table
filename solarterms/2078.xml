@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2078">
+  <term>
+    <name>小寒</name>
+    <date>2078-01-05 07:24:01</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2078-01-20 00:40:38</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2078-02-03 18:56:36</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2078-02-18 14:36:01</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2078-03-05 12:37:09</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2078-03-20 13:10:06</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2078-04-04 16:55:20</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2078-04-19 23:40:10</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2078-05-05 09:40:52</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2078-05-20 22:18:38</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2078-06-05 13:24:00</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2078-06-21 05:57:12</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2078-07-06 23:28:02</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2078-07-22 16:50:11</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2078-08-07 09:23:24</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2078-08-23 00:13:09</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2078-09-07 12:42:53</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2078-09-22 22:23:47</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2078-10-08 04:55:15</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2078-10-23 08:19:46</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2078-11-07 08:38:38</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2078-11-22 06:22:08</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2078-12-07 01:52:00</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2078-12-21 19:57:13</date>
+  </term>
+</solar_terms>

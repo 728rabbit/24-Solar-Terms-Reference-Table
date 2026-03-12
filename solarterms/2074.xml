@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2074">
+  <term>
+    <name>小寒</name>
+    <date>2074-01-05 08:05:16</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2074-01-20 01:33:21</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2074-02-03 19:40:28</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2074-02-18 15:31:16</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2074-03-05 13:23:30</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2074-03-20 14:08:05</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2074-04-04 17:44:20</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2074-04-20 00:40:56</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2074-05-05 10:32:22</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2074-05-20 23:20:51</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2074-06-05 14:16:53</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2074-06-21 06:57:39</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2074-07-07 00:20:11</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2074-07-22 17:44:57</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2074-08-07 10:12:27</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2074-08-23 00:59:47</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2074-09-07 13:27:29</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2074-09-22 23:03:00</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2074-10-08 05:36:26</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2074-10-23 08:55:01</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2074-11-07 09:18:56</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2074-11-22 06:57:06</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2074-12-07 02:33:38</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2074-12-21 20:34:28</date>
+  </term>
+</solar_terms>
