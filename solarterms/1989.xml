@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1989">
+  <term>
+    <name>小寒</name>
+    <date>1989-01-05 16:45:55</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1989-01-20 10:06:59</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1989-02-04 04:27:09</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1989-02-19 00:20:30</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1989-03-05 22:34:08</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1989-03-20 23:28:15</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1989-04-05 03:29:54</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1989-04-20 10:38:56</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1989-05-05 20:53:55</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1989-05-21 09:53:32</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1989-06-06 01:05:13</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1989-06-21 17:53:00</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1989-07-07 11:19:25</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1989-07-23 04:45:28</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1989-08-07 21:03:52</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1989-08-23 11:46:13</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1989-09-07 23:53:53</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1989-09-23 09:19:37</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1989-10-08 15:27:19</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1989-10-23 18:35:08</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1989-11-07 18:33:32</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1989-11-22 16:04:37</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1989-12-07 11:20:57</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1989-12-22 05:22:00</date>
+  </term>
+</solar_terms>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1974">
+  <term>
+    <name>小寒</name>
+    <date>1974-01-06 01:19:55</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1974-01-20 18:45:40</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1974-02-04 13:00:05</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1974-02-19 08:58:41</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1974-03-06 07:07:06</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1974-03-21 08:06:38</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1974-04-05 12:05:00</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1974-04-20 19:18:51</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1974-05-06 05:33:52</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1974-05-21 18:36:02</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1974-06-06 09:51:39</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1974-06-22 02:37:36</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1974-07-07 20:11:06</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1974-07-23 13:30:10</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1974-08-08 05:57:10</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1974-08-23 20:28:40</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1974-09-08 08:45:04</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1974-09-23 17:58:26</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1974-10-09 00:14:39</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1974-10-24 03:10:36</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1974-11-08 03:17:58</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1974-11-23 00:38:27</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1974-12-07 20:04:37</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1974-12-22 13:55:56</date>
+  </term>
+</solar_terms>

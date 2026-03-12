@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1969">
+  <term>
+    <name>小寒</name>
+    <date>1969-01-05 20:16:48</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1969-01-20 13:38:10</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1969-02-04 07:58:52</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1969-02-19 03:54:28</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1969-03-06 02:10:34</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1969-03-21 03:08:04</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1969-04-05 07:14:51</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1969-04-20 14:26:51</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1969-05-06 00:49:47</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1969-05-21 13:49:42</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1969-06-06 05:11:29</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1969-06-21 21:55:01</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1969-07-07 15:31:31</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1969-07-23 08:48:08</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1969-08-08 01:14:06</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1969-08-23 15:43:20</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1969-09-08 03:55:25</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1969-09-23 13:06:53</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1969-10-08 19:16:40</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1969-10-23 22:11:02</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1969-11-07 22:11:20</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1969-11-22 19:31:04</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1969-12-07 14:51:18</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1969-12-22 08:43:41</date>
+  </term>
+</solar_terms>

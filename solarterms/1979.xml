@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1979">
+  <term>
+    <name>小寒</name>
+    <date>1979-01-06 06:31:33</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1979-01-20 23:59:56</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1979-02-04 18:12:18</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1979-02-19 14:13:13</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1979-03-06 12:19:38</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1979-03-21 13:21:55</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1979-04-05 17:17:57</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1979-04-21 00:35:21</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1979-05-06 10:47:10</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1979-05-21 23:53:50</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1979-06-06 15:05:11</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1979-06-22 07:56:09</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1979-07-08 01:24:37</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1979-07-23 18:48:32</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1979-08-08 11:10:53</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1979-08-24 01:46:43</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1979-09-08 13:59:45</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1979-09-23 23:16:22</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1979-10-09 05:30:02</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1979-10-24 08:27:50</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1979-11-08 08:32:47</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1979-11-23 05:54:06</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1979-12-08 01:17:48</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1979-12-22 19:09:45</date>
+  </term>
+</solar_terms>

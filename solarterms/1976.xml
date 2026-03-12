@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1976">
+  <term>
+    <name>小寒</name>
+    <date>1976-01-06 12:57:22</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1976-01-21 06:25:06</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1976-02-05 00:39:28</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1976-02-19 20:39:55</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1976-03-05 18:48:06</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1976-03-20 19:49:36</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1976-04-04 23:46:27</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1976-04-20 07:02:56</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1976-05-05 17:14:24</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1976-05-21 06:21:04</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1976-06-05 21:31:13</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1976-06-21 14:24:11</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1976-07-07 07:50:50</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1976-07-23 01:18:26</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1976-08-07 17:38:21</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1976-08-23 08:18:15</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1976-09-07 20:28:12</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1976-09-23 05:48:11</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1976-10-08 11:58:03</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1976-10-23 14:58:01</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1976-11-07 14:58:34</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1976-11-22 12:21:28</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1976-12-07 07:40:56</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1976-12-22 01:35:06</date>
+  </term>
+</solar_terms>

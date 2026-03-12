@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1973">
+  <term>
+    <name>小寒</name>
+    <date>1973-01-05 19:25:19</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1973-01-20 12:48:12</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1973-02-04 07:04:12</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1973-02-19 03:01:09</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1973-03-06 01:12:36</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1973-03-21 02:12:26</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1973-04-05 06:13:53</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1973-04-20 13:30:21</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1973-05-05 23:46:23</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1973-05-21 12:53:49</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1973-06-06 04:06:50</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1973-06-21 21:00:34</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1973-07-07 14:27:21</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1973-07-23 07:55:32</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1973-08-08 00:12:48</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1973-08-23 14:53:27</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1973-09-08 02:59:24</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1973-09-23 12:21:06</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1973-10-08 18:27:15</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1973-10-23 21:30:09</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1973-11-07 21:27:38</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1973-11-22 18:54:00</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1973-12-07 14:10:23</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1973-12-22 08:07:41</date>
+  </term>
+</solar_terms>
