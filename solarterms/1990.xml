@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1990">
+  <term>
+    <name>小寒</name>
+    <date>1990-01-05 22:33:14</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1990-01-20 16:01:33</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1990-02-04 10:14:00</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1990-02-19 06:14:01</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1990-03-06 04:19:18</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1990-03-21 05:19:15</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1990-04-05 09:12:56</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1990-04-20 16:26:32</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1990-05-06 02:35:26</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1990-05-21 15:37:23</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1990-06-06 06:46:18</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1990-06-21 23:32:46</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1990-07-07 17:00:28</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1990-07-23 10:21:30</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1990-08-08 02:45:32</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1990-08-23 17:20:49</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1990-09-08 05:37:28</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1990-09-23 14:55:29</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1990-10-08 21:13:49</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1990-10-24 00:13:56</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1990-11-08 00:23:30</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1990-11-22 21:46:55</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1990-12-07 17:14:10</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1990-12-22 11:06:59</date>
+  </term>
+</solar_terms>

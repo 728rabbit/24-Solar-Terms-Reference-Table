@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1995">
+  <term>
+    <name>小寒</name>
+    <date>1995-01-06 03:34:05</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1995-01-20 21:00:27</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1995-02-04 15:12:51</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1995-02-19 11:10:44</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1995-03-06 09:16:04</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1995-03-21 10:14:27</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1995-04-05 14:08:06</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1995-04-20 21:21:29</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1995-05-06 07:30:03</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1995-05-21 20:34:11</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1995-06-06 11:42:28</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1995-06-22 04:34:22</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1995-07-07 22:01:00</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1995-07-23 15:29:40</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1995-08-08 07:51:44</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1995-08-23 22:34:50</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1995-09-08 10:48:34</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1995-09-23 20:13:00</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1995-10-09 02:27:12</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1995-10-24 05:31:31</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1995-11-08 05:35:35</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1995-11-23 03:01:23</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1995-12-07 22:22:15</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1995-12-22 16:16:47</date>
+  </term>
+</solar_terms>

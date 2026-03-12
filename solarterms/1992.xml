@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="1992">
+  <term>
+    <name>小寒</name>
+    <date>1992-01-06 10:08:31</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>1992-01-21 03:32:29</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>1992-02-04 21:48:17</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>1992-02-19 17:43:30</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>1992-03-05 15:52:08</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>1992-03-20 16:48:04</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>1992-04-04 20:45:08</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>1992-04-20 03:56:53</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>1992-05-05 14:08:40</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>1992-05-21 03:12:08</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>1992-06-05 18:22:19</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>1992-06-21 11:14:08</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>1992-07-07 04:40:15</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>1992-07-22 22:08:49</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>1992-08-07 14:27:24</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>1992-08-23 05:10:06</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>1992-09-07 17:18:20</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>1992-09-23 02:42:46</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>1992-10-08 08:51:29</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>1992-10-23 11:57:07</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>1992-11-07 11:57:02</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>1992-11-22 09:25:51</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>1992-12-07 04:44:12</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>1992-12-21 22:43:13</date>
+  </term>
+</solar_terms>
