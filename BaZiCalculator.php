@@ -83,7 +83,7 @@ class BaZiCalculator {
             $prevTime = $termTime;
         }
         
-        // 在大雪之後，屬於下一年的子月？不對，應該還是當年的子月
+        // 在大雪之後，屬於當年的子月
         return '子';
     }
 
