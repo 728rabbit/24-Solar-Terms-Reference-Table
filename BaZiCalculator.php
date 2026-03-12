@@ -1,41 +1,33 @@
 /*
 八字計算 | 天干地支
-$bazi = new BaZiCalculator();
+$bazi = new BaZiCalculator('your_xml_folder_location');
 $result = $bazi->calculate('2026-02-06 13:40:50');
 */
 class BaZiCalculator {
-
     private $stems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
     private $branches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-
+    private $solarTermFolder = '';
     private $solarTerms;
-
-    public function __construct() {
-        $url = "https://728rabbit.github.io/24-Solar-Terms-Reference-Table/24solarterms.json";
-        $json = file_get_contents($url);
-        $this->solarTerms = json_decode($json,true);
+    
+    public function __construct($sourceFolder) {
+        $this->solarTermFolder = $sourceFolder;
     }
 
-    /* ---------------- 年干支 ---------------- */
-
-    private function getYearGanzhi($date){
-
-        $year = intval(date('Y',$date));
-
+    // 計算年干支
+    private function getYearGanzhi($datetime){
+        $year = intval(date('Y',$datetime));
         $lichun = $this->getSolarTermTime($year,'立春');
-
-        if($date < $lichun){
+        // 比較當年立春時間，立春之前減一年
+        if($datetime < $lichun){
             $year--;
         }
-
         $index = ($year - 4) % 60;
-
         return $this->stems[$index % 10] . $this->branches[$index % 12];
     }
 
-    /* ---------------- 月支 ---------------- */
-    private function getMonthBranch($date){
-        $year = intval(date('Y',$date));
+    // 計算月支
+    private function getMonthBranch($datetime){
+        $year = intval(date('Y',$datetime));
         
         // 節氣對應的地支
         $termToBranch = [
@@ -53,35 +45,38 @@ class BaZiCalculator {
         $xiaohan = $this->getSolarTermTime($year, '小寒');
         if ($xiaohan === false) {
             // 如果沒有節氣數據，用月份估算
-            $month = date('n', $date);
+            $month = date('n', $datetime);
             $map = [1=>'丑', 2=>'寅', 3=>'卯', 4=>'辰', 5=>'巳', 6=>'午',
                     7=>'未', 8=>'申', 9=>'酉', 10=>'戌', 11=>'亥', 12=>'子'];
             return $map[$month];
         }
         
         // 如果在小寒之前，屬於上一年的月份
-        if ($date < $xiaohan) {
+        if ($datetime < $xiaohan) {
             // 獲取上一年的節氣來判斷
             $prevYear = $year - 1;
             $prevDaxue = $this->getSolarTermTime($prevYear, '大雪');
             
-            if ($prevDaxue !== false && $date >= $prevDaxue) {
-                return '子';  // 大雪後是子月
+            // 大雪後是子月
+            if ($prevDaxue !== false && $datetime >= $prevDaxue) {
+                return '子';
             }
-            return '亥';  // 否則大概是亥月
+            // 否則大概是亥月
+            return '亥';
         }
         
         // 遍歷當年的節氣
         $prevTerm = '小寒';
         $prevTime = $xiaohan;
-        
         foreach ($termOrder as $term) {
-            if ($term == '小寒') continue;
-            
+            if ($term == '小寒') { 
+                continue;
+            }
             $termTime = $this->getSolarTermTime($year, $term);
-            if ($termTime === false) continue;
-            
-            if ($date < $termTime) {
+            if ($termTime === false) { 
+                continue; 
+            }
+            if ($datetime < $termTime) {
                 return $termToBranch[$prevTerm];
             }
             $prevTerm = $term;
@@ -92,8 +87,7 @@ class BaZiCalculator {
         return '子';
     }
 
-    /* ---------------- 月干 ---------------- */
-
+    // 計算月干
     private function getMonthStem($yearStem, $monthBranch){
         // 月份對應表（正月寅月為0，二月卯月為1，依此類推）
         $branchOrder = [
@@ -104,8 +98,7 @@ class BaZiCalculator {
         // 五虎遁月干口訣：
         // 甲己之年丙作首，乙庚之年戊為頭
         // 丙辛必定尋庚起，丁壬壬位順行流
-        // 戊癸何方發，甲寅之上好追求
-        
+        // 戊癸何方發，甲寅之上好追求 
         $map = [
             '甲' => '丙', '己' => '丙',
             '乙' => '戊', '庚' => '戊',
@@ -127,25 +120,22 @@ class BaZiCalculator {
         return $this->stems[$monthStemIndex];
     }
 
-    /* ---------------- 日干支 ---------------- */
-
-    private function getDayGanzhi($date){
-
+    // 計算日干支
+    private function getDayGanzhi($datetime){
         $jd = gregoriantojd(
-            date('m',$date),
-            date('d',$date),
-            date('Y',$date)
+            date('m',$datetime),
+            date('d',$datetime),
+            date('Y',$datetime)
         );
-
         $index = ($jd + 49) % 60;
 
         return $this->stems[$index%10] . $this->branches[$index%12];
     }
 
-    /* ---------------- 時干支 ---------------- */
-    private function getHourGanzhi($date, $dayStem){
-        $hour = intval(date('H', $date));
-        $minute = intval(date('i', $date));
+    // 計算時干支
+    private function getHourGanzhi($datetime, $dayStem){
+        $hour = intval(date('H', $datetime));
+        $minute = intval(date('i', $datetime));
 
         // 計算時支（23:00-00:59為子時）
         if ($hour == 23) {
@@ -185,34 +175,68 @@ class BaZiCalculator {
     }
     
     
-    /* ---------------- 節氣時間 ---------------- */
-
-    private function getSolarTermTime($year,$name){
+    // 某年節氣時間
+    private function getSolarTermTime($year, $name){
         return !empty($this->solarTerms[$year][$name])?strtotime($this->solarTerms[$year][$name]):null;
     }
 
-    /* ---------------- 主函數 ---------------- */
-
+    // 主函數
     public function calculate($datetime){
+        $result = [];
+        // 轉換成秒
+        $datetime = strtotime($datetime);
+        $selectedYear = intval(date('Y', $datetime));
+ 
+        // 限制範圍
+        if($selectedYear >= 1970 && $selectedYear <= 2100) {
+            // 獲得 24 節氣參考資料
+            foreach ([($selectedYear-1), $selectedYear, ($selectedYear+1)] as $year) {
+                $xmlFile = (implode('/', array_filter([$this->solarTermFolder, $year])).'.xml');
+                if(file_exists($xmlFile)) {
+                    $xmlData = simplexml_load_file($xmlFile);
+                    if(!empty($xmlData)) {
+                        $yearData = [];
+                        foreach ($xmlData->term as $term) {
+                            $name = (string)$term->name;
+                            $date = (string)$term->date;
+                            $yearData[$name] = $date;
+                        }
+                        $this->solarTerms[$year] = $yearData;
+                    }
+                }
+            }
+            
+            // 開始計算
+            if(!empty($this->solarTerms)) {
+                if(!empty($this->solarTerms[($selectedYear-1)]) && !empty($this->solarTerms[$selectedYear]) && !empty($this->solarTerms[($selectedYear+1)])) {
+                    // 年干支
+                    $yearGZ = $this->getYearGanzhi($datetime);
+                    $yearStem = mb_substr($yearGZ,0,1);
 
-        $date = strtotime($datetime);
+                    // 月干支
+                    $monthBranch = $this->getMonthBranch($datetime);
+                    $monthStem = $this->getMonthStem($yearStem, $monthBranch);
+                    $monthGZ = $monthStem.$monthBranch;
 
-        $yearGZ = $this->getYearGanzhi($date);
-        $yearStem = mb_substr($yearGZ,0,1);
+                    // 日干支
+                    $dayGZ = $this->getDayGanzhi($datetime);
+                    $dayStem = mb_substr($dayGZ,0,1);
 
-        $monthBranch = $this->getMonthBranch($date);
-        $monthStem = $this->getMonthStem($yearStem, $monthBranch);
-        $monthGZ = $monthStem.$monthBranch;
+                    // 時干支
+                    $hourGZ = $this->getHourGanzhi($datetime,$dayStem);
 
-        $dayGZ = $this->getDayGanzhi($date);
-        $dayStem = mb_substr($dayGZ,0,1);
-        $hourGZ = $this->getHourGanzhi($date,$dayStem);
-   
-        return [
-            'year'=>$yearGZ,
-            'month'=>$monthGZ,
-            'day'=>$dayGZ,
-            'hour'=>$hourGZ
-        ];
+                    // 結果
+                    $result =  
+                    [
+                        'year'  =>  $yearGZ,
+                        'month' =>  $monthGZ,
+                        'day'   =>  $dayGZ,
+                        'hour'  =>  $hourGZ
+                    ];
+                }
+            }
+        }
+        
+        return $result;
     }
 }
