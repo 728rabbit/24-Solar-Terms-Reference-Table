@@ -14,5 +14,5 @@ solarterms/data.json: 1969 ~ 2101 年節氣 Json 檔案
 BaZiCalculator.php: 計算 1970 ~ 2100 之間的八字 (年月日時的天干地支)
 
     // 使用方法：
-    $bazi = new BaZiCalculator('your_xml_folder_location');
+    $bazi = new BaZiCalculator('your_solarterms_folder_location');
     $result = $bazi->calculate('2026-02-06 13:40:50');
