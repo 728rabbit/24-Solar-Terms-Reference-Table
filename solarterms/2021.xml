@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2021">
+  <term>
+    <name>小寒</name>
+    <date>2021-01-05 11:23:17</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2021-01-20 04:39:42</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2021-02-03 22:58:39</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2021-02-18 18:43:49</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2021-03-05 16:53:32</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2021-03-20 17:37:19</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2021-04-04 21:34:58</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2021-04-20 04:33:14</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2021-05-05 14:47:01</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2021-05-21 03:36:58</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2021-06-05 18:51:57</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2021-06-21 11:32:01</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2021-07-07 05:05:19</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2021-07-22 22:26:16</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2021-08-07 14:53:48</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2021-08-23 05:34:48</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2021-09-07 17:52:46</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2021-09-23 03:20:55</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2021-10-08 09:38:53</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2021-10-23 12:51:00</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2021-11-07 12:58:37</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2021-11-22 10:33:34</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2021-12-07 05:56:55</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2021-12-21 23:59:09</date>
+  </term>
+</solar_terms>

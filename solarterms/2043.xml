@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2043">
+  <term>
+    <name>小寒</name>
+    <date>2043-01-05 19:24:33</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2043-01-20 12:40:47</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2043-02-04 06:57:58</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2043-02-19 02:40:52</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2043-03-06 00:46:58</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2043-03-21 01:27:00</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2043-04-05 05:19:27</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2043-04-20 12:13:39</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2043-05-05 22:21:16</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2043-05-21 11:08:21</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2043-06-06 02:17:21</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2043-06-21 18:57:34</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2043-07-07 12:27:02</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2043-07-23 05:52:39</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2043-08-07 22:19:57</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2043-08-23 13:08:59</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2043-09-08 01:29:22</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2043-09-23 11:06:09</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2043-10-08 17:26:54</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2043-10-23 20:46:02</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2043-11-07 20:55:00</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2043-11-22 18:34:15</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2043-12-07 13:56:33</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2043-12-22 08:00:25</date>
+  </term>
+</solar_terms>

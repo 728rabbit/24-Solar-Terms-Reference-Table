@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2025">
+  <term>
+    <name>小寒</name>
+    <date>2025-01-05 10:32:31</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2025-01-20 03:59:52</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2025-02-03 22:10:13</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2025-02-18 18:06:18</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2025-03-05 16:07:02</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2025-03-20 17:01:13</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2025-04-04 20:48:21</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2025-04-20 03:55:45</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2025-05-05 13:56:57</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2025-05-21 02:54:23</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2025-06-05 17:56:16</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2025-06-21 10:42:00</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2025-07-07 04:04:43</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2025-07-22 21:29:11</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2025-08-07 13:51:19</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2025-08-23 04:33:35</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2025-09-07 16:51:41</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2025-09-23 02:19:04</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2025-10-08 08:40:57</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2025-10-23 11:50:39</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2025-11-07 12:03:48</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2025-11-22 09:35:18</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2025-12-07 05:04:20</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2025-12-21 23:02:48</date>
+  </term>
+</solar_terms>

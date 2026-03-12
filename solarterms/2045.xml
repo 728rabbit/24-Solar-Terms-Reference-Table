@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2045">
+  <term>
+    <name>小寒</name>
+    <date>2045-01-05 07:01:41</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2045-01-20 00:21:23</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2045-02-03 18:35:28</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2045-02-18 14:21:32</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2045-03-05 12:24:12</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2045-03-20 13:06:48</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2045-04-04 16:56:28</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2045-04-19 23:52:02</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2045-05-05 09:58:41</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2045-05-20 22:45:10</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2045-06-05 13:56:11</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2045-06-21 06:33:03</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2045-07-07 00:07:14</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2045-07-22 17:25:58</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2045-08-07 09:58:48</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2045-08-23 00:38:20</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2045-09-07 13:04:36</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2045-09-22 22:32:06</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2045-10-08 04:59:48</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2045-10-23 08:11:41</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2045-11-07 08:29:00</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2045-11-22 06:03:00</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2045-12-07 01:34:44</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2045-12-21 19:34:16</date>
+  </term>
+</solar_terms>

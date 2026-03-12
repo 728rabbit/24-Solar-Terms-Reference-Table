@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2031">
+  <term>
+    <name>小寒</name>
+    <date>2031-01-05 21:22:35</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2031-01-20 14:47:24</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2031-02-04 08:57:46</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2031-02-19 04:50:21</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2031-03-06 02:50:29</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2031-03-21 03:40:24</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2031-04-05 07:27:50</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2031-04-20 14:30:40</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2031-05-06 00:34:37</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2031-05-21 13:27:20</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2031-06-06 04:35:08</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2031-06-21 21:16:34</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2031-07-07 14:48:16</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2031-07-23 08:09:54</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2031-08-08 00:42:22</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2031-08-23 15:22:45</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2031-09-08 03:49:36</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2031-09-23 13:14:45</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2031-10-08 19:42:24</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2031-10-23 22:48:52</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2031-11-07 23:05:06</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2031-11-22 20:32:01</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2031-12-07 16:02:18</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2031-12-22 09:54:58</date>
+  </term>
+</solar_terms>

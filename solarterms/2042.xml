@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2042">
+  <term>
+    <name>小寒</name>
+    <date>2042-01-05 13:34:21</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2042-01-20 06:59:16</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2042-02-04 01:12:04</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2042-02-18 21:03:41</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2042-03-05 19:05:00</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2042-03-20 19:52:32</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2042-04-04 23:39:52</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2042-04-20 06:38:59</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2042-05-05 16:42:04</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2042-05-21 05:30:28</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2042-06-05 20:37:25</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2042-06-21 13:15:02</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2042-07-07 06:46:29</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2042-07-23 00:05:31</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2042-08-07 16:38:00</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2042-08-23 07:17:19</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2042-09-07 19:44:41</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2042-09-23 05:10:44</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2042-10-08 11:39:46</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2042-10-23 14:48:45</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2042-11-07 15:06:51</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2042-11-22 12:36:35</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2042-12-07 08:08:26</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2042-12-22 02:03:16</date>
+  </term>
+</solar_terms>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2033">
+  <term>
+    <name>小寒</name>
+    <date>2033-01-05 09:07:31</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2033-01-20 02:32:12</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2033-02-03 20:41:00</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2033-02-18 16:33:13</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2033-03-05 14:31:45</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2033-03-20 15:22:08</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2033-04-04 19:07:32</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2033-04-20 02:12:31</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2033-05-05 12:13:10</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2033-05-21 01:10:21</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2033-06-05 16:12:49</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2033-06-21 09:00:31</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2033-07-07 02:24:20</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2033-07-22 19:52:12</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2033-08-07 12:15:08</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2033-08-23 03:01:13</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2033-09-07 15:19:45</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2033-09-23 00:51:03</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2033-10-08 07:13:19</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2033-10-23 10:26:59</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2033-11-07 10:40:27</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2033-11-22 08:15:33</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2033-12-07 03:44:18</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2033-12-21 21:45:23</date>
+  </term>
+</solar_terms>

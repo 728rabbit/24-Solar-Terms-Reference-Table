@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2039">
+  <term>
+    <name>小寒</name>
+    <date>2039-01-05 20:15:56</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2039-01-20 13:42:56</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2039-02-04 07:52:11</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2039-02-19 03:45:01</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2039-03-06 01:42:19</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2039-03-21 02:31:18</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2039-04-05 06:15:03</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2039-04-20 13:17:03</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2039-05-05 23:17:25</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2039-05-21 12:10:09</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2039-06-06 03:14:45</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2039-06-21 19:56:41</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2039-07-07 13:25:25</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2039-07-23 06:47:25</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2039-08-07 23:17:21</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2039-08-23 13:57:56</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2039-09-08 02:23:18</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2039-09-23 11:48:52</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2039-10-08 18:16:32</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2039-10-23 21:24:19</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2039-11-07 21:42:09</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2039-11-22 19:11:27</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2039-12-07 14:44:20</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2039-12-22 08:39:51</date>
+  </term>
+</solar_terms>

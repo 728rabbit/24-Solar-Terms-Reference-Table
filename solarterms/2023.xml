@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2023">
+  <term>
+    <name>小寒</name>
+    <date>2023-01-05 23:04:39</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2023-01-20 16:29:20</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2023-02-04 10:42:21</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2023-02-19 06:34:05</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2023-03-06 04:36:02</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2023-03-21 05:24:14</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2023-04-05 09:12:52</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2023-04-20 16:13:26</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2023-05-06 02:18:34</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2023-05-21 15:08:59</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2023-06-06 06:18:10</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2023-06-21 22:57:37</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2023-07-07 16:30:29</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2023-07-23 09:50:15</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2023-08-08 02:22:41</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2023-08-23 17:01:06</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2023-09-08 05:26:31</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2023-09-23 14:49:46</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2023-10-08 21:15:23</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2023-10-24 00:20:39</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2023-11-08 00:35:23</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2023-11-22 22:02:29</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2023-12-07 17:32:44</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2023-12-22 11:27:09</date>
+  </term>
+</solar_terms>
