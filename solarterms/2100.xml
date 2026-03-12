@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solar_terms year="2100">
+  <term>
+    <name>小寒</name>
+    <date>2100-01-05 15:28:44</date>
+  </term>
+  <term>
+    <name>大寒</name>
+    <date>2100-01-20 08:45:20</date>
+  </term>
+  <term>
+    <name>立春</name>
+    <date>2100-02-04 02:59:45</date>
+  </term>
+  <term>
+    <name>雨水</name>
+    <date>2100-02-18 22:36:43</date>
+  </term>
+  <term>
+    <name>驚蟄</name>
+    <date>2100-03-05 20:34:01</date>
+  </term>
+  <term>
+    <name>春分</name>
+    <date>2100-03-20 21:03:07</date>
+  </term>
+  <term>
+    <name>清明</name>
+    <date>2100-04-05 00:43:16</date>
+  </term>
+  <term>
+    <name>谷雨</name>
+    <date>2100-04-20 07:24:40</date>
+  </term>
+  <term>
+    <name>立夏</name>
+    <date>2100-05-05 17:20:24</date>
+  </term>
+  <term>
+    <name>小滿</name>
+    <date>2100-05-21 05:56:45</date>
+  </term>
+  <term>
+    <name>芒種</name>
+    <date>2100-06-05 20:57:35</date>
+  </term>
+  <term>
+    <name>夏至</name>
+    <date>2100-06-21 13:31:39</date>
+  </term>
+  <term>
+    <name>小暑</name>
+    <date>2100-07-07 06:58:30</date>
+  </term>
+  <term>
+    <name>大暑</name>
+    <date>2100-07-23 00:23:24</date>
+  </term>
+  <term>
+    <name>立秋</name>
+    <date>2100-08-07 16:53:33</date>
+  </term>
+  <term>
+    <name>處暑</name>
+    <date>2100-08-23 07:47:07</date>
+  </term>
+  <term>
+    <name>白露</name>
+    <date>2100-09-07 20:14:46</date>
+  </term>
+  <term>
+    <name>秋分</name>
+    <date>2100-09-23 05:59:56</date>
+  </term>
+  <term>
+    <name>寒露</name>
+    <date>2100-10-08 12:30:41</date>
+  </term>
+  <term>
+    <name>霜降</name>
+    <date>2100-10-23 16:00:09</date>
+  </term>
+  <term>
+    <name>立冬</name>
+    <date>2100-11-07 16:19:34</date>
+  </term>
+  <term>
+    <name>小雪</name>
+    <date>2100-11-22 14:08:41</date>
+  </term>
+  <term>
+    <name>大雪</name>
+    <date>2100-12-07 09:39:35</date>
+  </term>
+  <term>
+    <name>冬至</name>
+    <date>2100-12-22 03:50:20</date>
+  </term>
+</solar_terms>
