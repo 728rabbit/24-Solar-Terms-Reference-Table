@@ -5,7 +5,9 @@
 https://728rabbit.github.io/24-Solar-Terms-Reference-Table/
 
 ### 額外説明：
+ 
+solarterms/1969.xml ~ solarterms/2101.xml: 對應年份節氣 XML 檔案
 
-24solarterms.json -- 1969 ~ 2101 年節氣 Json 檔案
+solarterms/data.json: 1969 ~ 2101 年節氣 Json 檔案
 
-BaZiCalculator.php -- 計算 1970 ~ 2100 之間的八字 (年月日時的天干地支)
+BaZiCalculator.php: 計算 1970 ~ 2100 之間的八字 (年月日時的天干地支)
