@@ -293,8 +293,6 @@ class Home extends WebController {
             if(!empty($baziResult)) {
                 $listSolarTerms = $biziLib->getListSolarTerms();
                 
-                dump($listSolarTerms);
-                
                 $this->_ganzhiData['ganzhi_year'] = $baziResult['year'];
                 $this->_ganzhiData['ganzhi_month'] = $baziResult['month'];
                 $this->_ganzhiData['ganzhi_day'] = $baziResult['day'];
@@ -310,8 +308,6 @@ class Home extends WebController {
                 $this->_ganzhiData['jieqi_dongzhi_this_year'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至'];
             }
         }
-        
-        dump($this->_ganzhiData);
         
         $this->_palaceResult['calc_datetime'] = $currentDateTime;
         $this->_palaceResult['time_zone'] = $this->getParamValue('time_zone', 'hong_kong');
