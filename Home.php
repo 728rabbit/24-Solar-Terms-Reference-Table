@@ -111,7 +111,7 @@ class Home extends WebController {
         '甲辰壬' => ['甲辰', '乙巳', '丙午', '丁未', '戊申', '己酉', '庚戌', '辛亥', '壬子', '癸丑'],
         '甲寅癸' => ['甲寅', '乙卯', '丙辰', '丁巳', '戊午', '己未', '庚申', '辛酉', '壬戌', '癸亥']
     ];
-    
+
     protected $_sixtyJiaziKongWang = 
     [
         '甲子戊' => '戌亥',
@@ -196,6 +196,7 @@ class Home extends WebController {
         //$testDateTime = '1990-07-16 13:55:00';
         //$testDateTime = '1999-11-30 19:16:00';
         //$testDateTime = '2015-05-02 12:09:00';
+        //$testDateTime = '2014-03-10 06:53:00';
         $this->startYinProcess($testDateTime);
         
         echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['hk_datetime'].'</p>';
@@ -227,9 +228,9 @@ class Home extends WebController {
             echo '<br/>';
             echo '地： '.(!empty($grid['earth_alias'])?$grid['earth_alias']:$grid['earth']);
             
-            echo ((!empty($this->_palaceResult['kongwang']) && in_array($grid['index'], $this->_palaceResult['kongwang']))?'<div style="position:absolute;top:0px;right:20px;background:pink;">空</div>':'');
+            echo ((!empty($this->_palaceResult['kongwang']) && in_array($grid['index'], $this->_palaceResult['kongwang']))?'<div style="position:absolute;top:0px;right:30px;background:pink;">空</div>':'');
             
-            echo ((!empty($this->_palaceResult['yima']) && in_array($grid['index'], $this->_palaceResult['yima']))?'<div style="position:absolute;top:0px;right:0px;background:yellow;">馬</div>':'');
+            echo ((!empty($this->_palaceResult['yima']) && in_array($grid['index'], $this->_palaceResult['yima']))?'<div style="position:absolute;top:0px;right:10px;background:yellow;">馬</div>':'');
 
             echo '</div>';
         }
@@ -292,6 +293,8 @@ class Home extends WebController {
             if(!empty($baziResult)) {
                 $listSolarTerms = $biziLib->getListSolarTerms();
                 
+                dump($listSolarTerms);
+                
                 $this->_ganzhiData['ganzhi_year'] = $baziResult['year'];
                 $this->_ganzhiData['ganzhi_month'] = $baziResult['month'];
                 $this->_ganzhiData['ganzhi_day'] = $baziResult['day'];
@@ -307,6 +310,8 @@ class Home extends WebController {
                 $this->_ganzhiData['jieqi_dongzhi_this_year'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至'];
             }
         }
+        
+        dump($this->_ganzhiData);
         
         $this->_palaceResult['calc_datetime'] = $currentDateTime;
         $this->_palaceResult['time_zone'] = $this->getParamValue('time_zone', 'hong_kong');
