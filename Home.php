@@ -46,8 +46,10 @@ class Home extends WebController {
             8 => ['index' => 8, 'name' => '艮', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => ''],
             1 => ['index' => 1, 'name' => '坎', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => ''],
             6 => ['index' => 6, 'name' => '乾', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => '']
-        ]
+        ],
         
+        'kongwang'          =>  [],
+        'yima'              =>  []
     ];
 
     // 1. 陽： 冬至 -> 夏至
@@ -110,6 +112,32 @@ class Home extends WebController {
         '甲寅癸' => ['甲寅', '乙卯', '丙辰', '丁巳', '戊午', '己未', '庚申', '辛酉', '壬戌', '癸亥']
     ];
     
+    protected $_sixtyJiaziKongWang = 
+    [
+        '甲子戊' => '戌亥',
+        '甲戌己' => '申酉',
+        '甲申庚' => '午未',
+        '甲午辛' => '辰巳',
+        '甲辰壬' => '寅卯',
+        '甲寅癸' => '子丑'
+    ];
+    
+    protected $_shiChenFixed = 
+    [
+        4   => ['辰', '巳'],
+        9   => ['午'],
+        2   => ['未', '申'],
+        
+        3   => ['卯'],
+        5   => [],
+        7   => ['酉'],
+        
+        8   => ['寅', '丑'],
+        1   => ['子'],
+        6   => ['亥', '戌']
+    ];
+
+
     // 九星八門(原盤)
     protected $_startAndGateOri = [
         4 => ['star' => '輔', 'gate' => '杜'],
@@ -181,7 +209,8 @@ class Home extends WebController {
         
         echo '<div style="width:600px;">';
         foreach ($this->_palaceResult['grid'] as $grid) {
-            echo '<div style="display:inline-block;width:28%;padding:10px;border:2px solid #ddd">';
+            echo '<div style="position:relative;display:inline-block;width:28%;padding:10px;border:2px solid #ddd">';
+            
             echo $grid['index'];
             echo '<br/>';
             echo '宮： '.$grid['name'];
@@ -197,6 +226,11 @@ class Home extends WebController {
             echo '天： '.(!empty($grid['tian_alias'])?$grid['tian_alias']:$grid['tian']);
             echo '<br/>';
             echo '地： '.(!empty($grid['earth_alias'])?$grid['earth_alias']:$grid['earth']);
+            
+            echo ((!empty($this->_palaceResult['kongwang']) && in_array($grid['index'], $this->_palaceResult['kongwang']))?'<div style="position:absolute;top:0px;right:20px;background:pink;">空</div>':'');
+            
+            echo ((!empty($this->_palaceResult['yima']) && in_array($grid['index'], $this->_palaceResult['yima']))?'<div style="position:absolute;top:0px;right:0px;background:yellow;">馬</div>':'');
+
             echo '</div>';
         }
         echo '</div>';
@@ -240,6 +274,12 @@ class Home extends WebController {
         
         // 值符 + 值使 所在宮位
         $this->setYinZhiFuShiIndex();
+        
+        // 空亡
+        $this->setKongWang();
+        
+        // 驛馬
+        $this->setYiMa();
     }
 
     protected function getDanZhi($currentDateTime) {
@@ -570,7 +610,57 @@ class Home extends WebController {
             }
         }
     }
+    
+    protected function setKongWang() {
+        // 根據 “旬首” 確定其 “空亡”
+        $kongWang = $this->_sixtyJiaziKongWang[$this->_palaceResult['header']];
+        
+        // 速查固定時辰對照表
+        foreach (mb_str_split($kongWang) as $char) {
+            foreach ($this->_shiChenFixed as $shiChenKey => $shiChen) {
+                if(!empty($shiChen) && in_array($char, $shiChen)) {
+                    $this->_palaceResult['kongwang'][] = $shiChenKey;
+                }
+            }
+        }
+        $this->_palaceResult['kongwang'] = array_unique($this->_palaceResult['kongwang']);
+    }
 
+    protected function setYiMa() {
+        /* 驛馬速查表
+        申子辰 時 → 寅
+        寅午戌 時 → 申
+        巳酉丑 時 → 亥
+        亥卯未 時 → 巳 */
+        
+        // 根據 “時支” 確定其 “驛馬”
+        $lastChar = mb_substr($this->_palaceResult['ganzhi_hour'], -1);
+        
+        // 速查固定時辰對照表
+        $char = '';
+        $yiMaFixed = 
+        [
+            '寅' => ['申', '子', '辰'],
+            '申' => ['寅', '午', '戌'],
+            '亥' => ['巳', '酉', '丑'],
+            '巳' => ['亥', '卯', '未'],
+        ];
+        foreach ($yiMaFixed as $yimaKey => $yiMa) {
+            if(in_array($lastChar, $yiMa)) {
+                $char = $yimaKey;
+            }
+        }
+
+        // 速查固定時辰對照表
+        if(!empty($char)) {
+            foreach ($this->_shiChenFixed as $shiChenKey => $shiChen) {
+                if(!empty($shiChen) && in_array($char, $shiChen)) {
+                    $this->_palaceResult['yima'][] = $shiChenKey;
+                }
+            }
+        }
+        $this->_palaceResult['yima'] = array_unique($this->_palaceResult['yima']);
+    }
 
     private function findHeadGanHourGridIndex($palaceIndex = 'earth') {
         // 旬首
