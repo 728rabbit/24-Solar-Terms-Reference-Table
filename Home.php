@@ -185,18 +185,10 @@ class Home extends WebController {
         $targetPage = $this->loadModel('page')->getByID(1, $this->_currentLangIndex);
 
         $testDateTime = $this->randomDate('1990-01-01', '2040-01-01');
+        
         // 特殊case
         //$testDateTime = '1990-07-01 10:08:00'; // 閏問題?
-        //$testDateTime = '2004-03-04 06:52:00';
-        //$testDateTime = '2026-12-06 15:25:00';
-        //$testDateTime = '2000-12-24 06:19:00';
-        //$testDateTime = '2026-07-06 09:06:00';
-        //$testDateTime = '2023-06-25 09:40:00';
-        //$testDateTime = '2037-04-29 06:22:00';
-        //$testDateTime = '1990-07-16 13:55:00';
-        //$testDateTime = '1999-11-30 19:16:00';
-        //$testDateTime = '2015-05-02 12:09:00';
-        //$testDateTime = '2014-03-10 06:53:00';
+        //$testDateTime = '2009-07-15 23:23:00';
         $this->startYinProcess($testDateTime);
         
         echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['hk_datetime'].'</p>';
@@ -308,6 +300,8 @@ class Home extends WebController {
                 $this->_ganzhiData['jieqi_dongzhi_this_year'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至'];
             }
         }
+        
+        dump($this->_ganzhiData);
         
         $this->_palaceResult['calc_datetime'] = $currentDateTime;
         $this->_palaceResult['time_zone'] = $this->getParamValue('time_zone', 'hong_kong');
