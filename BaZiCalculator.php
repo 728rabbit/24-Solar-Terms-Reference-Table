@@ -1,8 +1,12 @@
+<?php
 /*
 八字計算 | 天干地支
-$bazi = new BaZiCalculator('your_xml_folder_location');
+$bazi = new BaZiCalculator('your_solarterms_folder_location');
 $result = $bazi->calculate('2026-02-06 13:40:50');
 */
+
+namespace App\Libs\calendar;
+
 class BaZiCalculator {
     private $stems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
     private $branches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
@@ -14,11 +18,16 @@ class BaZiCalculator {
     }
 
     // 計算年干支
-    private function getYearGanzhi($datetime){
-        $year = intval(date('Y',$datetime));
-        $lichun = $this->getSolarTermTime($year,'立春');
+    private function getYearGanzhi($dateTime){
+        // 轉換成秒
+        $dateTime = strtotime($dateTime);
+        
+        // 讀取年份
+        $year = intval(date('Y', $dateTime));
+        
         // 比較當年立春時間，立春之前減一年
-        if($datetime < $lichun){
+        $lichun = $this->findSolarTermTime($year,'立春');
+        if($dateTime < $lichun){
             $year--;
         }
         $index = ($year - 4) % 60;
@@ -26,8 +35,12 @@ class BaZiCalculator {
     }
 
     // 計算月支
-    private function getMonthBranch($datetime){
-        $year = intval(date('Y',$datetime));
+    private function getMonthBranch($dateTime){
+        // 轉換成秒
+        $dateTime = strtotime($dateTime);
+        
+        // 讀取年份
+        $year = intval(date('Y',$dateTime));
         
         // 節氣對應的地支
         $termToBranch = [
@@ -42,23 +55,23 @@ class BaZiCalculator {
                       '小暑', '立秋', '白露', '寒露', '立冬', '大雪'];
         
         // 獲取當年小寒
-        $xiaohan = $this->getSolarTermTime($year, '小寒');
+        $xiaohan = $this->findSolarTermTime($year, '小寒');
         if ($xiaohan === false) {
             // 如果沒有節氣數據，用月份估算
-            $month = date('n', $datetime);
+            $month = date('n', $dateTime);
             $map = [1=>'丑', 2=>'寅', 3=>'卯', 4=>'辰', 5=>'巳', 6=>'午',
                     7=>'未', 8=>'申', 9=>'酉', 10=>'戌', 11=>'亥', 12=>'子'];
             return $map[$month];
         }
         
         // 如果在小寒之前，屬於上一年的月份
-        if ($datetime < $xiaohan) {
+        if ($dateTime < $xiaohan) {
             // 獲取上一年的節氣來判斷
             $prevYear = $year - 1;
-            $prevDaxue = $this->getSolarTermTime($prevYear, '大雪');
+            $prevDaxue = $this->findSolarTermTime($prevYear, '大雪');
             
             // 大雪後是子月
-            if ($prevDaxue !== false && $datetime >= $prevDaxue) {
+            if ($prevDaxue !== false && $dateTime >= $prevDaxue) {
                 return '子';
             }
             // 否則大概是亥月
@@ -72,11 +85,11 @@ class BaZiCalculator {
             if ($term == '小寒') { 
                 continue;
             }
-            $termTime = $this->getSolarTermTime($year, $term);
+            $termTime = $this->findSolarTermTime($year, $term);
             if ($termTime === false) { 
                 continue; 
             }
-            if ($datetime < $termTime) {
+            if ($dateTime < $termTime) {
                 return $termToBranch[$prevTerm];
             }
             $prevTerm = $term;
@@ -121,11 +134,15 @@ class BaZiCalculator {
     }
 
     // 計算日干支
-    private function getDayGanzhi($datetime){
+    private function getDayGanzhi($dateTime){
+        // 轉換成秒
+        $dateTime = strtotime($dateTime);
+        
+        // 將格利高里曆法的日期轉換為儒略日計數，然後再轉換回格利高里曆法的日期
         $jd = gregoriantojd(
-            date('m',$datetime),
-            date('d',$datetime),
-            date('Y',$datetime)
+            date('m', $dateTime),
+            date('d', $dateTime),
+            date('Y', $dateTime)
         );
         $index = ($jd + 49) % 60;
 
@@ -133,9 +150,13 @@ class BaZiCalculator {
     }
 
     // 計算時干支
-    private function getHourGanzhi($datetime, $dayStem){
-        $hour = intval(date('H', $datetime));
-        $minute = intval(date('i', $datetime));
+    private function getHourGanzhi($dateTime, $dayStem){
+        // 轉換成秒
+        $dateTime = strtotime($dateTime);
+        
+        // 讀取時秒
+        $hour = intval(date('H', $dateTime));
+        $minute = intval(date('i', $dateTime));
 
         // 計算時支（23:00-00:59為子時）
         if ($hour == 23) {
@@ -173,19 +194,67 @@ class BaZiCalculator {
 
         return $stem . $branch;
     }
-    
-    
+ 
     // 某年節氣時間
-    private function getSolarTermTime($year, $name){
+    private function findSolarTermTime($year, $name){
         return !empty($this->solarTerms[$year][$name])?strtotime($this->solarTerms[$year][$name]):null;
+    }
+    
+    // 使用 PHP IntlCalendar 新曆轉成農曆, 需要開啓 “extension=intl”
+    private function solarToLunar($dateTime, $zone = 'hong_kong'){
+        if (extension_loaded('intl')) {
+            $revisedDateTime = $this->convert2HKT($dateTime, $zone);
+            
+            $formatter = new \IntlDateFormatter(
+                'zh_TW@calendar=chinese',
+                \IntlDateFormatter::FULL,
+                \IntlDateFormatter::NONE,
+                'Asia/Hong_Kong',
+                \IntlDateFormatter::TRADITIONAL
+            );
+
+            $formatted = $formatter->format(strtotime($revisedDateTime));
+            
+  
+            // 用正則提取
+            preg_match('/((\d+)(.*)年)((閏)?(.*)月)(.*)(\s+)((星期)(.*))/ui', $formatted, $matches);
+            if(!empty($matches)) {
+                $year = (int)$matches[2];
+                $lunarYear    =  $matches[3];
+                $lunarMonth   =  preg_replace('/(.*)(月)$/ui', '$1', $matches[4]);
+                $lunarDay     =  $matches[7];
+                $week    =  $matches[11];
+                $isLeap  =  ($matches[5] === '閏');
+                
+                return 
+                [
+                    'year'          =>  $year,
+                    'year_chinese'  =>  $this->yearToChineseDigits($year),
+                    'lunar_year'    =>  $lunarYear,
+                    'lunar_month'   =>  $lunarMonth,
+                    'lunar_day'     =>  $lunarDay,
+                    'week'          =>  $week,
+                    'isLeap'        =>  $isLeap,
+                ];
+            }
+        }
+        
+        return false;
+    }
+    
+    private function yearToChineseDigits($year) {
+        $map = [
+            '0'=>'零','1'=>'一','2'=>'二','3'=>'三','4'=>'四',
+            '5'=>'五','6'=>'六','7'=>'七','8'=>'八','9'=>'九'
+        ];
+
+        return implode('', array_map(fn($d) => $map[$d], str_split($year)));
     }
 
     // 主函數
-    public function calculate($datetime){
+    public function calculate($dateTime, $zone = 'hong_kong'){
         $result = [];
-        // 轉換成秒
-        $datetime = strtotime($datetime);
-        $selectedYear = intval(date('Y', $datetime));
+        $selectedYear = intval(date('Y', strtotime($dateTime)));
  
         // 限制範圍
         if($selectedYear >= 1970 && $selectedYear <= 2100) {
@@ -209,34 +278,91 @@ class BaZiCalculator {
             // 開始計算
             if(!empty($this->solarTerms)) {
                 if(!empty($this->solarTerms[($selectedYear-1)]) && !empty($this->solarTerms[$selectedYear]) && !empty($this->solarTerms[($selectedYear+1)])) {
+                    // 農曆
+                    $lunar = $this->solarToLunar($dateTime, $zone);
+
                     // 年干支
-                    $yearGZ = $this->getYearGanzhi($datetime);
+                    $yearGZ = $this->getYearGanzhi($dateTime);
                     $yearStem = mb_substr($yearGZ,0,1);
 
                     // 月干支
-                    $monthBranch = $this->getMonthBranch($datetime);
+                    $monthBranch = $this->getMonthBranch($dateTime);
                     $monthStem = $this->getMonthStem($yearStem, $monthBranch);
                     $monthGZ = $monthStem.$monthBranch;
 
                     // 日干支
-                    $dayGZ = $this->getDayGanzhi($datetime);
+                    $dayGZ = $this->getDayGanzhi($dateTime);
                     $dayStem = mb_substr($dayGZ,0,1);
 
                     // 時干支
-                    $hourGZ = $this->getHourGanzhi($datetime,$dayStem);
+                    $hourGZ = $this->getHourGanzhi($dateTime,$dayStem);
 
                     // 結果
                     $result =  
                     [
-                        'year'  =>  $yearGZ,
-                        'month' =>  $monthGZ,
-                        'day'   =>  $dayGZ,
-                        'hour'  =>  $hourGZ
+                        'datetime'      =>  $dateTime,
+                        'time_zone'     =>  $zone,
+                        'datetime_hk'   =>  $this->convert2HKT($dateTime, $zone),
+                        'lunar'         =>  $lunar,
+                        'ganzhi_year'   =>  $yearGZ,
+                        'ganzhi_month'  =>  $monthGZ,
+                        'ganzhi_day'    =>  $dayGZ,
+                        'ganzhi_hour'   =>  $hourGZ
                     ];
                 }
             }
         }
-        
+
         return $result;
+    }
+    
+    public function getListSolarTerms() {
+        return $this->solarTerms;
+    }
+    
+    public function convert2HKT($dateTime, $zone) {
+        $timezoneMap = [
+            // 亞洲 / 亞太
+            'hong_kong'    => 'Asia/Hong_Kong',   // 香港
+            'beijing'      => 'Asia/Shanghai',    // 北京 / 上海
+            'taipei'       => 'Asia/Taipei',      // 台北
+            'tokyo'        => 'Asia/Tokyo',       // 東京
+            'seoul'        => 'Asia/Seoul',       // 首爾
+            'singapore'    => 'Asia/Singapore',   // 新加坡
+            'bangkok'      => 'Asia/Bangkok',     // 曼谷
+            'kolkata'      => 'Asia/Kolkata',     // 加爾各答（印度標準時間）
+            'sydney'       => 'Australia/Sydney', // 悉尼
+
+            // 歐洲
+            'london'       => 'Europe/London',    // 倫敦
+            'paris'        => 'Europe/Paris',     // 巴黎
+            'berlin'       => 'Europe/Berlin',    // 柏林
+            'moscow'       => 'Europe/Moscow',    // 莫斯科
+
+            // 北美
+            'new_york'     => 'America/New_York',     // 紐約
+            'los_angeles'  => 'America/Los_Angeles',  // 洛杉磯
+            'chicago'      => 'America/Chicago',      // 芝加哥
+            'toronto'      => 'America/Toronto',      // 多倫多
+            'vancouver'    => 'America/Vancouver',    // 溫哥華
+
+            // 南美（可選）
+            'sao_paulo'    => 'America/Sao_Paulo',    // 聖保羅
+            'buenos_aires' => 'America/Argentina/Buenos_Aires', // 布宜諾斯艾利斯
+
+            // 大洋洲
+            'auckland'     => 'Pacific/Auckland',     // 奧克蘭
+        ];
+
+        // 獲取完整的時區名稱
+        $fullTimezone = $timezoneMap[strtolower($zone)] ?? $zone;
+  
+        try {
+            $date = new \DateTime($dateTime, new \DateTimeZone($fullTimezone));
+            $date->setTimezone(new \DateTimeZone('Asia/Hong_Kong'));
+            return $date->format('Y-m-d H:i:s');
+        } catch (Exception $e) {
+            return "Error: " . $e->getMessage();
+        }
     }
 }
