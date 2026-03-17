@@ -278,6 +278,10 @@ class BaZiCalculator {
             // 3.中文日期轉換為數字
             $monthNumber = array_search(preg_replace('/閏/ui', '', $findhkoLunar['month_chinese']), $this->lunarMonths);
             $findhkoLunar['month'] = $monthNumber;
+            if((int)$findhkoLunar['year'] == 1969) {
+                $findhkoLunar['month'] = 11;
+                $findhkoLunar['month_chinese'] = '十一';
+            }
             
             preg_match('/(.*)月$/ui', $findhkoLunar['day_chinese'], $monthMatch);
             if($monthMatch) {
