@@ -10,11 +10,14 @@ namespace App\Libs\calendar;
 class BaZiCalculator {
     private $stems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
     private $branches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
-    private $solarTermFolder = '';
-    private $solarTerms;
-    
+    private $xmlFolder = '';
+    private $hkoLunar = [];
+    private $solarTerms = [];
+    private $lunarMonths = array('', '正', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二');
+    private $lunarDays = array('', '初一', '初二', '初三', '初四', '初五', '初六', '初七', '初八', '初九', '初十', '十一', '十二', '十三', '十四', '十五', '十六', '十七', '十八', '十九', '二十', '廿一', '廿二', '廿三', '廿四', '廿五', '廿六', '廿七', '廿八', '廿九', '三十', '三十一');
+
     public function __construct($sourceFolder) {
-        $this->solarTermFolder = $sourceFolder;
+        $this->xmlFolder = $sourceFolder;
     }
 
     // 計算年干支
@@ -200,43 +203,105 @@ class BaZiCalculator {
         return !empty($this->solarTerms[$year][$name])?strtotime($this->solarTerms[$year][$name]):null;
     }
     
-    // 使用 PHP IntlCalendar 新曆轉成農曆, 需要開啓 “extension=intl”
+    // 新曆轉成農曆
     private function solarToLunar($dateTime, $zone = 'hong_kong'){
-        if (extension_loaded('intl')) {
-            $revisedDateTime = $this->convert2HKT($dateTime, $zone);
-            
-            $formatter = new \IntlDateFormatter(
-                'zh_TW@calendar=chinese',
-                \IntlDateFormatter::FULL,
-                \IntlDateFormatter::NONE,
-                'Asia/Hong_Kong',
-                \IntlDateFormatter::TRADITIONAL
-            );
-
-            $formatted = $formatter->format(strtotime($revisedDateTime));
-            
-  
-            // 用正則提取
-            preg_match('/((\d+)(.*)年)((閏)?(.*)月)(.*)(\s+)((星期)(.*))/ui', $formatted, $matches);
-            if(!empty($matches)) {
-                $year = (int)$matches[2];
-                $lunarYear    =  $matches[3];
-                $lunarMonth   =  preg_replace('/(.*)(月)$/ui', '$1', $matches[4]);
-                $lunarDay     =  $matches[7];
-                $week    =  $matches[11];
-                $isLeap  =  ($matches[5] === '閏');
-                
-                return 
-                [
-                    'year'          =>  $year,
-                    'year_chinese'  =>  $this->yearToChineseDigits($year),
-                    'lunar_year'    =>  $lunarYear,
-                    'lunar_month'   =>  $lunarMonth,
-                    'lunar_day'     =>  $lunarDay,
-                    'week'          =>  $week,
-                    'isLeap'        =>  $isLeap,
-                ];
+        // 轉換成香港時間
+        $dateTime = $this->convert2HKT($dateTime, $zone);
+        
+        // 轉換成秒
+        $dateTime = strtotime($dateTime);
+        
+        // 讀取年份
+        $selectedYear = intval(date('Y', $dateTime));
+        
+        // 獲得年份參照表
+        $thisYearGanzhi = '';
+        $thisYearZodiac = '';
+        $thisYearLunarFirstDate = '';
+        foreach ([($selectedYear-1), $selectedYear, ($selectedYear+1)] as $year) {
+            $xmlFile = (implode('/', array_filter([$this->xmlFolder, 'hkolunar', $year])).'.xml');
+            if(file_exists($xmlFile)) {
+                $xmlData = simplexml_load_file($xmlFile);
+                if(!empty($xmlData)) {
+                     if((int)$selectedYear == (int)$xmlData['year']) {
+                        $thisYearGanzhi = (string)$xmlData['yearganzhi'];
+                        $thisYearZodiac = (string)$xmlData['zodiac'];
+                    }
+                    foreach ($xmlData->day as $day) {
+                        $index = trim((string)preg_replace('/[年|月|日]/ui', '-', $day->date));
+                        $index = array_filter(explode('-', $index));
+                        foreach ($index as $key => $value) {
+                            $index[$key] = (string) str_pad($value, 2, '0', STR_PAD_LEFT);
+                        }
+                        
+                        if((trim((string)$day->day) === '正月') && ((int)$selectedYear == (int)$year)) {
+                            $thisYearLunarFirstDate = implode('-', $index);
+                        }
+                        
+                        if(strtotime(implode('-', $index)) >= ($dateTime-40*24*3600) && strtotime(implode('-', $index)) <= ($dateTime+20*24*3600)) {
+                            $this->hkoLunar[implode('-', $index)] = 
+                            [
+                                'year'          =>  date('Y', $dateTime),
+                                'month'         =>  0,
+                                'day'           =>  0,
+                                'year_chinese'  =>  '',
+                                'month_chinese' =>  '',
+                                'day_chinese'   =>  trim((string)$day->day),
+                                'week'          =>  trim((string)$day->week),
+                                'solar_term'    =>  trim((string)$day->solarterm),
+                            ];
+                        }
+                    }
+                }
             }
+        }
+        
+        if(!empty($this->hkoLunar)) {
+            $findhkoLunar = $this->hkoLunar[date('Y-m-d', $dateTime)];
+
+            // 1.本年正月前為上一年
+            if($dateTime < strtotime($thisYearLunarFirstDate)) {
+                $findhkoLunar['year'] = ($findhkoLunar['year'] - 1);
+            }
+            $findhkoLunar['year_chinese'] = $this->yearToChineseDigits($findhkoLunar['year']);
+            
+            // 2.尋找農曆月份
+            foreach ($this->hkoLunar as $lunarDate => $lunar) {
+                if(strtotime($lunarDate) <= $dateTime) {
+                    preg_match('/(.*)月$/ui', $lunar['day_chinese'], $monthMatch);
+                    if(!empty($monthMatch)) {
+                        $findhkoLunar['month_chinese'] = trim($monthMatch[1]);
+                    }
+                }
+            }
+            
+            // 3.中文日期轉換為數字
+            $monthNumber = array_search(preg_replace('/閏/ui', '', $findhkoLunar['month_chinese']), $this->lunarMonths);
+            $findhkoLunar['month'] = $monthNumber;
+            
+            preg_match('/(.*)月$/ui', $findhkoLunar['day_chinese'], $monthMatch);
+            if($monthMatch) {
+                $findhkoLunar['day_chinese'] = '初一';
+            }
+            $dayNumber = array_search($findhkoLunar['day_chinese'], $this->lunarDays);
+            $findhkoLunar['day'] = $dayNumber;
+            
+            // 4.額外資料
+            $findhkoLunar['year_chinese_alias'] = $thisYearGanzhi;
+            $findhkoLunar['zodiac'] = $thisYearZodiac;
+            
+            preg_match('/閏/ui', $findhkoLunar['month_chinese'], $leapMatch);
+            $findhkoLunar['is_leap'] = (!empty($leapMatch)?1:0);
+            
+            if($findhkoLunar['month_chinese'] === '十一') {
+                $findhkoLunar['month_chinese_alias'] = '冬';
+            }
+            else if($findhkoLunar['month_chinese'] === '十二') {
+                $findhkoLunar['month_chinese_alias'] = '腊';
+            }
+            
+            // 結果
+            return $findhkoLunar;
         }
         
         return false;
@@ -260,7 +325,7 @@ class BaZiCalculator {
         if($selectedYear >= 1970 && $selectedYear <= 2100) {
             // 獲得 24 節氣參考資料
             foreach ([($selectedYear-1), $selectedYear, ($selectedYear+1)] as $year) {
-                $xmlFile = (implode('/', array_filter([$this->solarTermFolder, $year])).'.xml');
+                $xmlFile = (implode('/', array_filter([$this->xmlFolder, 'solarterms', $year])).'.xml');
                 if(file_exists($xmlFile)) {
                     $xmlData = simplexml_load_file($xmlFile);
                     if(!empty($xmlData)) {
@@ -307,7 +372,8 @@ class BaZiCalculator {
                         'ganzhi_year'   =>  $yearGZ,
                         'ganzhi_month'  =>  $monthGZ,
                         'ganzhi_day'    =>  $dayGZ,
-                        'ganzhi_hour'   =>  $hourGZ
+                        'ganzhi_hour'   =>  $hourGZ,
+                        'jieqi_table'   =>  $this->solarTerms
                     ];
                 }
             }
@@ -315,12 +381,8 @@ class BaZiCalculator {
 
         return $result;
     }
-    
-    public function getListSolarTerms() {
-        return $this->solarTerms;
-    }
-    
-    public function convert2HKT($dateTime, $zone) {
+
+    private function convert2HKT($dateTime, $zone) {
         $timezoneMap = [
             // 亞洲 / 亞太
             'hong_kong'    => 'Asia/Hong_Kong',   // 香港
