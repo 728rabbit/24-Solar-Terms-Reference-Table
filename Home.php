@@ -9,9 +9,9 @@ class Home extends WebController {
     protected $_ganzhiData;
     protected $_palaceResult = 
     [
-        'calc_datetime'     =>  '',
+        'datetime'     =>  '',
         'time_zone'         =>  'hong_kong',
-        'hk_datetime'       =>  '',
+        'datetime_hk'       =>  '',
         'lunar_shengxiao'   =>  '',
         'lunar_year'        =>  0,
         'lunar_month'       =>  0,
@@ -156,7 +156,6 @@ class Home extends WebController {
     // 九宮格外圍圈，順時針/逆時針
     protected $_gridCircle = [4, 9, 2, 7, 6, 1, 8, 3];
     protected $_gridCircleReverse = [4, 3, 8, 1, 6, 7, 2, 9];
-    protected $_isCenterOri = false;
 
     // 神
     protected $_eightShen = [1 => '符', 2 => '蛇', 3 => '陰', 4 => '合', 5 => '虎', 6 => '武', 7 => '地', 8 => '天'];
@@ -181,6 +180,7 @@ class Home extends WebController {
     public function index() {
         ini_set('max_execution_time', 0);
         
+
         // Get Page data
         $targetPage = $this->loadModel('page')->getByID(1, $this->_currentLangIndex);
 
@@ -189,9 +189,13 @@ class Home extends WebController {
         // 特殊case
         //$testDateTime = '1990-07-01 10:08:00'; // 閏問題?
         //$testDateTime = '2009-07-15 23:23:00';
+        //$testDateTime = '2030-03-25 09:28:00';
+        //$testDateTime = '2018-11-13 08:51:00';
+        //$testDateTime = '2010-06-12 15:12:00';
+
         $this->startYinProcess($testDateTime);
         
-        echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['hk_datetime'].'</p>';
+        echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['datetime_hk'].'</p>';
         echo '<p style="padding:0;margin:0;">農曆: '.implode(' - ', [$this->_palaceResult['lunar_year_chinese'], $this->_palaceResult['lunar_month_chinese'], $this->_palaceResult['lunar_day_chinese']]).'</p>';
         echo '<p style="padding:0;margin:0;">干支: '.implode(' - ', [$this->_palaceResult['ganzhi_year'], $this->_palaceResult['ganzhi_month'], $this->_palaceResult['ganzhi_day'], $this->_palaceResult['ganzhi_hour']]).'</p>';
         
@@ -255,7 +259,7 @@ class Home extends WebController {
         
         // 佈天盤
         $this->setYinTian();
-        
+
         // 八門
         $this->setYinGate();
         
@@ -278,17 +282,21 @@ class Home extends WebController {
     protected function getDanZhi($currentDateTime) {
         $this->_ganzhiData = $this->_ganzhiLib->convert($currentDateTime);
         
+        dump($this->_ganzhiData);
+        
         // overwirte if need
         if(true) {
-            $biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path('solarterms')));
-            $baziResult = $biziLib->calculate($currentDateTime);
+            $biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path()));
+            $baziResult = $biziLib->calculate($currentDateTime, $this->getParamValue('time_zone', 'hong_kong'));
             if(!empty($baziResult)) {
-                $listSolarTerms = $biziLib->getListSolarTerms();
+                dump($baziResult);
                 
-                $this->_ganzhiData['ganzhi_year'] = $baziResult['year'];
-                $this->_ganzhiData['ganzhi_month'] = $baziResult['month'];
-                $this->_ganzhiData['ganzhi_day'] = $baziResult['day'];
-                $this->_ganzhiData['ganzhi_hour'] = $baziResult['hour'];
+                $listSolarTerms = $baziResult['jieqi_table'];
+                
+                $this->_ganzhiData['ganzhi_year'] = $baziResult['ganzhi_year'];
+                $this->_ganzhiData['ganzhi_month'] = $baziResult['ganzhi_month'];
+                $this->_ganzhiData['ganzhi_day'] = $baziResult['ganzhi_day'];
+                $this->_ganzhiData['ganzhi_hour'] = $baziResult['ganzhi_hour'];
                 
                 // 上一年冬至
                 $this->_ganzhiData['jieqi_dongzhi_last_year'] = $listSolarTerms[(date('Y', strtotime($currentDateTime)) - 1)]['冬至'];
@@ -301,11 +309,9 @@ class Home extends WebController {
             }
         }
         
-        dump($this->_ganzhiData);
-        
-        $this->_palaceResult['calc_datetime'] = $currentDateTime;
+        $this->_palaceResult['datetime'] = $currentDateTime;
         $this->_palaceResult['time_zone'] = $this->getParamValue('time_zone', 'hong_kong');
-        $this->_palaceResult['hk_datetime'] = $this->_ganzhiData['hk_datetime'];
+        $this->_palaceResult['datetime_hk'] = $this->_ganzhiData['datetime_hk'];
         $this->_palaceResult['lunar_shengxiao'] = $this->_ganzhiData['lunar_shengxiao'];
         $this->_palaceResult['lunar_year'] = $this->_ganzhiData['lunar_year'];
         $this->_palaceResult['lunar_month'] = $this->_ganzhiData['lunar_month'];
@@ -320,7 +326,7 @@ class Home extends WebController {
     }
 
     protected function setYinDunIndex() {
-        $currentDateTime = $this->_ganzhiData['hk_datetime'];
+        $currentDateTime = $this->_ganzhiData['datetime_hk'];
         $jieqiXiazhi = $this->_ganzhiData['jieqi_xiazhi']; 
         $jieqiDongzhiThisYear = $this->_ganzhiData['jieqi_dongzhi_this_year'];
 
@@ -386,6 +392,7 @@ class Home extends WebController {
     }
     
     protected function setYinHeader() {
+        //  “旬首” = “時天干” 所在的 “六十甲子” 頭  
         $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
         foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
             foreach ($jiazhi as $child) {
@@ -414,6 +421,7 @@ class Home extends WebController {
         if(!empty($zhiFuShiIndex)) {
             $this->_palaceResult['zhi_fu'] = $this->_startAndGateOri[$zhiFuShiIndex]['star'];
             $this->_palaceResult['zhi_shi'] = $this->_startAndGateOri[$zhiFuShiIndex]['gate'];
+            
             // 落在 5.中宮， 看 2.坤宮對應的原門
             if(empty($this->_palaceResult['zhi_shi'])) {
                 $this->_palaceResult['zhi_shi'] = '死';
@@ -426,20 +434,9 @@ class Home extends WebController {
         $findResult = $this->findHeadGanHourGridIndex();
         $headGridIndex = $findResult[0];
         $ganHourGridIndex = $findResult[1];
-        
+
         // 由 “時天干” 在地盤所在宮格位置開始， 順時針平移 “旬首” 為開始點的地盤
         if($headGridIndex > 0 && $ganHourGridIndex > 0) {
-            // 5.中宮 偏移到 2.坤宮
-            if((int)$headGridIndex === 5) {
-                $headGridIndex = 2;
-                $this->_isCenterOri = true;
-            }
-            
-            if((int)$ganHourGridIndex === 5) {
-                $ganHourGridIndex = 2;
-                $this->_isCenterOri = true;
-            }
-    
             $headCirclePattern = $this->arrayReIndex($this->arrayCircle($this->_gridCircle, $headGridIndex));
             $earthArr = [];
             foreach ($headCirclePattern as $circleValue) {
@@ -469,17 +466,8 @@ class Home extends WebController {
         // “旬首” & “時天干” 開始位置
         $findResult = $this->findHeadGanHourGridIndex();
         $headGridIndex = $findResult[0];
-
-        // “值使” 所在的原門
-        $oriGateIndex = 0;
-        foreach ($this->_startAndGateOri as $oriKey => $ori) {
-            if(md5(trim($this->_palaceResult['zhi_shi'])) === md5(trim($ori['gate']))) {
-                $oriGateIndex = $oriKey; 
-                break;
-            }
-        }
-
-        if($headGridIndex > 0 && $oriGateIndex > 0) {
+        
+        if($headGridIndex > 0) {
             // 由 “旬首” 在地盤所在宮格位置開始， 順(陽)/逆(陰)時針排時辰
             $circlePattern = $this->arrayReIndex($this->arrayCircle((($this->_yyDunIndex == 1)? $this->_ascPattern: $this->_descPattern), $headGridIndex));
             
@@ -509,7 +497,7 @@ class Home extends WebController {
             if((int)$shiftGridIndex === 5) {
                 $shiftGridIndex = 2;
             }
-            $revisedEightGate = $this->arrayReIndex($this->arrayCircle($this->_eightGate, $this->_palaceResult['zhi_shi']));  
+            $revisedEightGate = $this->arrayReIndex($this->arrayCircle($this->_eightGate, $this->_palaceResult['zhi_shi'])); 
             $ganHourCirclePattern = $this->arrayReIndex($this->arrayCircle($this->_gridCircle, $shiftGridIndex));
             foreach ($ganHourCirclePattern as $circleIndex => $circleValue) {
                 $this->_palaceResult['grid'][$circleValue]['gate'] = $revisedEightGate[$circleIndex];
@@ -534,7 +522,7 @@ class Home extends WebController {
             }
             
             // 由 “時天干” 在地盤所在宮格位置開始， 順時針排九星
-            $revisedNiceStar = $this->arrayReIndex($this->arrayCircle($this->_niceStar, $findZhiFu));  
+            $revisedNiceStar = $this->arrayReIndex($this->arrayCircle($this->_niceStar, $findZhiFu));
             $ganHourCirclePattern = $this->arrayReIndex($this->arrayCircle($this->_gridCircle, $ganHourGridIndex));
             foreach ($ganHourCirclePattern as $circleIndex => $circleValue) {
                 $this->_palaceResult['grid'][$circleValue]['star'] = $revisedNiceStar[$circleIndex];
@@ -543,12 +531,14 @@ class Home extends WebController {
                 }
             }
         }
-        
+
         // 5.中宮 默認為“禽”
         $this->_palaceResult['grid'][5]['star'] = '禽';
         
         // “天禽星” 寄宮 “天芮星”
-        $this->_palaceResult['grid'][$dependIndex]['star_alias'] = '芮禽';
+        if(!empty($dependIndex)) {
+            $this->_palaceResult['grid'][$dependIndex]['star_alias'] = '芮禽';
+        }
     }
     
     protected function setYinShen() {
@@ -658,47 +648,38 @@ class Home extends WebController {
     }
 
     private function findHeadGanHourGridIndex($palaceIndex = 'earth') {
-        // 旬首
-        $headGridIndex = 0;
-        $lastChar = mb_substr($this->_palaceResult['header'], -1);
-
         // 尋找“旬首”在地盤或天盤所在宮格位置， 如原本落在 5.中宮，則尋找偏移後的宮位
+        $headGridIndex = 0;
+        $lastChar = trim(mb_substr($this->_palaceResult['header'], -1));
         foreach ($this->_palaceResult['grid'] as $grid) {
-            if($this->_isCenterOri && !empty($grid[$palaceIndex.'_alias'])) {
-                if(md5(trim($lastChar)) === md5(trim(mb_substr($grid[$palaceIndex.'_alias'], -1)))) {
+            if(md5(trim($lastChar)) === md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
+                $headGridIndex = $grid['index'];
+            } 
+        }
+        if(in_array((int)$headGridIndex, [0, 5])) {
+            foreach ($this->_palaceResult['grid'] as $grid) {
+                if(!empty($grid[$palaceIndex.'_alias'])) {
+                    if(((int)$headGridIndex === 5)) {
+                        if(md5($lastChar) === md5(mb_substr(trim($grid[$palaceIndex.'_alias']), -1))) {
+                            $headGridIndex = $grid['index'];
+                            break;
+                        }
+                    }
+                    else {
+                        if(md5($lastChar) === md5(mb_substr(trim($grid[$palaceIndex.'_alias']), 0, 1))) {
+                            $headGridIndex = $grid['index'];
+                            break;
+                        }
+                    }
+                }
+                else if(md5($lastChar) === md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
                     $headGridIndex = $grid['index'];
                     break;
                 }
             }
-            else {
-                if(md5(trim($lastChar)) === md5(trim($grid[$palaceIndex]))) {
-                    $headGridIndex = $grid['index'];
-                    if(!$this->_isCenterOri) {
-                        break;
-                    }
-                }
-            }
         }
-        
+
         // 尋找“時天干”在地盤或天盤所在宮格位置， 如原本落在 5.中宮，則尋找偏移後的宮位
-        $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
-        $ganHourGridIndex = 0;
-        foreach ($this->_palaceResult['grid'] as $grid) {
-            if($this->_isCenterOri && !empty($grid[$palaceIndex.'_alias'])) {
-                if(md5(trim(mb_substr($ganzhiHour, 0, 1))) === md5(trim(mb_substr($grid[$palaceIndex.'_alias'], -1)))) {
-                    $ganHourGridIndex = $grid['index'];
-                    break;
-                }
-            }
-            else {
-                if(md5(trim(mb_substr($ganzhiHour, 0, 1))) === md5(trim($grid[$palaceIndex]))) {
-                    $ganHourGridIndex = $grid['index'];
-                    if(!$this->_isCenterOri) {
-                        break;
-                    }
-                }
-            }
-        }
         /*
         特殊説明：
         - 甲子時用戊
@@ -708,34 +689,47 @@ class Home extends WebController {
         - 甲辰時用壬
         - 甲寅時用癸
         */
-        if($ganHourGridIndex == 0) {
+        $ganHourGridIndex = 0;
+        $ganzhiHour = trim($this->_ganzhiData['ganzhi_hour']);
+        if(in_array($ganzhiHour, ['甲子', '甲戌', '甲申', '甲午', '甲辰', '甲寅'])) {
             $newGanHour = '';
             foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
-                if(md5(trim($ganzhiHour)) === md5(trim(mb_substr($jiazhiKey, 0, 2)))) {
+                if(md5(trim($ganzhiHour)) === md5(mb_substr(trim($jiazhiKey), 0, 2))) {
                     $newGanHour = mb_substr($jiazhiKey, -1);
                     break;
                 }
             }
-            
-            // 尋找修正後 “時天干”在地盤或天盤所在宮格位置， 如原本落在 5.中宮，則尋找偏移後的宮位
+            $ganzhiHour = $ganzhiHour;
+        }
+        foreach ($this->_palaceResult['grid'] as $grid) {
+            if(md5(mb_substr($ganzhiHour, 0, 1)) === md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
+                $ganHourGridIndex = $grid['index'];
+            } 
+        }
+        
+        if(in_array((int)$ganHourGridIndex, [0, 5])) {
             foreach ($this->_palaceResult['grid'] as $grid) {
-                if($this->_isCenterOri && !empty($grid[$palaceIndex.'_alias'])) {
-                    if(md5(trim(mb_substr($newGanHour, 0, 1))) === md5(trim(mb_substr($grid[$palaceIndex.'_alias'], -1)))) {
-                        $ganHourGridIndex = $grid['index'];
-                        break;
+                if(!empty($grid[$palaceIndex.'_alias'])) {
+                    if(((int)$ganHourGridIndex === 5)) {
+                        if(md5(mb_substr($ganzhiHour, 0, 1)) === md5(mb_substr(trim($grid[$palaceIndex.'_alias']), -1))) {
+                            $ganHourGridIndex = $grid['index'];
+                            break;
+                        }
                     }
-                }
-                else {
-                    if(md5(trim(mb_substr($newGanHour, 0, 1))) === md5(trim($grid[$palaceIndex]))) {
-                        $ganHourGridIndex = $grid['index'];
-                        if(!$this->_isCenterOri) {
+                    else {
+                        if(md5(mb_substr($ganzhiHour, 0, 1)) === md5(mb_substr(trim($grid[$palaceIndex.'_alias']), 0, 1))) {
+                            $ganHourGridIndex = $grid['index'];
                             break;
                         }
                     }
                 }
+                else if(md5(mb_substr($ganzhiHour, 0, 1)) === md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
+                    $ganHourGridIndex = $grid['index'];
+                    break;
+                }
             }
         }
-
+        
         return [$headGridIndex, $ganHourGridIndex];
     }
     
