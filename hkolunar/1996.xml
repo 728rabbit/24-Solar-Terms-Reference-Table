@@ -1,0 +1,2199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<calendar year="1996" yearganzhi="丙子" zodiac="肖鼠">
+  <day index="1">
+    <date>1996年01月01日</date>
+    <day>十一</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="2">
+    <date>1996年01月02日</date>
+    <day>十二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="3">
+    <date>1996年01月03日</date>
+    <day>十三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="4">
+    <date>1996年01月04日</date>
+    <day>十四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="5">
+    <date>1996年01月05日</date>
+    <day>十五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="6">
+    <date>1996年01月06日</date>
+    <day>十六</day>
+    <week>星期六</week>
+    <jiqi>小寒</jiqi>
+  </day>
+  <day index="7">
+    <date>1996年01月07日</date>
+    <day>十七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="8">
+    <date>1996年01月08日</date>
+    <day>十八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="9">
+    <date>1996年01月09日</date>
+    <day>十九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="10">
+    <date>1996年01月10日</date>
+    <day>二十</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="11">
+    <date>1996年01月11日</date>
+    <day>廿一</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="12">
+    <date>1996年01月12日</date>
+    <day>廿二</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="13">
+    <date>1996年01月13日</date>
+    <day>廿三</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="14">
+    <date>1996年01月14日</date>
+    <day>廿四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="15">
+    <date>1996年01月15日</date>
+    <day>廿五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="16">
+    <date>1996年01月16日</date>
+    <day>廿六</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="17">
+    <date>1996年01月17日</date>
+    <day>廿七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="18">
+    <date>1996年01月18日</date>
+    <day>廿八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="19">
+    <date>1996年01月19日</date>
+    <day>廿九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="20">
+    <date>1996年01月20日</date>
+    <day>十二月</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="21">
+    <date>1996年01月21日</date>
+    <day>初二</day>
+    <week>星期日</week>
+    <jiqi>大寒</jiqi>
+  </day>
+  <day index="22">
+    <date>1996年01月22日</date>
+    <day>初三</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="23">
+    <date>1996年01月23日</date>
+    <day>初四</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="24">
+    <date>1996年01月24日</date>
+    <day>初五</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="25">
+    <date>1996年01月25日</date>
+    <day>初六</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="26">
+    <date>1996年01月26日</date>
+    <day>初七</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="27">
+    <date>1996年01月27日</date>
+    <day>初八</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="28">
+    <date>1996年01月28日</date>
+    <day>初九</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="29">
+    <date>1996年01月29日</date>
+    <day>初十</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="30">
+    <date>1996年01月30日</date>
+    <day>十一</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="31">
+    <date>1996年01月31日</date>
+    <day>十二</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="32">
+    <date>1996年02月01日</date>
+    <day>十三</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="33">
+    <date>1996年02月02日</date>
+    <day>十四</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="34">
+    <date>1996年02月03日</date>
+    <day>十五</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="35">
+    <date>1996年02月04日</date>
+    <day>十六</day>
+    <week>星期日</week>
+    <jiqi>立春</jiqi>
+  </day>
+  <day index="36">
+    <date>1996年02月05日</date>
+    <day>十七</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="37">
+    <date>1996年02月06日</date>
+    <day>十八</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="38">
+    <date>1996年02月07日</date>
+    <day>十九</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="39">
+    <date>1996年02月08日</date>
+    <day>二十</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="40">
+    <date>1996年02月09日</date>
+    <day>廿一</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="41">
+    <date>1996年02月10日</date>
+    <day>廿二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="42">
+    <date>1996年02月11日</date>
+    <day>廿三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="43">
+    <date>1996年02月12日</date>
+    <day>廿四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="44">
+    <date>1996年02月13日</date>
+    <day>廿五</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="45">
+    <date>1996年02月14日</date>
+    <day>廿六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="46">
+    <date>1996年02月15日</date>
+    <day>廿七</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="47">
+    <date>1996年02月16日</date>
+    <day>廿八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="48">
+    <date>1996年02月17日</date>
+    <day>廿九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="49">
+    <date>1996年02月18日</date>
+    <day>三十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="50">
+    <date>1996年02月19日</date>
+    <day>正月</day>
+    <week>星期一</week>
+    <jiqi>雨水</jiqi>
+  </day>
+  <day index="51">
+    <date>1996年02月20日</date>
+    <day>初二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="52">
+    <date>1996年02月21日</date>
+    <day>初三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="53">
+    <date>1996年02月22日</date>
+    <day>初四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="54">
+    <date>1996年02月23日</date>
+    <day>初五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="55">
+    <date>1996年02月24日</date>
+    <day>初六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="56">
+    <date>1996年02月25日</date>
+    <day>初七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="57">
+    <date>1996年02月26日</date>
+    <day>初八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="58">
+    <date>1996年02月27日</date>
+    <day>初九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="59">
+    <date>1996年02月28日</date>
+    <day>初十</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="60">
+    <date>1996年02月29日</date>
+    <day>十一</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="61">
+    <date>1996年03月01日</date>
+    <day>十二</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="62">
+    <date>1996年03月02日</date>
+    <day>十三</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="63">
+    <date>1996年03月03日</date>
+    <day>十四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="64">
+    <date>1996年03月04日</date>
+    <day>十五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="65">
+    <date>1996年03月05日</date>
+    <day>十六</day>
+    <week>星期二</week>
+    <jiqi>驚蟄</jiqi>
+  </day>
+  <day index="66">
+    <date>1996年03月06日</date>
+    <day>十七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="67">
+    <date>1996年03月07日</date>
+    <day>十八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="68">
+    <date>1996年03月08日</date>
+    <day>十九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="69">
+    <date>1996年03月09日</date>
+    <day>二十</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="70">
+    <date>1996年03月10日</date>
+    <day>廿一</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="71">
+    <date>1996年03月11日</date>
+    <day>廿二</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="72">
+    <date>1996年03月12日</date>
+    <day>廿三</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="73">
+    <date>1996年03月13日</date>
+    <day>廿四</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="74">
+    <date>1996年03月14日</date>
+    <day>廿五</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="75">
+    <date>1996年03月15日</date>
+    <day>廿六</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="76">
+    <date>1996年03月16日</date>
+    <day>廿七</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="77">
+    <date>1996年03月17日</date>
+    <day>廿八</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="78">
+    <date>1996年03月18日</date>
+    <day>廿九</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="79">
+    <date>1996年03月19日</date>
+    <day>二月</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="80">
+    <date>1996年03月20日</date>
+    <day>初二</day>
+    <week>星期三</week>
+    <jiqi>春分</jiqi>
+  </day>
+  <day index="81">
+    <date>1996年03月21日</date>
+    <day>初三</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="82">
+    <date>1996年03月22日</date>
+    <day>初四</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="83">
+    <date>1996年03月23日</date>
+    <day>初五</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="84">
+    <date>1996年03月24日</date>
+    <day>初六</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="85">
+    <date>1996年03月25日</date>
+    <day>初七</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="86">
+    <date>1996年03月26日</date>
+    <day>初八</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="87">
+    <date>1996年03月27日</date>
+    <day>初九</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="88">
+    <date>1996年03月28日</date>
+    <day>初十</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="89">
+    <date>1996年03月29日</date>
+    <day>十一</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="90">
+    <date>1996年03月30日</date>
+    <day>十二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="91">
+    <date>1996年03月31日</date>
+    <day>十三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="92">
+    <date>1996年04月01日</date>
+    <day>十四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="93">
+    <date>1996年04月02日</date>
+    <day>十五</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="94">
+    <date>1996年04月03日</date>
+    <day>十六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="95">
+    <date>1996年04月04日</date>
+    <day>十七</day>
+    <week>星期四</week>
+    <jiqi>清明</jiqi>
+  </day>
+  <day index="96">
+    <date>1996年04月05日</date>
+    <day>十八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="97">
+    <date>1996年04月06日</date>
+    <day>十九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="98">
+    <date>1996年04月07日</date>
+    <day>二十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="99">
+    <date>1996年04月08日</date>
+    <day>廿一</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="100">
+    <date>1996年04月09日</date>
+    <day>廿二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="101">
+    <date>1996年04月10日</date>
+    <day>廿三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="102">
+    <date>1996年04月11日</date>
+    <day>廿四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="103">
+    <date>1996年04月12日</date>
+    <day>廿五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="104">
+    <date>1996年04月13日</date>
+    <day>廿六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="105">
+    <date>1996年04月14日</date>
+    <day>廿七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="106">
+    <date>1996年04月15日</date>
+    <day>廿八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="107">
+    <date>1996年04月16日</date>
+    <day>廿九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="108">
+    <date>1996年04月17日</date>
+    <day>三十</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="109">
+    <date>1996年04月18日</date>
+    <day>三月</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="110">
+    <date>1996年04月19日</date>
+    <day>初二</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="111">
+    <date>1996年04月20日</date>
+    <day>初三</day>
+    <week>星期六</week>
+    <jiqi>穀雨</jiqi>
+  </day>
+  <day index="112">
+    <date>1996年04月21日</date>
+    <day>初四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="113">
+    <date>1996年04月22日</date>
+    <day>初五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="114">
+    <date>1996年04月23日</date>
+    <day>初六</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="115">
+    <date>1996年04月24日</date>
+    <day>初七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="116">
+    <date>1996年04月25日</date>
+    <day>初八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="117">
+    <date>1996年04月26日</date>
+    <day>初九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="118">
+    <date>1996年04月27日</date>
+    <day>初十</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="119">
+    <date>1996年04月28日</date>
+    <day>十一</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="120">
+    <date>1996年04月29日</date>
+    <day>十二</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="121">
+    <date>1996年04月30日</date>
+    <day>十三</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="122">
+    <date>1996年05月01日</date>
+    <day>十四</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="123">
+    <date>1996年05月02日</date>
+    <day>十五</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="124">
+    <date>1996年05月03日</date>
+    <day>十六</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="125">
+    <date>1996年05月04日</date>
+    <day>十七</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="126">
+    <date>1996年05月05日</date>
+    <day>十八</day>
+    <week>星期日</week>
+    <jiqi>立夏</jiqi>
+  </day>
+  <day index="127">
+    <date>1996年05月06日</date>
+    <day>十九</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="128">
+    <date>1996年05月07日</date>
+    <day>二十</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="129">
+    <date>1996年05月08日</date>
+    <day>廿一</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="130">
+    <date>1996年05月09日</date>
+    <day>廿二</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="131">
+    <date>1996年05月10日</date>
+    <day>廿三</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="132">
+    <date>1996年05月11日</date>
+    <day>廿四</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="133">
+    <date>1996年05月12日</date>
+    <day>廿五</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="134">
+    <date>1996年05月13日</date>
+    <day>廿六</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="135">
+    <date>1996年05月14日</date>
+    <day>廿七</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="136">
+    <date>1996年05月15日</date>
+    <day>廿八</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="137">
+    <date>1996年05月16日</date>
+    <day>廿九</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="138">
+    <date>1996年05月17日</date>
+    <day>四月</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="139">
+    <date>1996年05月18日</date>
+    <day>初二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="140">
+    <date>1996年05月19日</date>
+    <day>初三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="141">
+    <date>1996年05月20日</date>
+    <day>初四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="142">
+    <date>1996年05月21日</date>
+    <day>初五</day>
+    <week>星期二</week>
+    <jiqi>小滿</jiqi>
+  </day>
+  <day index="143">
+    <date>1996年05月22日</date>
+    <day>初六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="144">
+    <date>1996年05月23日</date>
+    <day>初七</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="145">
+    <date>1996年05月24日</date>
+    <day>初八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="146">
+    <date>1996年05月25日</date>
+    <day>初九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="147">
+    <date>1996年05月26日</date>
+    <day>初十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="148">
+    <date>1996年05月27日</date>
+    <day>十一</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="149">
+    <date>1996年05月28日</date>
+    <day>十二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="150">
+    <date>1996年05月29日</date>
+    <day>十三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="151">
+    <date>1996年05月30日</date>
+    <day>十四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="152">
+    <date>1996年05月31日</date>
+    <day>十五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="153">
+    <date>1996年06月01日</date>
+    <day>十六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="154">
+    <date>1996年06月02日</date>
+    <day>十七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="155">
+    <date>1996年06月03日</date>
+    <day>十八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="156">
+    <date>1996年06月04日</date>
+    <day>十九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="157">
+    <date>1996年06月05日</date>
+    <day>二十</day>
+    <week>星期三</week>
+    <jiqi>芒種</jiqi>
+  </day>
+  <day index="158">
+    <date>1996年06月06日</date>
+    <day>廿一</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="159">
+    <date>1996年06月07日</date>
+    <day>廿二</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="160">
+    <date>1996年06月08日</date>
+    <day>廿三</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="161">
+    <date>1996年06月09日</date>
+    <day>廿四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="162">
+    <date>1996年06月10日</date>
+    <day>廿五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="163">
+    <date>1996年06月11日</date>
+    <day>廿六</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="164">
+    <date>1996年06月12日</date>
+    <day>廿七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="165">
+    <date>1996年06月13日</date>
+    <day>廿八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="166">
+    <date>1996年06月14日</date>
+    <day>廿九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="167">
+    <date>1996年06月15日</date>
+    <day>三十</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="168">
+    <date>1996年06月16日</date>
+    <day>五月</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="169">
+    <date>1996年06月17日</date>
+    <day>初二</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="170">
+    <date>1996年06月18日</date>
+    <day>初三</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="171">
+    <date>1996年06月19日</date>
+    <day>初四</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="172">
+    <date>1996年06月20日</date>
+    <day>初五</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="173">
+    <date>1996年06月21日</date>
+    <day>初六</day>
+    <week>星期五</week>
+    <jiqi>夏至</jiqi>
+  </day>
+  <day index="174">
+    <date>1996年06月22日</date>
+    <day>初七</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="175">
+    <date>1996年06月23日</date>
+    <day>初八</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="176">
+    <date>1996年06月24日</date>
+    <day>初九</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="177">
+    <date>1996年06月25日</date>
+    <day>初十</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="178">
+    <date>1996年06月26日</date>
+    <day>十一</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="179">
+    <date>1996年06月27日</date>
+    <day>十二</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="180">
+    <date>1996年06月28日</date>
+    <day>十三</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="181">
+    <date>1996年06月29日</date>
+    <day>十四</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="182">
+    <date>1996年06月30日</date>
+    <day>十五</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="183">
+    <date>1996年07月01日</date>
+    <day>十六</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="184">
+    <date>1996年07月02日</date>
+    <day>十七</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="185">
+    <date>1996年07月03日</date>
+    <day>十八</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="186">
+    <date>1996年07月04日</date>
+    <day>十九</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="187">
+    <date>1996年07月05日</date>
+    <day>二十</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="188">
+    <date>1996年07月06日</date>
+    <day>廿一</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="189">
+    <date>1996年07月07日</date>
+    <day>廿二</day>
+    <week>星期日</week>
+    <jiqi>小暑</jiqi>
+  </day>
+  <day index="190">
+    <date>1996年07月08日</date>
+    <day>廿三</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="191">
+    <date>1996年07月09日</date>
+    <day>廿四</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="192">
+    <date>1996年07月10日</date>
+    <day>廿五</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="193">
+    <date>1996年07月11日</date>
+    <day>廿六</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="194">
+    <date>1996年07月12日</date>
+    <day>廿七</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="195">
+    <date>1996年07月13日</date>
+    <day>廿八</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="196">
+    <date>1996年07月14日</date>
+    <day>廿九</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="197">
+    <date>1996年07月15日</date>
+    <day>三十</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="198">
+    <date>1996年07月16日</date>
+    <day>六月</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="199">
+    <date>1996年07月17日</date>
+    <day>初二</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="200">
+    <date>1996年07月18日</date>
+    <day>初三</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="201">
+    <date>1996年07月19日</date>
+    <day>初四</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="202">
+    <date>1996年07月20日</date>
+    <day>初五</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="203">
+    <date>1996年07月21日</date>
+    <day>初六</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="204">
+    <date>1996年07月22日</date>
+    <day>初七</day>
+    <week>星期一</week>
+    <jiqi>大暑</jiqi>
+  </day>
+  <day index="205">
+    <date>1996年07月23日</date>
+    <day>初八</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="206">
+    <date>1996年07月24日</date>
+    <day>初九</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="207">
+    <date>1996年07月25日</date>
+    <day>初十</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="208">
+    <date>1996年07月26日</date>
+    <day>十一</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="209">
+    <date>1996年07月27日</date>
+    <day>十二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="210">
+    <date>1996年07月28日</date>
+    <day>十三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="211">
+    <date>1996年07月29日</date>
+    <day>十四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="212">
+    <date>1996年07月30日</date>
+    <day>十五</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="213">
+    <date>1996年07月31日</date>
+    <day>十六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="214">
+    <date>1996年08月01日</date>
+    <day>十七</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="215">
+    <date>1996年08月02日</date>
+    <day>十八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="216">
+    <date>1996年08月03日</date>
+    <day>十九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="217">
+    <date>1996年08月04日</date>
+    <day>二十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="218">
+    <date>1996年08月05日</date>
+    <day>廿一</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="219">
+    <date>1996年08月06日</date>
+    <day>廿二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="220">
+    <date>1996年08月07日</date>
+    <day>廿三</day>
+    <week>星期三</week>
+    <jiqi>立秋</jiqi>
+  </day>
+  <day index="221">
+    <date>1996年08月08日</date>
+    <day>廿四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="222">
+    <date>1996年08月09日</date>
+    <day>廿五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="223">
+    <date>1996年08月10日</date>
+    <day>廿六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="224">
+    <date>1996年08月11日</date>
+    <day>廿七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="225">
+    <date>1996年08月12日</date>
+    <day>廿八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="226">
+    <date>1996年08月13日</date>
+    <day>廿九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="227">
+    <date>1996年08月14日</date>
+    <day>七月</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="228">
+    <date>1996年08月15日</date>
+    <day>初二</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="229">
+    <date>1996年08月16日</date>
+    <day>初三</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="230">
+    <date>1996年08月17日</date>
+    <day>初四</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="231">
+    <date>1996年08月18日</date>
+    <day>初五</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="232">
+    <date>1996年08月19日</date>
+    <day>初六</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="233">
+    <date>1996年08月20日</date>
+    <day>初七</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="234">
+    <date>1996年08月21日</date>
+    <day>初八</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="235">
+    <date>1996年08月22日</date>
+    <day>初九</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="236">
+    <date>1996年08月23日</date>
+    <day>初十</day>
+    <week>星期五</week>
+    <jiqi>處暑</jiqi>
+  </day>
+  <day index="237">
+    <date>1996年08月24日</date>
+    <day>十一</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="238">
+    <date>1996年08月25日</date>
+    <day>十二</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="239">
+    <date>1996年08月26日</date>
+    <day>十三</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="240">
+    <date>1996年08月27日</date>
+    <day>十四</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="241">
+    <date>1996年08月28日</date>
+    <day>十五</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="242">
+    <date>1996年08月29日</date>
+    <day>十六</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="243">
+    <date>1996年08月30日</date>
+    <day>十七</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="244">
+    <date>1996年08月31日</date>
+    <day>十八</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="245">
+    <date>1996年09月01日</date>
+    <day>十九</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="246">
+    <date>1996年09月02日</date>
+    <day>二十</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="247">
+    <date>1996年09月03日</date>
+    <day>廿一</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="248">
+    <date>1996年09月04日</date>
+    <day>廿二</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="249">
+    <date>1996年09月05日</date>
+    <day>廿三</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="250">
+    <date>1996年09月06日</date>
+    <day>廿四</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="251">
+    <date>1996年09月07日</date>
+    <day>廿五</day>
+    <week>星期六</week>
+    <jiqi>白露</jiqi>
+  </day>
+  <day index="252">
+    <date>1996年09月08日</date>
+    <day>廿六</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="253">
+    <date>1996年09月09日</date>
+    <day>廿七</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="254">
+    <date>1996年09月10日</date>
+    <day>廿八</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="255">
+    <date>1996年09月11日</date>
+    <day>廿九</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="256">
+    <date>1996年09月12日</date>
+    <day>三十</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="257">
+    <date>1996年09月13日</date>
+    <day>八月</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="258">
+    <date>1996年09月14日</date>
+    <day>初二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="259">
+    <date>1996年09月15日</date>
+    <day>初三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="260">
+    <date>1996年09月16日</date>
+    <day>初四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="261">
+    <date>1996年09月17日</date>
+    <day>初五</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="262">
+    <date>1996年09月18日</date>
+    <day>初六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="263">
+    <date>1996年09月19日</date>
+    <day>初七</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="264">
+    <date>1996年09月20日</date>
+    <day>初八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="265">
+    <date>1996年09月21日</date>
+    <day>初九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="266">
+    <date>1996年09月22日</date>
+    <day>初十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="267">
+    <date>1996年09月23日</date>
+    <day>十一</day>
+    <week>星期一</week>
+    <jiqi>秋分</jiqi>
+  </day>
+  <day index="268">
+    <date>1996年09月24日</date>
+    <day>十二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="269">
+    <date>1996年09月25日</date>
+    <day>十三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="270">
+    <date>1996年09月26日</date>
+    <day>十四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="271">
+    <date>1996年09月27日</date>
+    <day>十五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="272">
+    <date>1996年09月28日</date>
+    <day>十六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="273">
+    <date>1996年09月29日</date>
+    <day>十七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="274">
+    <date>1996年09月30日</date>
+    <day>十八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="275">
+    <date>1996年10月01日</date>
+    <day>十九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="276">
+    <date>1996年10月02日</date>
+    <day>二十</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="277">
+    <date>1996年10月03日</date>
+    <day>廿一</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="278">
+    <date>1996年10月04日</date>
+    <day>廿二</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="279">
+    <date>1996年10月05日</date>
+    <day>廿三</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="280">
+    <date>1996年10月06日</date>
+    <day>廿四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="281">
+    <date>1996年10月07日</date>
+    <day>廿五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="282">
+    <date>1996年10月08日</date>
+    <day>廿六</day>
+    <week>星期二</week>
+    <jiqi>寒露</jiqi>
+  </day>
+  <day index="283">
+    <date>1996年10月09日</date>
+    <day>廿七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="284">
+    <date>1996年10月10日</date>
+    <day>廿八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="285">
+    <date>1996年10月11日</date>
+    <day>廿九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="286">
+    <date>1996年10月12日</date>
+    <day>九月</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="287">
+    <date>1996年10月13日</date>
+    <day>初二</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="288">
+    <date>1996年10月14日</date>
+    <day>初三</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="289">
+    <date>1996年10月15日</date>
+    <day>初四</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="290">
+    <date>1996年10月16日</date>
+    <day>初五</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="291">
+    <date>1996年10月17日</date>
+    <day>初六</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="292">
+    <date>1996年10月18日</date>
+    <day>初七</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="293">
+    <date>1996年10月19日</date>
+    <day>初八</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="294">
+    <date>1996年10月20日</date>
+    <day>初九</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="295">
+    <date>1996年10月21日</date>
+    <day>初十</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="296">
+    <date>1996年10月22日</date>
+    <day>十一</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="297">
+    <date>1996年10月23日</date>
+    <day>十二</day>
+    <week>星期三</week>
+    <jiqi>霜降</jiqi>
+  </day>
+  <day index="298">
+    <date>1996年10月24日</date>
+    <day>十三</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="299">
+    <date>1996年10月25日</date>
+    <day>十四</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="300">
+    <date>1996年10月26日</date>
+    <day>十五</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="301">
+    <date>1996年10月27日</date>
+    <day>十六</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="302">
+    <date>1996年10月28日</date>
+    <day>十七</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="303">
+    <date>1996年10月29日</date>
+    <day>十八</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="304">
+    <date>1996年10月30日</date>
+    <day>十九</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="305">
+    <date>1996年10月31日</date>
+    <day>二十</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="306">
+    <date>1996年11月01日</date>
+    <day>廿一</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="307">
+    <date>1996年11月02日</date>
+    <day>廿二</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="308">
+    <date>1996年11月03日</date>
+    <day>廿三</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="309">
+    <date>1996年11月04日</date>
+    <day>廿四</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="310">
+    <date>1996年11月05日</date>
+    <day>廿五</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="311">
+    <date>1996年11月06日</date>
+    <day>廿六</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="312">
+    <date>1996年11月07日</date>
+    <day>廿七</day>
+    <week>星期四</week>
+    <jiqi>立冬</jiqi>
+  </day>
+  <day index="313">
+    <date>1996年11月08日</date>
+    <day>廿八</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="314">
+    <date>1996年11月09日</date>
+    <day>廿九</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="315">
+    <date>1996年11月10日</date>
+    <day>三十</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="316">
+    <date>1996年11月11日</date>
+    <day>十月</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="317">
+    <date>1996年11月12日</date>
+    <day>初二</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="318">
+    <date>1996年11月13日</date>
+    <day>初三</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="319">
+    <date>1996年11月14日</date>
+    <day>初四</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="320">
+    <date>1996年11月15日</date>
+    <day>初五</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="321">
+    <date>1996年11月16日</date>
+    <day>初六</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="322">
+    <date>1996年11月17日</date>
+    <day>初七</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="323">
+    <date>1996年11月18日</date>
+    <day>初八</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="324">
+    <date>1996年11月19日</date>
+    <day>初九</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="325">
+    <date>1996年11月20日</date>
+    <day>初十</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="326">
+    <date>1996年11月21日</date>
+    <day>十一</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="327">
+    <date>1996年11月22日</date>
+    <day>十二</day>
+    <week>星期五</week>
+    <jiqi>小雪</jiqi>
+  </day>
+  <day index="328">
+    <date>1996年11月23日</date>
+    <day>十三</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="329">
+    <date>1996年11月24日</date>
+    <day>十四</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="330">
+    <date>1996年11月25日</date>
+    <day>十五</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="331">
+    <date>1996年11月26日</date>
+    <day>十六</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="332">
+    <date>1996年11月27日</date>
+    <day>十七</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="333">
+    <date>1996年11月28日</date>
+    <day>十八</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="334">
+    <date>1996年11月29日</date>
+    <day>十九</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="335">
+    <date>1996年11月30日</date>
+    <day>二十</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="336">
+    <date>1996年12月01日</date>
+    <day>廿一</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="337">
+    <date>1996年12月02日</date>
+    <day>廿二</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="338">
+    <date>1996年12月03日</date>
+    <day>廿三</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="339">
+    <date>1996年12月04日</date>
+    <day>廿四</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="340">
+    <date>1996年12月05日</date>
+    <day>廿五</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="341">
+    <date>1996年12月06日</date>
+    <day>廿六</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="342">
+    <date>1996年12月07日</date>
+    <day>廿七</day>
+    <week>星期六</week>
+    <jiqi>大雪</jiqi>
+  </day>
+  <day index="343">
+    <date>1996年12月08日</date>
+    <day>廿八</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="344">
+    <date>1996年12月09日</date>
+    <day>廿九</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="345">
+    <date>1996年12月10日</date>
+    <day>三十</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="346">
+    <date>1996年12月11日</date>
+    <day>十一月</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="347">
+    <date>1996年12月12日</date>
+    <day>初二</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="348">
+    <date>1996年12月13日</date>
+    <day>初三</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="349">
+    <date>1996年12月14日</date>
+    <day>初四</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="350">
+    <date>1996年12月15日</date>
+    <day>初五</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="351">
+    <date>1996年12月16日</date>
+    <day>初六</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="352">
+    <date>1996年12月17日</date>
+    <day>初七</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="353">
+    <date>1996年12月18日</date>
+    <day>初八</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="354">
+    <date>1996年12月19日</date>
+    <day>初九</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="355">
+    <date>1996年12月20日</date>
+    <day>初十</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="356">
+    <date>1996年12月21日</date>
+    <day>十一</day>
+    <week>星期六</week>
+    <jiqi>冬至</jiqi>
+  </day>
+  <day index="357">
+    <date>1996年12月22日</date>
+    <day>十二</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="358">
+    <date>1996年12月23日</date>
+    <day>十三</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="359">
+    <date>1996年12月24日</date>
+    <day>十四</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+  <day index="360">
+    <date>1996年12月25日</date>
+    <day>十五</day>
+    <week>星期三</week>
+    <jiqi/>
+  </day>
+  <day index="361">
+    <date>1996年12月26日</date>
+    <day>十六</day>
+    <week>星期四</week>
+    <jiqi/>
+  </day>
+  <day index="362">
+    <date>1996年12月27日</date>
+    <day>十七</day>
+    <week>星期五</week>
+    <jiqi/>
+  </day>
+  <day index="363">
+    <date>1996年12月28日</date>
+    <day>十八</day>
+    <week>星期六</week>
+    <jiqi/>
+  </day>
+  <day index="364">
+    <date>1996年12月29日</date>
+    <day>十九</day>
+    <week>星期日</week>
+    <jiqi/>
+  </day>
+  <day index="365">
+    <date>1996年12月30日</date>
+    <day>二十</day>
+    <week>星期一</week>
+    <jiqi/>
+  </day>
+  <day index="366">
+    <date>1996年12月31日</date>
+    <day>廿一</day>
+    <week>星期二</week>
+    <jiqi/>
+  </day>
+</calendar>
