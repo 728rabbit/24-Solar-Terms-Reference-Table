@@ -192,6 +192,7 @@ class Home extends WebController {
         //$testDateTime = '2030-03-25 09:28:00';
         //$testDateTime = '2018-11-13 08:51:00';
         //$testDateTime = '2010-06-12 15:12:00';
+        $testDateTime = '2014-09-16 15:12:00';
 
         $this->startYinProcess($testDateTime);
         
@@ -699,7 +700,7 @@ class Home extends WebController {
                     break;
                 }
             }
-            $ganzhiHour = $ganzhiHour;
+            $ganzhiHour = $newGanHour;
         }
         foreach ($this->_palaceResult['grid'] as $grid) {
             if(md5(mb_substr($ganzhiHour, 0, 1)) === md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
