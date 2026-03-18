@@ -278,11 +278,13 @@ class BaZiCalculator {
             // 3.中文日期轉換為數字
             $monthNumber = array_search(preg_replace('/閏/ui', '', $findhkoLunar['month_chinese']), $this->lunarMonths);
             $findhkoLunar['month'] = $monthNumber;
-            if((int)$findhkoLunar['year'] == 1969) {
+            // 1970年01月08日 為 十二月初一
+            if($dateTime < strtotime('1970-01-08')) {
                 $findhkoLunar['month'] = 11;
                 $findhkoLunar['month_chinese'] = '十一';
             }
             
+            // 已月結尾，為本月第一天，即初一
             preg_match('/(.*)月$/ui', $findhkoLunar['day_chinese'], $monthMatch);
             if($monthMatch) {
                 $findhkoLunar['day_chinese'] = '初一';
@@ -303,7 +305,7 @@ class BaZiCalculator {
             else if($findhkoLunar['month_chinese'] === '十二') {
                 $findhkoLunar['month_chinese_alias'] = '腊';
             }
-            
+
             // 結果
             return $findhkoLunar;
         }
