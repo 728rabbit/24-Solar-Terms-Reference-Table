@@ -59,7 +59,7 @@ class BaZiCalculator {
         
         // 獲取當年小寒
         $xiaohan = $this->findSolarTermTime($year, '小寒');
-        if ($xiaohan === false) {
+        if ($xiaohan == false) {
             // 如果沒有節氣數據，用月份估算
             $month = date('n', $dateTime);
             $map = [1=>'丑', 2=>'寅', 3=>'卯', 4=>'辰', 5=>'巳', 6=>'午',
@@ -74,7 +74,7 @@ class BaZiCalculator {
             $prevDaxue = $this->findSolarTermTime($prevYear, '大雪');
             
             // 大雪後是子月
-            if ($prevDaxue !== false && $dateTime >= $prevDaxue) {
+            if ($prevDaxue != false && $dateTime >= $prevDaxue) {
                 return '子';
             }
             // 否則大概是亥月
@@ -89,7 +89,7 @@ class BaZiCalculator {
                 continue;
             }
             $termTime = $this->findSolarTermTime($year, $term);
-            if ($termTime === false) { 
+            if ($termTime == false) { 
                 continue; 
             }
             if ($dateTime < $termTime) {
@@ -234,7 +234,7 @@ class BaZiCalculator {
                             $index[$key] = (string) str_pad($value, 2, '0', STR_PAD_LEFT);
                         }
                         
-                        if((trim((string)$day->day) === '正月') && ((int)$selectedYear == (int)$year)) {
+                        if((trim((string)$day->day) == '正月') && ((int)$selectedYear == (int)$year)) {
                             $thisYearLunarFirstDate = implode('-', $index);
                         }
                         
@@ -299,10 +299,10 @@ class BaZiCalculator {
             preg_match('/閏/ui', $findhkoLunar['month_chinese'], $leapMatch);
             $findhkoLunar['is_leap'] = (!empty($leapMatch)?1:0);
             
-            if($findhkoLunar['month_chinese'] === '十一') {
+            if($findhkoLunar['month_chinese'] == '十一') {
                 $findhkoLunar['month_chinese_alias'] = '冬';
             }
-            else if($findhkoLunar['month_chinese'] === '十二') {
+            else if($findhkoLunar['month_chinese'] == '十二') {
                 $findhkoLunar['month_chinese_alias'] = '腊';
             }
 
