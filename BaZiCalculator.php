@@ -284,7 +284,7 @@ class BaZiCalculator {
                 $findhkoLunar['month_chinese'] = '十一';
             }
             
-            // 已月結尾，為本月第一天，即初一
+            // 以“月”結尾，為本月第一天，即初一
             preg_match('/(.*)月$/ui', $findhkoLunar['day_chinese'], $monthMatch);
             if($monthMatch) {
                 $findhkoLunar['day_chinese'] = '初一';
