@@ -1,7 +1,7 @@
 <?php
 /*
 八字計算 | 天干地支
-$bazi = new BaZiCalculator('your_solarterms_folder_location');
+$bazi = new BaZiCalculator('your_xml_folder_location');
 $result = $bazi->calculate('2026-02-06 13:40:50');
 */
 
