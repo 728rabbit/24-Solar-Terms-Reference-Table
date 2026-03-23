@@ -58,6 +58,18 @@ class Home extends WebController {
     protected $_yyDunIndex = 0;
     protected $_yyDunNumber = 0;
     
+    // 24節氣三元表
+    protected $_jieqiSanYuanTable = [
+        '冬至' => [1, 7, 4], '小寒' => [2, 8, 5], '大寒' => [3, 9, 6],
+        '立春' => [8, 5, 2], '雨水' => [9, 6, 3], '驚蟄' => [1, 7, 4],
+        '春分' => [3, 9, 6], '清明' => [4, 1, 7], '穀雨' => [5, 2, 8],
+        '立夏' => [4, 1, 7], '小滿' => [5, 2, 8], '芒種' => [6, 3, 9],
+        '夏至' => [9, 3, 6], '小暑' => [8, 2, 5], '大暑' => [7, 1, 4],
+        '立秋' => [2, 5, 8], '處暑' => [1, 4, 7], '白露' => [9, 3, 6],
+        '秋分' => [7, 1, 4], '寒露' => [6, 9, 3], '霜降' => [5, 8, 2],
+        '立冬' => [6, 9, 3], '小雪' => [5, 8, 2], '大雪' => [4, 7, 1]
+    ];
+    
     // 12 地支
     protected $_twelveDiZhi = 
     [
@@ -412,87 +424,218 @@ class Home extends WebController {
         }
         
         // 1. 陽盤拆補 | 2. 陽盤置閏 | 3. 陰盤
-        if($method == 1 || $method == 2) {
-            // 24 節氣三元表
-            $jieqiSanYuanTable = 
-            [
-                '冬至' => [1, 7, 4],
-                '小寒' => [2, 8, 5],
-                '大寒' => [3, 9, 6],
-                '立春' => [8, 5, 2],
-                '雨水' => [9, 6, 3],
-                '驚蟄' => [1, 7, 4],
-                '春分' => [3, 9, 6],
-                '清明' => [4, 1, 7],
-                '穀雨' => [5, 2, 8],
-                '立夏' => [4, 1, 7],
-                '小滿' => [5, 2, 8],
-                '芒種' => [6, 3, 9],
-                '夏至' => [9, 3, 6],
-                '小暑' => [8, 2, 5],
-                '大暑' => [7, 1, 4],
-                '立秋' => [2, 5, 8],
-                '處暑' => [1, 4, 7],
-                '白露' => [9, 3, 6],
-                '秋分' => [7, 1, 4],
-                '寒露' => [6, 9, 3],
-                '霜降' => [5, 8, 2],
-                '立冬' => [6, 9, 3],
-                '小雪' => [5, 8, 2],
-                '大雪' => [4, 7, 1]
-            ];
-            
-            $ganZhiToYuanMap = [
-                // 上元（60个干支中的20个）
-                '甲子' => 0, '乙丑' => 0, '丙寅' => 0, '丁卯' => 0, '戊辰' => 0,
-                '己卯' => 0, '庚辰' => 0, '辛巳' => 0, '壬午' => 0, '癸未' => 0,
-                '甲午' => 0, '乙未' => 0, '丙申' => 0, '丁酉' => 0, '戊戌' => 0,
-                '己酉' => 0, '庚戌' => 0, '辛亥' => 0, '壬子' => 0, '癸丑' => 0,
-
-                // 中元（60个干支中的20个）
-                '己巳' => 1, '庚午' => 1, '辛未' => 1, '壬申' => 1, '癸酉' => 1,
-                '甲申' => 1, '乙酉' => 1, '丙戌' => 1, '丁亥' => 1, '戊子' => 1,
-                '己亥' => 1, '庚子' => 1, '辛丑' => 1, '壬寅' => 1, '癸卯' => 1,
-                '甲寅' => 1, '乙卯' => 1, '丙辰' => 1, '丁巳' => 1, '戊午' => 1,
-
-                // 下元（60个干支中的20个）
-                '甲戌' => 2, '乙亥' => 2, '丙子' => 2, '丁丑' => 2, '戊寅' => 2,
-                '己丑' => 2, '庚寅' => 2, '辛卯' => 2, '壬辰' => 2, '癸巳' => 2,
-                '甲辰' => 2, '乙巳' => 2, '丙午' => 2, '丁未' => 2, '戊申' => 2,
-                '己未' => 2, '庚申' => 2, '辛酉' => 2, '壬戌' => 2, '癸亥' => 2
-            ];
-            // 根據 “日天干”， 查屬於什麽 “元”
-            $yuanIndex = $ganZhiToYuanMap[$this->_ganzhiData['ganzhi_day']];
-            
-            // 根據現時所處 “節氣” + “元”， 查對應 “局數” 
-            $this->_yyDunNumber = $jieqiSanYuanTable[preg_replace('/^(\d+_)/ui', '', $this->_ganzhiData['current_jieqi']['name'])][$yuanIndex];
+        if($method == 1) {
+            $this->calculateChaiBuMethod();
+        }
+        elseif($method == 2) {
+            $this->calculateZhiRunMethod();
         }
         else {
-            $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
-            foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
-                if(md5(trim($ganzhiYear)) == md5(trim($diZhi))) {
-                    $ganzhiYear = (int)$diZhiKey;
-                }
-            }
-            $lunarMonth = (int)$this->_ganzhiData['lunar_month'];
-            $lunarDay = (int)$this->_ganzhiData['lunar_day'];
-            $ganzhiHour = mb_substr($this->_ganzhiData['ganzhi_hour'], -1);
-            foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
-                if(md5(trim($ganzhiHour)) == md5(trim($diZhi))) {
-                    $ganzhiHour = (int)$diZhiKey;
-                }
-            }
-
-            $this->_yyDunNumber = (($ganzhiYear + abs($lunarMonth) + $lunarDay + $ganzhiHour)%9);
-            if($this->_yyDunNumber == 0) {
-                $this->_yyDunNumber = 9;
-            }
+            $this->calculateYinPanMethod();
         }
         
         $this->_palaceResult['dun_index'] = $this->_yyDunIndex;
         $this->_palaceResult['dun_number'] = $this->_yyDunNumber;
     }
     
+    /**
+    * 拆補法計算局數
+    * 核心規則：嚴格按照節氣，節氣一到立即換局，不考慮符頭
+    */
+    private function calculateChaiBuMethod() {
+        // 獲取當前節氣
+        $currentJieqi = $this->_ganzhiData['current_jieqi'];
+        if(empty($currentJieqi['name'])) {
+            // 如果無法獲取節氣，降級使用置閏法
+            $this->calculateZhiRunMethod();
+            return;
+        }
+
+        $jieqiName = preg_replace('/^\d+_/u', '', $currentJieqi['name']);
+        $jieqiStartTime = $currentJieqi['datetime'];
+
+        // 24節氣三元表
+        $this->_jieqiSanYuanTable = [
+            '冬至' => [1, 7, 4], '小寒' => [2, 8, 5], '大寒' => [3, 9, 6],
+            '立春' => [8, 5, 2], '雨水' => [9, 6, 3], '驚蟄' => [1, 7, 4],
+            '春分' => [3, 9, 6], '清明' => [4, 1, 7], '穀雨' => [5, 2, 8],
+            '立夏' => [4, 1, 7], '小滿' => [5, 2, 8], '芒種' => [6, 3, 9],
+            '夏至' => [9, 3, 6], '小暑' => [8, 2, 5], '大暑' => [7, 1, 4],
+            '立秋' => [2, 5, 8], '處暑' => [1, 4, 7], '白露' => [9, 3, 6],
+            '秋分' => [7, 1, 4], '寒露' => [6, 9, 3], '霜降' => [5, 8, 2],
+            '立冬' => [6, 9, 3], '小雪' => [5, 8, 2], '大雪' => [4, 7, 1]
+        ];
+
+        // 計算當前日期距離節氣開始的天數（從0開始）
+        $currentTimestamp = strtotime($this->_ganzhiData['datetime_hk']);
+        $jieqiStartTimestamp = strtotime($jieqiStartTime);
+        $daysDiff = floor(($currentTimestamp - $jieqiStartTimestamp) / 86400);
+
+        // 拆補法核心：根據天數確定上、中、下元
+        // 0-4天：上元，5-9天：中元，10-14天：下元
+        if($daysDiff < 0) {
+            // 如果當前時間在節氣開始之前，說明應該使用上一個節氣的下元
+            $prevJieqi = $this->getPrevJieqi($jieqiName);
+            if($prevJieqi && isset($this->_jieqiSanYuanTable[$prevJieqi])) {
+                // 使用上一個節氣的下元（索引2）
+                $this->_yyDunNumber = $this->_jieqiSanYuanTable[$prevJieqi][2];
+                $this->_palaceResult['dun_term'] = $prevJieqi;
+                $this->_palaceResult['dun_yuan'] = 3; // 下元
+            } else {
+                // 降級使用置閏法
+                $this->calculateZhiRunMethod();
+            }
+            return;
+        }
+
+        // 正常情況：在節氣範圍內
+        if($daysDiff >= 0 && $daysDiff <= 14) {
+            $yuanIndex = floor($daysDiff / 5);
+            // 確保索引在 0-2 範圍內
+            $yuanIndex = min(2, max(0, $yuanIndex));
+            $this->_yyDunNumber = $this->_jieqiSanYuanTable[$jieqiName][$yuanIndex];
+            $this->_palaceResult['dun_term'] = $jieqiName;
+            $this->_palaceResult['dun_yuan'] = $yuanIndex + 1; // 1:上元, 2:中元, 3:下元
+            $this->_palaceResult['dun_days_diff'] = $daysDiff;
+            return;
+        }
+
+        // 如果超過14天，說明應該使用下一個節氣
+        if($daysDiff > 14) {
+            $nextJieqi = $this->getNextJieqi($jieqiName);
+            if($nextJieqi && isset($this->_jieqiSanYuanTable[$nextJieqi])) {
+                // 使用下一個節氣的上元（索引0）
+                $this->_yyDunNumber = $this->_jieqiSanYuanTable[$nextJieqi][0];
+                $this->_palaceResult['dun_term'] = $nextJieqi;
+                $this->_palaceResult['dun_yuan'] = 1; // 上元
+            } else {
+                $this->calculateZhiRunMethod();
+            }
+            return;
+        }
+    }
+
+    /*
+    * 置閏法（查表法）
+    * 核心規則：根據符頭（甲己日）定元，直接查表
+    */
+    private function calculateZhiRunMethod() {
+        // 日干支到元索引的映射表（符頭定局）
+        $ganZhiToYuanMap = [
+            // 上元（0）
+            '甲子' => 0, '乙丑' => 0, '丙寅' => 0, '丁卯' => 0, '戊辰' => 0,
+            '己卯' => 0, '庚辰' => 0, '辛巳' => 0, '壬午' => 0, '癸未' => 0,
+            '甲午' => 0, '乙未' => 0, '丙申' => 0, '丁酉' => 0, '戊戌' => 0,
+            '己酉' => 0, '庚戌' => 0, '辛亥' => 0, '壬子' => 0, '癸丑' => 0,
+            // 中元（1）
+            '己巳' => 1, '庚午' => 1, '辛未' => 1, '壬申' => 1, '癸酉' => 1,
+            '甲申' => 1, '乙酉' => 1, '丙戌' => 1, '丁亥' => 1, '戊子' => 1,
+            '己亥' => 1, '庚子' => 1, '辛丑' => 1, '壬寅' => 1, '癸卯' => 1,
+            '甲寅' => 1, '乙卯' => 1, '丙辰' => 1, '丁巳' => 1, '戊午' => 1,
+            // 下元（2）
+            '甲戌' => 2, '乙亥' => 2, '丙子' => 2, '丁丑' => 2, '戊寅' => 2,
+            '己丑' => 2, '庚寅' => 2, '辛卯' => 2, '壬辰' => 2, '癸巳' => 2,
+            '甲辰' => 2, '乙巳' => 2, '丙午' => 2, '丁未' => 2, '戊申' => 2,
+            '己未' => 2, '庚申' => 2, '辛酉' => 2, '壬戌' => 2, '癸亥' => 2
+        ];
+
+        // 獲取當前節氣
+        $currentJieqi = $this->_ganzhiData['current_jieqi'];
+        if(empty($currentJieqi['name'])) {
+            // 如果無法獲取節氣，使用陰盤
+            $this->calculateYinPanMethod();
+            return;
+        }
+        $jieqiName = preg_replace('/^\d+_/u', '', $currentJieqi['name']);
+
+        // 根據日干支查詢元索引
+        $ganzhiDay = $this->_ganzhiData['ganzhi_day'];
+        $yuanIndex = isset($ganZhiToYuanMap[$ganzhiDay]) ? $ganZhiToYuanMap[$ganzhiDay] : 0;
+
+        // 獲取局數
+        if(isset($this->_jieqiSanYuanTable[$jieqiName])) {
+            $this->_yyDunNumber = $this->_jieqiSanYuanTable[$jieqiName][$yuanIndex];
+            $this->_palaceResult['dun_term'] = $jieqiName;
+            $this->_palaceResult['dun_yuan'] = $yuanIndex + 1;
+            $this->_palaceResult['dun_futou'] = $ganzhiDay;
+        } else {
+            // 降級使用陰盤
+            $this->calculateYinPanMethod();
+        }
+    }
+
+    /*
+    * 陰盤計算方法（原有邏輯）
+    * 取局數方法：年支序數 + 舊曆月數 + 舊曆日數 + 時支序數，總數以 9 除之，取餘數。 其餘數必少於 9，整除作 9 數。
+    */
+    private function calculateYinPanMethod() {
+        $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
+        foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
+            if(md5(trim($ganzhiYear)) == md5(trim($diZhi))) {
+                $ganzhiYear = (int)$diZhiKey;
+                break;
+            }
+        }
+
+        $lunarMonth = (int)$this->_ganzhiData['lunar_month'];
+        $lunarDay = (int)$this->_ganzhiData['lunar_day'];
+
+        $ganzhiHour = mb_substr($this->_ganzhiData['ganzhi_hour'], -1);
+        foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
+            if(md5(trim($ganzhiHour)) == md5(trim($diZhi))) {
+                $ganzhiHour = (int)$diZhiKey;
+                break;
+            }
+        }
+
+        $this->_yyDunNumber = ($ganzhiYear + abs($lunarMonth) + $lunarDay + $ganzhiHour) % 9;
+        if($this->_yyDunNumber == 0) {
+            $this->_yyDunNumber = 9;
+        }
+
+        $this->_palaceResult['dun_method'] = '陰盤';
+    }
+
+    /*
+    * 獲取下一個節氣
+    * @param string $currentJieqi 當前節氣名稱
+    * @return string|null
+    */
+    private function getNextJieqi($currentJieqi) {
+        $jieqiOrder = [
+            '冬至', '小寒', '大寒', '立春', '雨水', '驚蟄', 
+            '春分', '清明', '穀雨', '立夏', '小滿', '芒種',
+            '夏至', '小暑', '大暑', '立秋', '處暑', '白露',
+            '秋分', '寒露', '霜降', '立冬', '小雪', '大雪'
+        ];
+
+        $index = array_search($currentJieqi, $jieqiOrder);
+        if($index !== false && isset($jieqiOrder[$index + 1])) {
+            return $jieqiOrder[$index + 1];
+        }
+        return null;
+    }
+
+    /**
+     * 獲取上一個節氣
+     * @param string $currentJieqi 當前節氣名稱
+     * @return string|null
+     */
+    private function getPrevJieqi($currentJieqi) {
+        $jieqiOrder = [
+            '冬至', '小寒', '大寒', '立春', '雨水', '驚蟄', 
+            '春分', '清明', '穀雨', '立夏', '小滿', '芒種',
+            '夏至', '小暑', '大暑', '立秋', '處暑', '白露',
+            '秋分', '寒露', '霜降', '立冬', '小雪', '大雪'
+        ];
+
+        $index = array_search($currentJieqi, $jieqiOrder);
+        if($index !== false && isset($jieqiOrder[$index - 1])) {
+            return $jieqiOrder[$index - 1];
+        }
+        return null;
+    }
+
     protected function setEarth() {
         // 以 “局數” 開始點，按洛書宮序(陽順陰逆)， 排 “戊己庚申壬癸丁丙乙”
         $circlePattern = $this->arrayReIndex($this->arrayCircle((($this->_yyDunIndex == 1)? $this->_ascPattern: $this->_descPattern), $this->_yyDunNumber));
