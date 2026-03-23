@@ -236,8 +236,8 @@ class Home extends WebController {
             $testDateTime = $_GET['date'];
         }
         
-        
-        $this->startProcess($testDateTime, 3);
+        $method = $this->getParamValue('method', 3);
+        $this->startProcess($testDateTime, $method);
         
         //dump($this->_palaceResult);
         
@@ -349,22 +349,36 @@ class Home extends WebController {
         if(true) {
             $biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path()));
             $baziResult = $biziLib->calculate($currentDateTime, $this->getParamValue('time_zone', 'hong_kong'));
-            if(!empty($baziResult)) {;
-                $listSolarTerms = $baziResult['jieqi_table'];
-                
+            if(!empty($baziResult)) {
                 $this->_ganzhiData['ganzhi_year'] = $baziResult['ganzhi_year'];
                 $this->_ganzhiData['ganzhi_month'] = $baziResult['ganzhi_month'];
                 $this->_ganzhiData['ganzhi_day'] = $baziResult['ganzhi_day'];
                 $this->_ganzhiData['ganzhi_hour'] = $baziResult['ganzhi_hour'];
                 
-                // 上一年冬至
-                $this->_ganzhiData['jieqi_dongzhi_last_year'] = $listSolarTerms[(date('Y', strtotime($currentDateTime)) - 1)]['冬至'];
-                
-                // 本年夏至
-                $this->_ganzhiData['jieqi_xiazhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['夏至'];
-                
-                // 本年冬至
-                $this->_ganzhiData['jieqi_dongzhi_this_year'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至'];
+                $listSolarTerms = $baziResult['jieqi_table'];
+                    if(!empty($listSolarTerms)) {
+                    // 上一年冬至
+                    $this->_ganzhiData['jieqi_dongzhi_last_year'] = $listSolarTerms[(date('Y', strtotime($currentDateTime)) - 1)]['冬至'];
+
+                    // 本年夏至
+                    $this->_ganzhiData['jieqi_xiazhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['夏至'];
+
+                    // 本年冬至
+                    $this->_ganzhiData['jieqi_dongzhi_this_year'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至'];
+
+                    $allSTS = [];
+                    foreach ($listSolarTerms as $year => $st) {
+                        foreach ($st as $name => $time) {
+                            $allSTS[$year.'_'.$name] = $time;
+                        }
+                    }
+                    foreach ($allSTS as $stName => $stDateTime) {
+                        if(strtotime($this->_ganzhiData['datetime_hk']) <= strtotime($stDateTime)) {
+                            $this->_ganzhiData['current_jieqi'] = ['name' => $stName, 'datetime' => $stDateTime];
+                            break;
+                        }
+                    }
+                }
             }
         }
         
@@ -397,13 +411,61 @@ class Home extends WebController {
             $this->_yyDunIndex = 1;
         }
         
-        // 1. 陽盤拆補 2. 陽盤置閏 3. 陰盤
-        if($method == 1) {
-
-
-        }
-        else if($method == 2) {
+        // 1. 陽盤拆補 | 2. 陽盤置閏 | 3. 陰盤
+        if($method == 1 || $method == 2) {
+            // 24 節氣三元表
+            $jieqiSanYuanTable = 
+            [
+                '冬至' => [1, 7, 4],
+                '小寒' => [2, 8, 5],
+                '大寒' => [3, 9, 6],
+                '立春' => [8, 5, 2],
+                '雨水' => [9, 6, 3],
+                '驚蟄' => [1, 7, 4],
+                '春分' => [3, 9, 6],
+                '清明' => [4, 1, 7],
+                '穀雨' => [5, 2, 8],
+                '立夏' => [4, 1, 7],
+                '小滿' => [5, 2, 8],
+                '芒種' => [6, 3, 9],
+                '夏至' => [9, 3, 6],
+                '小暑' => [8, 2, 5],
+                '大暑' => [7, 1, 4],
+                '立秋' => [2, 5, 8],
+                '處暑' => [1, 4, 7],
+                '白露' => [9, 3, 6],
+                '秋分' => [7, 1, 4],
+                '寒露' => [6, 9, 3],
+                '霜降' => [5, 8, 2],
+                '立冬' => [6, 9, 3],
+                '小雪' => [5, 8, 2],
+                '大雪' => [4, 7, 1]
+            ];
             
+            $ganZhiToYuanMap = [
+                // 上元（60个干支中的20个）
+                '甲子' => 0, '乙丑' => 0, '丙寅' => 0, '丁卯' => 0, '戊辰' => 0,
+                '己卯' => 0, '庚辰' => 0, '辛巳' => 0, '壬午' => 0, '癸未' => 0,
+                '甲午' => 0, '乙未' => 0, '丙申' => 0, '丁酉' => 0, '戊戌' => 0,
+                '己酉' => 0, '庚戌' => 0, '辛亥' => 0, '壬子' => 0, '癸丑' => 0,
+
+                // 中元（60个干支中的20个）
+                '己巳' => 1, '庚午' => 1, '辛未' => 1, '壬申' => 1, '癸酉' => 1,
+                '甲申' => 1, '乙酉' => 1, '丙戌' => 1, '丁亥' => 1, '戊子' => 1,
+                '己亥' => 1, '庚子' => 1, '辛丑' => 1, '壬寅' => 1, '癸卯' => 1,
+                '甲寅' => 1, '乙卯' => 1, '丙辰' => 1, '丁巳' => 1, '戊午' => 1,
+
+                // 下元（60个干支中的20个）
+                '甲戌' => 2, '乙亥' => 2, '丙子' => 2, '丁丑' => 2, '戊寅' => 2,
+                '己丑' => 2, '庚寅' => 2, '辛卯' => 2, '壬辰' => 2, '癸巳' => 2,
+                '甲辰' => 2, '乙巳' => 2, '丙午' => 2, '丁未' => 2, '戊申' => 2,
+                '己未' => 2, '庚申' => 2, '辛酉' => 2, '壬戌' => 2, '癸亥' => 2
+            ];
+            // 根據 “日天干”， 查屬於什麽 “元”
+            $yuanIndex = $ganZhiToYuanMap[$this->_ganzhiData['ganzhi_day']];
+            
+            // 根據現時所處 “節氣” + “元”， 查對應 “局數” 
+            $this->_yyDunNumber = $jieqiSanYuanTable[preg_replace('/^(\d+_)/ui', '', $this->_ganzhiData['current_jieqi']['name'])][$yuanIndex];
         }
         else {
             $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
@@ -425,10 +487,10 @@ class Home extends WebController {
             if($this->_yyDunNumber == 0) {
                 $this->_yyDunNumber = 9;
             }
-
-            $this->_palaceResult['dun_index'] = $this->_yyDunIndex;
-            $this->_palaceResult['dun_number'] = $this->_yyDunNumber;
         }
+        
+        $this->_palaceResult['dun_index'] = $this->_yyDunIndex;
+        $this->_palaceResult['dun_number'] = $this->_yyDunNumber;
     }
     
     protected function setEarth() {
