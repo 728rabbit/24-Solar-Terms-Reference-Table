@@ -237,7 +237,7 @@ class Home extends WebController {
         }
         
         
-        $this->startYinProcess($testDateTime, 3);
+        $this->startProcess($testDateTime, 3);
         
         //dump($this->_palaceResult);
         
@@ -290,7 +290,7 @@ class Home extends WebController {
     }
     
     // 排陰盤
-    protected function startYinProcess($currentDateTime, $method = 1) {
+    protected function startProcess($currentDateTime, $method = 1) {
         // 天干地支
         $this->getDanZhi($currentDateTime);
         
