@@ -26,7 +26,7 @@ class Home extends WebController {
         
         'dun_index'         =>  0,   // 1.陽 or 2.陰
         'dun_number'        =>  0,   // 局數
-        'lead'            =>  '',  // 旬首
+        'lead'              =>  '',  // 旬首
         'zhi_ori_index'     =>  '',  // 原值符/使宮位
         'zhi_fu'            =>  '',  // 值符
         'zhi_shi'           =>  '',  // 值使宮位,
