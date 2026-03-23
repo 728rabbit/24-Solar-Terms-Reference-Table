@@ -368,7 +368,7 @@ class Home extends WebController {
                 $this->_ganzhiData['ganzhi_hour'] = $baziResult['ganzhi_hour'];
                 
                 $listSolarTerms = $baziResult['jieqi_table'];
-                    if(!empty($listSolarTerms)) {
+                if(!empty($listSolarTerms)) {
                     // 上一年冬至
                     $this->_ganzhiData['jieqi_dongzhi_last_year'] = $listSolarTerms[(date('Y', strtotime($currentDateTime)) - 1)]['冬至'];
 
