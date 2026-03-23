@@ -389,20 +389,23 @@ class Home extends WebController {
         $jieqiXiazhi = $this->_ganzhiData['jieqi_xiazhi']; 
         $jieqiDongzhiThisYear = $this->_ganzhiData['jieqi_dongzhi_this_year'];
         
+        // 夏至 ~ 冬至 時間内，為陰
+        if((strtotime($currentDateTime) >= strtotime($jieqiXiazhi)) && (strtotime($currentDateTime) < strtotime($jieqiDongzhiThisYear))) {
+            $this->_yyDunIndex = 2;
+        }
+        else {
+            $this->_yyDunIndex = 1;
+        }
+        
         // 1. 陽盤拆補 2. 陽盤置閏 3. 陰盤
-        if($method == 1 || $method == 2) {
+        if($method == 1) {
 
 
         }
+        else if($method == 2) {
+            
+        }
         else {
-            // 夏至 ~ 冬至 時間内，為陰
-            if((strtotime($currentDateTime) >= strtotime($jieqiXiazhi)) && (strtotime($currentDateTime) < strtotime($jieqiDongzhiThisYear))) {
-                $this->_yyDunIndex = 2;
-            }
-            else {
-                $this->_yyDunIndex = 1;
-            }
-
             $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
             foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
                 if(md5(trim($ganzhiYear)) == md5(trim($diZhi))) {
