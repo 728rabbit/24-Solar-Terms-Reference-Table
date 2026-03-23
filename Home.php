@@ -223,9 +223,6 @@ class Home extends WebController {
         $testDateTime = $this->randomDate('1990-01-01', '2040-01-01');
         
         // 特殊case
-        //$testDateTime = '1990-07-01 10:08:00'; // 閏問題?
-        //$testDateTime = '2009-07-15 23:23:00';
-        //$testDateTime = '2030-03-25 09:28:00';
         //$testDateTime = '2018-11-13 08:51:00';
         //$testDateTime = '2010-06-12 15:12:00';
         //$testDateTime = '2020-07-29 17:50:00'; // 爲什麽係 ”天衝5宮“， 不是 ”天衝2宮“
@@ -238,6 +235,7 @@ class Home extends WebController {
         //$testDateTime = '2017-11-22 18:40:00'; // 隱干有問題 
         //$testDateTime = '2013-08-11 03:38:00'; // 隱干有問題
         //$testDateTime = '2024-08-10 05:30:00';
+        //$testDateTime = '2015-05-22 19:22:00';
   
         if(!empty($_GET['date'])) {
             $testDateTime = $_GET['date'];
@@ -246,7 +244,7 @@ class Home extends WebController {
         
         $this->startYinProcess($testDateTime, 3);
         
-        dump($this->_palaceResult);
+        //dump($this->_palaceResult);
         
         echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['datetime_hk'].'</p>';
         echo '<p style="padding:0;margin:0;">農曆: '.implode(' - ', [$this->_palaceResult['lunar_year_chinese'], $this->_palaceResult['lunar_month_chinese'], $this->_palaceResult['lunar_day_chinese']]).'</p>';
@@ -261,9 +259,10 @@ class Home extends WebController {
         foreach ($this->_palaceResult['grid'] as $grid) {
             echo '<div style="position:relative;display:inline-block;width:28%;padding:10px;border:2px solid #ddd">';
             
-            echo $grid['index'];
+            echo $grid['index'].' | '.$grid['name'];
             echo '<br/>';
-            echo '宮： '.$grid['name'];
+            echo '<br/>';
+            echo '隱干： '.(!empty($grid['yin_gan'])?$grid['yin_gan']:'');
             echo '<br/>';
             echo '<br/>';
             echo '神： '.(!empty($grid['shen_alias'])?$grid['shen_alias']:$grid['shen']);
@@ -281,8 +280,7 @@ class Home extends WebController {
             
             echo ((!empty($this->_palaceResult['yi_ma']) && in_array($grid['index'], $this->_palaceResult['yi_ma']))?'<div style="position:absolute;top:0px;right:10px;background:yellow;">馬</div>':'');
 
-            echo '<br/>';
-            echo '隱干： '.(!empty($grid['yin_gan'])?$grid['yin_gan']:'');
+           
             
             echo '</div>';
         }
