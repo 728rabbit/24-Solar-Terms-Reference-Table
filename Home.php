@@ -223,19 +223,14 @@ class Home extends WebController {
         $testDateTime = $this->randomDate('1990-01-01', '2040-01-01');
         
         // 特殊case
-        //$testDateTime = '2018-11-13 08:51:00';
-        //$testDateTime = '2010-06-12 15:12:00';
-        //$testDateTime = '2020-07-29 17:50:00'; // 爲什麽係 ”天衝5宮“， 不是 ”天衝2宮“
-        //$testDateTime = '2033-11-23 07:01:00';
-        
-        //$testDateTime = '2025-10-09 01:15:00';
-        //$testDateTime = '2025-09-06 14:00:00';
-        //$testDateTime = '2033-09-11 05:38:00';
+        //$testDateTime = '2020-07-29 17:50:00'; // 隱干有問題
+        //$testDateTime = '2033-11-23 07:01:00'; // 農曆問題
+
+        //$testDateTime = '2033-09-11 05:38:00'; // 農曆問題
         //$testDateTime = '2030-12-06 05:56:00'; // 隱干有問題
         //$testDateTime = '2017-11-22 18:40:00'; // 隱干有問題 
-        //$testDateTime = '2013-08-11 03:38:00'; // 隱干有問題
-        //$testDateTime = '2024-08-10 05:30:00';
-        //$testDateTime = '2015-05-22 19:22:00';
+        //$testDateTime = '2024-08-10 05:30:00'; // 隱干有問題 
+        //$testDateTime = '2015-05-22 19:22:00'; // 隱干有問題 
   
         if(!empty($_GET['date'])) {
             $testDateTime = $_GET['date'];
