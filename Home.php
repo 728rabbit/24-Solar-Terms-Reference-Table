@@ -28,7 +28,8 @@ class Home extends WebController {
         
         'san_yuan_method'   =>  '',
         'san_yuan_range'    =>  [],
-        'san_yuan_chaibu'   =>  [],   
+        'san_yuan_chaibu'   =>  [],
+        
         'dun_index'         =>  0,   // 1.陽 or 2.陰
         'dun_number'        =>  0,   // 局數
         'lead'              =>  '',  // 旬首
@@ -473,15 +474,15 @@ class Home extends WebController {
         }
 
         // If no current term found, use the first term
-        if ($currentTerm === null && count($terms) > 0) {
+        if ($currentTerm == null && count($terms) > 0) {
             $currentTerm = $terms[0];
         }
 
         // Find current term index
         $currentIndex = null;
         foreach ($terms as $index => $term) {
-            if ($term['name'] === $currentTerm['name'] && 
-                $term['datetime'] === $currentTerm['datetime']) {
+            if ($term['name'] == $currentTerm['name'] && 
+                $term['datetime'] == $currentTerm['datetime']) {
                 $currentIndex = $index;
                 break;
             }
@@ -552,7 +553,7 @@ class Home extends WebController {
                 $PreBaziResult = $this->_biziLib->calculate($loopDateTime);
                 if(!empty($PreBaziResult)) {
                     $ganzhiDay = $PreBaziResult['ganzhi_day'];
-                    if(in_array(trim(mb_substr($ganzhiDay, 0, 1)), ['甲', '己'])) {
+                    if(in_array(mb_substr($ganzhiDay, 0, 1), ['甲', '己'])) {
                         $firstFutouDateTime = $loopDateTime;
                     }
 
@@ -582,7 +583,7 @@ class Home extends WebController {
             
             // 第1個三元範圍
             $startDateTime = $firstFutouDateTime;
-            if(trim(mb_substr($futouGanzhiHour, -1)) != '子') {
+            if(mb_substr($futouGanzhiHour, -1) != '子') {
                 $endDateTime = date('Y-m-d H:i:s', (strtotime((date('Y-m-d', strtotime($firstFutouDateTime)).' 22:59:59')) + 4 * 24 *3600));
             }
             else {
@@ -675,9 +676,7 @@ class Home extends WebController {
 
     // 置閏法
     private function calculateZhiRunMethod() {
-        $this->_palaceResult['san_yuan_method'] = 'zhirun';
-        
-        
+        $this->_palaceResult['san_yuan_method'] = 'zhirun'; 
     }
 
     // 陰盤 - 取局數方法：年支序數 + 舊曆月數 + 舊曆日數 + 時支序數，總數以 9 除之，取餘數。 其餘數必少於 9，整除作 9 數。
@@ -686,7 +685,7 @@ class Home extends WebController {
         
         $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
         foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
-            if(md5(trim($ganzhiYear)) == md5(trim($diZhi))) {
+            if($ganzhiYear == $diZhi) {
                 $ganzhiYear = (int)$diZhiKey;
                 break;
             }
@@ -697,7 +696,7 @@ class Home extends WebController {
 
         $ganzhiHour = mb_substr($this->_ganzhiData['ganzhi_hour'], -1);
         foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
-            if(md5(trim($ganzhiHour)) == md5(trim($diZhi))) {
+            if($ganzhiHour == $diZhi) {
                 $ganzhiHour = (int)$diZhiKey;
                 break;
             }
@@ -707,8 +706,6 @@ class Home extends WebController {
         if($this->_yyDunNumber == 0) {
             $this->_yyDunNumber = 9;
         }
-
-        $this->_palaceResult['dun_method'] = '陰盤';
     }
 
     
@@ -730,7 +727,7 @@ class Home extends WebController {
         $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
         foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
             foreach ($jiazhi as $child) {
-                if(md5(trim($ganzhiHour)) == md5(trim($child))) {
+                if($ganzhiHour == $child) {
                     $this->_palaceResult['lead'] = $jiazhiKey;
                     break;
                 }
@@ -747,7 +744,7 @@ class Home extends WebController {
         $lastChar = mb_substr($this->_palaceResult['lead'], -1);
         $zhiFuShiIndex = 0;
         foreach ($this->_palaceResult['grid'] as $grid) {
-            if(md5(trim($lastChar)) == md5(trim($grid['earth']))) {
+            if($lastChar == $grid['earth']) {
                 $zhiFuShiIndex = $grid['index']; 
                 break;
             }
@@ -807,7 +804,7 @@ class Home extends WebController {
             $shiftIndex = 0;
             foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
                 foreach ($jiazhi as $jiazhiChildKey => $child) {
-                    if(md5(trim($this->_palaceResult['ganzhi_hour'])) == md5(trim($child))) {
+                    if($this->_palaceResult['ganzhi_hour'] == $child) {
                         $shiftIndex = ($jiazhiChildKey + 1);
                         break;
                     }
@@ -865,7 +862,7 @@ class Home extends WebController {
             $ganHourCirclePattern = $this->arrayReIndex($this->arrayCircle($this->_gridCircle, $ganHourGridIndex));
             foreach ($ganHourCirclePattern as $circleIndex => $circleValue) {
                 $this->_palaceResult['grid'][$circleValue]['star'] = $revisedNiceStar[$circleIndex];
-                if(md5(trim($revisedNiceStar[$circleIndex])) == md5(trim('芮'))) {
+                if($revisedNiceStar[$circleIndex] == '芮') {
                     $dependIndex = $circleValue;
                 }
             }
@@ -908,18 +905,18 @@ class Home extends WebController {
             if($findZhiFu == '禽') {
                 $findZhiFu = '芮';
             }
-            if(md5(trim($findZhiFu)) == md5(trim($grid['star']))) {
+            if($findZhiFu == $grid['star']) {
                 $this->_palaceResult['zhi_fu_index'] = $grid['index'];
                 break;
             }
         }
         
         // 比較 值符地盤 和 “時天干” 是否有偏移
-        $ganzhiHour = trim($this->_ganzhiData['ganzhi_hour']);
+        $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
         if(in_array($ganzhiHour, ['甲子', '甲戌', '甲申', '甲午', '甲辰', '甲寅'])) {
             $newGanHour = '';
             foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
-                if(md5(trim($ganzhiHour)) == md5(mb_substr(trim($jiazhiKey), 0, 2))) {
+                if($ganzhiHour == mb_substr($jiazhiKey, 0, 2)) {
                     $newGanHour = mb_substr($jiazhiKey, -1);
                     break;
                 }
@@ -927,7 +924,7 @@ class Home extends WebController {
             $ganzhiHour = $newGanHour;
         }
         if(!empty($this->_palaceResult['grid'][$this->_palaceResult['zhi_fu_index']]['earth_alias'])) {
-            if(md5(mb_substr($ganzhiHour, 0, 1)) == md5(mb_substr(trim($this->_palaceResult['grid'][$this->_palaceResult['zhi_fu_index']]['earth_alias']), -1))) {  
+            if(mb_substr($ganzhiHour, 0, 1) == mb_substr($this->_palaceResult['grid'][$this->_palaceResult['zhi_fu_index']]['earth_alias'], -1)) {  
                $this->_palaceResult['zhi_fu_index'] = 5;
             }
         }
@@ -935,7 +932,7 @@ class Home extends WebController {
         // 值使所在宮位
         foreach ($this->_palaceResult['grid'] as $grid) {
             $findZhiShi = $this->_palaceResult['zhi_shi'];
-            if(md5(trim($findZhiShi)) == md5(trim($grid['gate']))) {
+            if($findZhiShi == $grid['gate']) {
                 $this->_palaceResult['zhi_shi_index'] = $grid['index'];
                 break;
             }
@@ -1056,7 +1053,7 @@ class Home extends WebController {
             $this->_palaceResult['grid'][$gird['index']]['shi_chen'] = $this->_shiChenFixed[$gird['index']];
         }
 
-        $ganzhiHour = trim($this->_ganzhiData['ganzhi_hour']);
+        $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
         // 遇 “甲”， 中宮開始， 按洛書宮序(陽順陰逆)， 排 “旬首” 開始的 “戊己庚申壬癸丁丙乙”
         if(in_array($ganzhiHour, ['甲子', '甲戌', '甲申', '甲午', '甲辰', '甲寅'])) {
             // 根據 “旬首”， 重新順序 “戊己庚申壬癸丁丙乙”
@@ -1094,9 +1091,9 @@ class Home extends WebController {
     private function findHeadGanHourGridIndex($palaceIndex = 'earth') {
         // 尋找“旬首”在地盤或天盤所在宮位， 如原本落在 5.中宮，則尋找偏移後的宮位
         $headGridIndex = 0;
-        $lastChar = trim(mb_substr($this->_palaceResult['lead'], -1));
+        $lastChar = mb_substr($this->_palaceResult['lead'], -1);
         foreach ($this->_palaceResult['grid'] as $grid) {
-            if(md5(trim($lastChar)) == md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
+            if($lastChar == mb_substr($grid[$palaceIndex], -1)) {
                 $headGridIndex = $grid['index'];
             } 
         }
@@ -1104,13 +1101,13 @@ class Home extends WebController {
             foreach ($this->_palaceResult['grid'] as $grid) {
                 if(!empty($grid[$palaceIndex.'_alias'])) {
                     if(((int)$headGridIndex == 5)) {
-                        if(md5($lastChar) == md5(mb_substr(trim($grid[$palaceIndex.'_alias']), -1))) {
+                        if($lastChar == mb_substr($grid[$palaceIndex.'_alias'], -1)) {
                             $headGridIndex = $grid['index'];
                             break;
                         }
                     }
                     else {
-                        if(md5($lastChar) == md5(mb_substr(trim($grid[$palaceIndex.'_alias']), 0, 1))) {
+                        if($lastChar == mb_substr($grid[$palaceIndex.'_alias'], 0, 1)) {
                             $headGridIndex = $grid['index'];
                             break;
                         }
@@ -1130,11 +1127,11 @@ class Home extends WebController {
         - 甲寅時用癸
         */
         $ganHourGridIndex = 0;
-        $ganzhiHour = trim($this->_ganzhiData['ganzhi_hour']);
+        $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
         if(in_array($ganzhiHour, ['甲子', '甲戌', '甲申', '甲午', '甲辰', '甲寅'])) {
             $newGanHour = '';
             foreach ($this->_sixtyJiazi as $jiazhiKey => $jiazhi) {
-                if(md5(trim($ganzhiHour)) == md5(mb_substr(trim($jiazhiKey), 0, 2))) {
+                if($ganzhiHour == mb_substr($jiazhiKey, 0, 2)) {
                     $newGanHour = mb_substr($jiazhiKey, -1);
                     break;
                 }
@@ -1142,7 +1139,7 @@ class Home extends WebController {
             $ganzhiHour = $newGanHour;
         }
         foreach ($this->_palaceResult['grid'] as $grid) {
-            if(md5(mb_substr($ganzhiHour, 0, 1)) == md5(mb_substr(trim($grid[$palaceIndex]), -1))) {
+            if(mb_substr($ganzhiHour, 0, 1) == mb_substr($grid[$palaceIndex], -1)) {
                 $ganHourGridIndex = $grid['index'];
             } 
         }
@@ -1151,13 +1148,13 @@ class Home extends WebController {
             foreach ($this->_palaceResult['grid'] as $grid) {
                 if(!empty($grid[$palaceIndex.'_alias'])) {
                     if(((int)$ganHourGridIndex == 5)) {
-                        if(md5(mb_substr($ganzhiHour, 0, 1)) == md5(mb_substr(trim($grid[$palaceIndex.'_alias']), -1))) {
+                        if(mb_substr($ganzhiHour, 0, 1) == mb_substr($grid[$palaceIndex.'_alias'], -1)) {
                             $ganHourGridIndex = $grid['index'];
                             break;
                         }
                     }
                     else {
-                        if(md5(mb_substr($ganzhiHour, 0, 1)) == md5(mb_substr(trim($grid[$palaceIndex.'_alias']), 0, 1))) {
+                        if(mb_substr($ganzhiHour, 0, 1) == mb_substr($grid[$palaceIndex.'_alias'], 0, 1)) {
                             $ganHourGridIndex = $grid['index'];
                             break;
                         }
@@ -1192,21 +1189,6 @@ class Home extends WebController {
             }
         }
         return $new_arr;
-    }
-    
-    public function arrayFindIndex($arr = [], $find = '') {
-        $find_key = 0;
-        if(!empty($arr) && !empty($find)) {
-            foreach ($arr as $key => $value) {
-                if(trim($find) == trim($value)) {
-                    $find_key = $key;
-                    break;
-                }
-            }
-            
-        }
-        
-        return $find_key;
     }
     
     public function arrayCircle($arr = [], $break_point = 1) {
