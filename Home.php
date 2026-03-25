@@ -285,7 +285,7 @@ class Home extends WebController {
         $method = $this->getParamValue('method', 3);
         $this->startProcess($testDateTime, $method);
         
-        dump($this->_palaceResult);
+        //dump($this->_palaceResult);
         
         echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['datetime_hk'].'</p>';
         echo '<p style="padding:0;margin:0;">農曆: '.implode(' - ', [$this->_palaceResult['lunar_year_chinese'], $this->_palaceResult['lunar_month_chinese'], $this->_palaceResult['lunar_day_chinese']]).'</p>';
