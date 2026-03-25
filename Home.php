@@ -677,30 +677,7 @@ class Home extends WebController {
     private function calculateZhiRunMethod() {
         $this->_palaceResult['san_yuan_method'] = 'zhirun';
         
-        // 獲取當前節氣
-        $currentJieqiStart = $this->_ganzhiData['current_jieqi_start'];
-        dd($currentJieqiStart);
-        if(empty($currentJieqiStart['name'])) {
-            // 如果無法獲取節氣，使用陰盤
-            $this->calculateYinPanMethod();
-            return;
-        }
-        $jieqiName = preg_replace('/^\d+_/u', '', $currentJieqiStart['name']);
-
-        // 根據日干支查詢元索引
-        $ganzhiDay = $this->_ganzhiData['ganzhi_day'];
-        $yuanIndex = isset($ganZhiToYuanMap[$ganzhiDay]) ? $ganZhiToYuanMap[$ganzhiDay] : 0;
-
-        // 獲取局數
-        if(isset($this->_jieqiSanYuanTable[$jieqiName])) {
-            $this->_yyDunNumber = $this->_jieqiSanYuanTable[$jieqiName][$yuanIndex];
-            $this->_palaceResult['dun_term'] = $jieqiName;
-            $this->_palaceResult['dun_yuan'] = $yuanIndex + 1;
-            $this->_palaceResult['dun_futou'] = $ganzhiDay;
-        } else {
-            // 降級使用陰盤
-            $this->calculateYinPanMethod();
-        }
+        
     }
 
     // 陰盤 - 取局數方法：年支序數 + 舊曆月數 + 舊曆日數 + 時支序數，總數以 9 除之，取餘數。 其餘數必少於 9，整除作 9 數。
