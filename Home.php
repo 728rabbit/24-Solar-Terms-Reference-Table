@@ -292,6 +292,10 @@ class Home extends WebController {
         echo '<p style="padding:0;margin:0;">干支: '.implode(' - ', [$this->_palaceResult['ganzhi_year'], $this->_palaceResult['ganzhi_month'], $this->_palaceResult['ganzhi_day'], $this->_palaceResult['ganzhi_hour']]).'</p>';
         
         echo '<p style="padding:0;margin:0;">盤局: '.(($this->_palaceResult['dun_index'] == 1)?'陽':'陰').' '.$this->_palaceResult['dun_number'].' 局</p>';
+        if(!empty($this->_palaceResult['san_yuan_chaibu'])) {
+            echo '<p style="padding:0;margin:0;">'.$this->_palaceResult['san_yuan_method'].' | '. implode(' | ', $this->_palaceResult['san_yuan_chaibu']).'</p>';
+        }
+        
         echo '<p style="padding:0;margin:0;">旬首: '.$this->_palaceResult['lead'].'</p>';
         echo '<p style="padding:0;margin:0;">值符: 天'.$this->_palaceResult['zhi_fu'].' '.$this->_palaceResult['zhi_fu_index'].'宮</p>';
         echo '<p style="padding:0;margin:0;">值使: '.$this->_palaceResult['zhi_shi'].'門 '.$this->_palaceResult['zhi_shi_index'].'宮</p>';
