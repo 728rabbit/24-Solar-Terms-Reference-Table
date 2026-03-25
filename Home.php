@@ -675,6 +675,8 @@ class Home extends WebController {
 
     // 置閏法
     private function calculateZhiRunMethod() {
+        $this->_palaceResult['san_yuan_method'] = 'zhirun';
+        
         // 獲取當前節氣
         $currentJieqiStart = $this->_ganzhiData['current_jieqi_start'];
         dd($currentJieqiStart);
@@ -703,6 +705,8 @@ class Home extends WebController {
 
     // 陰盤 - 取局數方法：年支序數 + 舊曆月數 + 舊曆日數 + 時支序數，總數以 9 除之，取餘數。 其餘數必少於 9，整除作 9 數。
     private function calculateYinPanMethod() {
+        $this->_palaceResult['san_yuan_method'] = 'yinpan';
+        
         $ganzhiYear = mb_substr($this->_ganzhiData['ganzhi_year'], -1);
         foreach ($this->_twelveDiZhi as $diZhiKey => $diZhi) {
             if(md5(trim($ganzhiYear)) == md5(trim($diZhi))) {
