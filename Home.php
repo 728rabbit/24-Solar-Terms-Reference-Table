@@ -643,7 +643,7 @@ class Home extends WebController {
                 $sanYuanLoop++;
             }
             else {
-                // “符頭” 比節氣晚
+                // “符頭” 比節氣晚， 額外補充第3個三元範
                 if($calcIndex == 'current' && (strtotime($firstFutouDateTime) > strtotime($this->_ganzhiData['jieqi_range'][$calcIndex]['datetime']))) {
                     $startDateTime = $this->_ganzhiData['jieqi_range'][$calcIndex]['datetime'];
                     $endDateTime = date('Y-m-d H:i:s', (strtotime($firstFutouDateTime) -1));
