@@ -205,7 +205,7 @@ class BaZiCalculator {
     
     // 新曆轉成農曆
     private function solarToLunar($dateTime, $zone = 'hong_kong'){
-        // 轉換成香港時間
+        // 轉換成香港(8+)時間
         $dateTime = $this->convert2HKT($dateTime, $zone);
         
         // 轉換成秒
@@ -324,8 +324,11 @@ class BaZiCalculator {
 
     // 主函數
     public function calculate($dateTime, $zone = 'hong_kong'){
+        // 轉換成香港(8+)時間
+        $hkDateTime = $this->convert2HKT($dateTime, $zone);
+        
         $result = [];
-        $selectedYear = intval(date('Y', strtotime($dateTime)));
+        $selectedYear = intval(date('Y', strtotime($hkDateTime)));
  
         // 限制範圍
         if($selectedYear >= 1970 && $selectedYear <= 2100) {
@@ -339,7 +342,7 @@ class BaZiCalculator {
                         foreach ($xmlData->term as $term) {
                             $name = (string)$term->name;
                             $date = (string)$term->date;
-                            $yearData[$name] = $date;
+                            $yearData[$name] = $this->ceilToMinute($date);
                         }
                         $this->solarTerms[$year] = $yearData;
                     }
@@ -349,31 +352,36 @@ class BaZiCalculator {
             // 開始計算
             if(!empty($this->solarTerms)) {
                 if(!empty($this->solarTerms[($selectedYear-1)]) && !empty($this->solarTerms[$selectedYear]) && !empty($this->solarTerms[($selectedYear+1)])) {
-                    // 農曆
-                    $lunar = $this->solarToLunar($dateTime, $zone);
+                    $lunar = $this->solarToLunar($hkDateTime);
+                    
+                    // “23:00:00 ~ 00:00:00” 為下一天開始， 計算天干地支要加 1 小時
+                    $ganzhiDateTime = $hkDateTime;
+                    if((int)date('H', strtotime($hkDateTime)) == 23) {
+                        $ganzhiDateTime = date('Y-m-d H:i:s', strtotime($ganzhiDateTime) + 3600);
+                    }
 
                     // 年干支
-                    $yearGZ = $this->getYearGanzhi($dateTime);
-                    $yearStem = mb_substr($yearGZ,0,1);
+                    $yearGZ = $this->getYearGanzhi($ganzhiDateTime);
+                    $yearStem = mb_substr($yearGZ, 0, 1);
 
                     // 月干支
-                    $monthBranch = $this->getMonthBranch($dateTime);
+                    $monthBranch = $this->getMonthBranch($ganzhiDateTime);
                     $monthStem = $this->getMonthStem($yearStem, $monthBranch);
                     $monthGZ = $monthStem.$monthBranch;
 
                     // 日干支
-                    $dayGZ = $this->getDayGanzhi($dateTime);
-                    $dayStem = mb_substr($dayGZ,0,1);
+                    $dayGZ = $this->getDayGanzhi($ganzhiDateTime);
+                    $dayStem = mb_substr($dayGZ, 0, 1);
 
                     // 時干支
-                    $hourGZ = $this->getHourGanzhi($dateTime,$dayStem);
+                    $hourGZ = $this->getHourGanzhi($ganzhiDateTime, $dayStem);
 
                     // 結果
                     $result =  
                     [
                         'datetime'      =>  $dateTime,
                         'time_zone'     =>  $zone,
-                        'datetime_hk'   =>  $this->convert2HKT($dateTime, $zone),
+                        'datetime_hk'   =>  $hkDateTime,
                         'lunar'         =>  $lunar,
                         'ganzhi_year'   =>  $yearGZ,
                         'ganzhi_month'  =>  $monthGZ,
@@ -432,5 +440,28 @@ class BaZiCalculator {
         } catch (Exception $e) {
             return "Error: " . $e->getMessage();
         }
+    }
+    
+    private function ceilToMinute($time, $format = 'Y-m-d H:i:s')
+    {
+        if (is_numeric($time)) {
+            $timestamp = $time;
+        } else {
+            $timestamp = strtotime($time);
+        }
+
+        if ($timestamp === false) {
+            return false;
+        }
+
+        // 如果有秒數（> 0），則進位到下一分鐘
+        if (date('s', $timestamp) > 0) {
+            $timestamp = strtotime('+1 minute', $timestamp);
+        }
+
+        // 將秒數歸零
+        $timestamp = strtotime(date('Y-m-d H:i:00', $timestamp));
+
+        return date($format, $timestamp);
     }
 }
