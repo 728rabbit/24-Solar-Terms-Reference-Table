@@ -13,7 +13,6 @@ hkolunar/1970.xml ~ hkolunar/2100.xml: 新舊歷 XML 檔案
 
 BaZiCalculator.php: 計算 1970 ~ 2100 之間的八字 (年月日時的天干地支)
 
-    // 使用方法：
     $bazi = new BaZiCalculator('your_solarterms_folder_location');
     $result = $bazi->calculate('2026-02-06 13:40:50');
     
@@ -22,5 +21,5 @@ BaZiCalculator.php: 計算 1970 ~ 2100 之間的八字 (年月日時的天干地
     $result = $bazi->calculate('2026-02-06 13:40:50', 'new_york');
 
 備注：
-1. 計算日期時間 (e.g. 2026-02-06 13:40:50) 以時區(8+) 為標準進行計算
+1. 計算日期時間 (e.g. 2026-02-06 13:40:50) 以時區(8+) 為標準進行計算， 默認時區為 hong_kong
 2. 區間 “23:00:00 ~ 00:00:00” 子時，為下一天開始，這裏特殊處理，計算天干地支時，會加 1 小時
