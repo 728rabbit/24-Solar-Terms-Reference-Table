@@ -245,6 +245,12 @@ class Home extends WebController {
         8   => ['丁', '己', '庚'],
         6   => ['乙', '丙', '戊']
     ];
+    
+    protected $_rumuFixedMin = 
+    [
+        8   => ['丁'],
+        6   => ['乙', '丙']
+    ];
 
     public function __construct($data) {
         parent::__construct($data);
@@ -275,9 +281,7 @@ class Home extends WebController {
         //$testDateTime = '2015-05-22 19:22:00'; // 隱干有問題 
         
         //$testDateTime = '2001-11-28 05:39:00'  // 拆補 + 置閏
-        //$testDateTime = '2011-09-10 09:49:00'
-        //$testDateTime = '2009-07-02 12:32:00'
-        //$testDateTime = '2009-06-23 13:45:29'
+
   
         if(!empty($_GET['date'])) {
             $testDateTime = $_GET['date'];
@@ -429,6 +433,7 @@ class Home extends WebController {
                             $allSTS[$year.'_'.$name] = $time;
                         }
                     }
+                    //dump($allSTS);
                     $this->_ganzhiData['jieqi_range'] = $this->getSolarTermsRange($this->_ganzhiData['datetime_hk'], $allSTS); 
                 }
             }
@@ -922,12 +927,14 @@ class Home extends WebController {
     protected function setRuMu() {
         // 速查入墓對照表
         foreach ($this->_palaceResult['grid'] as $gridKey => $grid) {
-            if(!empty($this->_rumuFixed[$grid['index']])) {
+            // 陰盤全入墓， 陽盤只有三奇入墓
+            $rumuFixedMap = ($this->_palaceResult['san_yuan_method'] == 'zhirun')?$this->_rumuFixed:$this->_rumuFixedMin;
+            if(!empty($rumuFixedMap[$grid['index']])) {
                 foreach (['earth', 'earth_alias', 'tian', 'tian_alias'] as $findIndex) {
                     if(!empty($grid[$findIndex])) {
                         $arr = array_unique(array_filter(mb_str_split($grid[$findIndex])));
                         foreach ($arr as $char) {
-                            if(in_array($char, $this->_rumuFixed[$grid['index']])) {
+                            if(in_array($char, $rumuFixedMap[$grid['index']])) {
                                 if(in_array($findIndex, ['earth', 'earth_alias'])) {
                                     $this->_palaceResult['grid'][$gridKey]['ru_mu_earth'][] = $char;
                                 }
