@@ -412,6 +412,14 @@ class Home extends WebController {
                 $this->_ganzhiData['ganzhi_day'] = $baziResult['ganzhi_day'];
                 $this->_ganzhiData['ganzhi_hour'] = $baziResult['ganzhi_hour'];
                 
+                $this->_ganzhiData['lunar_shengxiao'] = $baziResult['lunar']['zodiac'];
+                $this->_ganzhiData['lunar_year'] = $baziResult['lunar']['year'];
+                $this->_ganzhiData['lunar_month'] = (!empty($baziResult['lunar']['is_leap'])?($baziResult['lunar']['month']*-1):$baziResult['lunar']['month']);
+                $this->_ganzhiData['lunar_day'] = $baziResult['lunar']['day'];
+                $this->_ganzhiData['lunar_year_chinese'] = $baziResult['lunar']['year_chinese'];
+                $this->_ganzhiData['lunar_month_chinese'] = $baziResult['lunar']['month_chinese'];
+                $this->_ganzhiData['lunar_day_chinese'] = $baziResult['lunar']['day_chinese'];
+                
                 $listSolarTerms = $baziResult['jieqi_table'];
                 if(!empty($listSolarTerms)) {
                     // 本年夏至
@@ -438,6 +446,8 @@ class Home extends WebController {
                 }
             }
         }
+        
+        //dump($this->_ganzhiData);
         
         $this->_palaceResult['datetime'] = $currentDateTime;
         $this->_palaceResult['time_zone'] = $this->getParamValue('time_zone', 'hong_kong');
