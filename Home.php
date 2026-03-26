@@ -27,7 +27,6 @@ class Home extends WebController {
         'ganzhi_hour'       =>  '',
         
         'san_yuan_method'   =>  '',
-        'san_yuan_range'    =>  [],
         'san_yuan_chaibu'   =>  [],
         
         'dun_index'         =>  0,   // 1.陽 or 2.陰
@@ -277,6 +276,8 @@ class Home extends WebController {
         
         //$testDateTime = '2001-11-28 05:39:00'  // 拆補 + 置閏
         //$testDateTime = '2011-09-10 09:49:00'
+        //$testDateTime = '2009-07-02 12:32:00'
+        //$testDateTime = '2009-06-23 13:45:29'
   
         if(!empty($_GET['date'])) {
             $testDateTime = $_GET['date'];
@@ -293,7 +294,7 @@ class Home extends WebController {
         
         echo '<p style="padding:0;margin:0;">盤局: '.(($this->_palaceResult['dun_index'] == 1)?'陽':'陰').' '.$this->_palaceResult['dun_number'].' 局</p>';
         if(!empty($this->_palaceResult['san_yuan_chaibu'])) {
-            echo '<p style="padding:0;margin:0;">'.$this->_palaceResult['san_yuan_method'].' | '. implode(' | ', $this->_palaceResult['san_yuan_chaibu']).'</p>';
+            echo '<p style="padding:0;margin:0;">'.$this->_palaceResult['san_yuan_method'].' | '.$this->_palaceResult['san_yuan_chaibu'].'</p>';
         }
         
         echo '<p style="padding:0;margin:0;">旬首: '.$this->_palaceResult['lead'].'</p>';
@@ -400,6 +401,8 @@ class Home extends WebController {
             $this->_biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path()));
             $baziResult = $this->_biziLib->calculate($currentDateTime, $this->getParamValue('time_zone', 'hong_kong'));
             if(!empty($baziResult)) {
+                //dump($baziResult);
+                
                 $this->_ganzhiData['ganzhi_year'] = $baziResult['ganzhi_year'];
                 $this->_ganzhiData['ganzhi_month'] = $baziResult['ganzhi_month'];
                 $this->_ganzhiData['ganzhi_day'] = $baziResult['ganzhi_day'];
@@ -539,142 +542,30 @@ class Home extends WebController {
         $this->_palaceResult['dun_number'] = $this->_yyDunNumber;
     }
     
-    // 拆補法
+    // 拆補法： 從交節時間算起至下一個交節時間為止一律使用本節氣三元起局用事，就是說一個節氣之內不得混雜使用其它節氣的局象起局。
     private function calculateChaiBuMethod() {
         $this->_palaceResult['san_yuan_method'] = 'chaibu';
-        
-        $sanYuanArr = [];
-        $sanYuanLoop = 1;
-
-        // 節氣三元， “子時 23:00:00” 為下一天開始 
-        foreach (['previous', 'current'] as $calcIndex) {
-            $sanYuanOrderNumber = ['上' => 0, '中' => 1, '下' => 2];
-            $sanYuanOrder = ['上', '中', '下'];
-            $firstFutouDateTime = ''; 
-            $loopDateTime = $this->_ganzhiData['jieqi_range'][$calcIndex]['datetime'];
-            do {
-                // 從節氣第一天開始遞加，尋找其符頭(以 “甲” 或 “己” 開頭)
-                $PreBaziResult = $this->_biziLib->calculate($loopDateTime);
-                if(!empty($PreBaziResult)) {
-                    $ganzhiDay = $PreBaziResult['ganzhi_day'];
-                    if(in_array(mb_substr($ganzhiDay, 0, 1), ['甲', '己'])) {
-                        $firstFutouDateTime = $loopDateTime;
+        $this->_yyDunNumber = 9;
+        if(!empty($this->_ganzhiData['jieqi_range'])) {
+            $currentJieqiName = explode('_', $this->_ganzhiData['jieqi_range']['current']['name']);
+            
+            // 根據日天干，查找其索引
+            $sanYuanIndex = 0;
+            foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
+                if(in_array($this->_ganzhiData['ganzhi_day'], $arrValues)) {
+                    if(in_array($key, [21, 22, 23, 24])) {
+                        $sanYuanIndex = 1;
                     }
-
-                    // 根據符頭重新排三元 => "新順序三元"
-                    if($firstFutouDateTime) {
-                        foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
-                            if(in_array($ganzhiDay, $arrValues)) {
-                                if(in_array($key, [21, 22, 23, 24])) {
-                                    $sanYuanOrder = ['中', '下', '上'];
-                                }
-                                else if(in_array($key, [31, 32, 33, 34])) {
-                                    $sanYuanOrder = ['下', '上', '中'];
-                                }
-                                break;
-                            }
-                        }
+                    else if(in_array($key, [31, 32, 33, 34])) {
+                        $sanYuanIndex = 2;
                     }
-                    else {
-                        $loopDateTime = date('Y-m-d H:i:s', (strtotime($loopDateTime) + 24 *3600));
-                    }
-                }
-            } while ((strtotime($loopDateTime) <= strtotime($this->_ganzhiData['jieqi_range'][(($calcIndex == 'current')?'next':'current')]['datetime'])) && empty($firstFutouDateTime));
-            
-            // 從 “符頭” 那天開始遞加，每5天為1元
-            $futouBaziResult = $this->_biziLib->calculate($firstFutouDateTime);
-            $futouGanzhiHour = $futouBaziResult['ganzhi_hour'];
-            
-            // 第1個三元範圍
-            $startDateTime = $firstFutouDateTime;
-            if(mb_substr($futouGanzhiHour, -1) != '子') {
-                $endDateTime = date('Y-m-d H:i:s', (strtotime((date('Y-m-d', strtotime($firstFutouDateTime)).' 22:59:59')) + 4 * 24 *3600));
-            }
-            else {
-                $endDateTime = date('Y-m-d H:i:s', (strtotime((date('Y-m-d', strtotime($firstFutouDateTime)).' 22:59:59')) + 5 * 24 *3600));
-            }
-            $sanYuanArr[$sanYuanLoop] = 
-            [
-                'number'    =>  $sanYuanOrderNumber[$sanYuanOrder[0]],
-                'name'      =>  ($this->_ganzhiData['jieqi_range'][$calcIndex]['name'].'_'.$sanYuanOrder[0]), 
-                'start'     =>  $startDateTime, 
-                'end'       =>  $endDateTime
-            ];
-            $sanYuanLoop++;
-            
-            // 第2個三元範圍
-            $startDateTime = date('Y-m-d H:i:s', (strtotime($sanYuanArr[$sanYuanLoop-1]['end']) + 1));
-            $endDateTime = date('Y-m-d H:i:s', (strtotime($startDateTime) + 5 * 24 *3600 - 1));
-            $sanYuanArr[$sanYuanLoop] = 
-            [
-                'number'    =>  $sanYuanOrderNumber[$sanYuanOrder[1]],
-                'name'      =>  ($this->_ganzhiData['jieqi_range'][$calcIndex]['name'].'_'.$sanYuanOrder[1]), 
-                'start'     =>  $startDateTime,
-                'end'       =>  $endDateTime
-            ];
-            $sanYuanLoop++;
-            
-            // 第3個三元範圍
-            $startDateTime = date('Y-m-d H:i:s', (strtotime($sanYuanArr[$sanYuanLoop-1]['end']) + 1));
-            $endDateTime = date('Y-m-d H:i:s', (strtotime($startDateTime) + 5 * 24 *3600 - 1));
-            if(strtotime($endDateTime) > strtotime($this->_ganzhiData['jieqi_range'][(($calcIndex == 'current')?'next':'current')]['datetime'])) {
-                $endDateTime = date('Y-m-d H:i:s', (strtotime($this->_ganzhiData['jieqi_range'][(($calcIndex == 'current')?'next':'current')]['datetime']) -1));
-            }
-            $sanYuanArr[$sanYuanLoop] = 
-            [
-                'number'    =>  $sanYuanOrderNumber[$sanYuanOrder[2]],
-                'name'      =>  ($this->_ganzhiData['jieqi_range'][$calcIndex]['name'].'_'.$sanYuanOrder[2]), 
-                'start'     =>  $startDateTime,
-                'end'       =>  $endDateTime
-            ];
-            $sanYuanLoop++;
-            
-            // 如果還未到達下一個節氣， 額外補充第1個三元範圍
-            if((strtotime($sanYuanArr[$sanYuanLoop-1]['end'])+1) < strtotime($this->_ganzhiData['jieqi_range'][(($calcIndex == 'current')?'next':'current')]['datetime'])) {
-                $startDateTime = date('Y-m-d H:i:s', (strtotime($sanYuanArr[$sanYuanLoop-1]['end']) + 1));
-                $endDateTime = date('Y-m-d H:i:s', (strtotime($this->_ganzhiData['jieqi_range'][(($calcIndex == 'current')?'next':'current')]['datetime']) -1));
-                $sanYuanArr[$sanYuanLoop] = 
-                [
-                    'number'    =>  $sanYuanOrderNumber[$sanYuanOrder[0]],
-                    'name'      =>  ($this->_ganzhiData['jieqi_range'][$calcIndex]['name'].'_'.$sanYuanOrder[0]), 
-                    'start'     =>  $startDateTime,
-                    'end'       =>  $endDateTime
-                ];
-                $sanYuanLoop++;
-            }
-            else {
-                // “符頭” 比節氣晚， 額外補充第3個三元範
-                if($calcIndex == 'current' && (strtotime($firstFutouDateTime) > strtotime($this->_ganzhiData['jieqi_range'][$calcIndex]['datetime']))) {
-                    $startDateTime = $this->_ganzhiData['jieqi_range'][$calcIndex]['datetime'];
-                    $endDateTime = date('Y-m-d H:i:s', (strtotime($firstFutouDateTime) -1));
-                    $sanYuanArr[$sanYuanLoop] = 
-                    [
-                        'number'    =>  $sanYuanOrderNumber[$sanYuanOrder[2]],
-                        'name'      =>  ($this->_ganzhiData['jieqi_range'][$calcIndex]['name'].'_'.$sanYuanOrder[2]), 
-                        'start'     =>  $startDateTime,
-                        'end'       =>  $endDateTime
-                    ];
-                    $sanYuanLoop++;
-                }
-            }
-        }
-        
-        // 按時間先後次序排一次
-        usort($sanYuanArr, function($a, $b) {
-            return strtotime($a['start']) - strtotime($b['start']);
-        });
-        
-        // 對比三元時間區間，然後查表
-        if(!empty($sanYuanArr)) {
-            $this->_palaceResult['san_yuan_range'] = $sanYuanArr;
-            foreach ($sanYuanArr as $sanYuan) {
-                if((strtotime($sanYuan['start']) <= strtotime($this->_ganzhiData['datetime_hk'])) && (strtotime($this->_ganzhiData['datetime_hk']) <= strtotime($sanYuan['end']))) {
-                    $this->_palaceResult['san_yuan_chaibu'] = $sanYuan;
-                    $findJieqiName = explode('_', $sanYuan['name']);
-                    $this->_yyDunNumber = $this->_jieqiSanYuanTable[$findJieqiName[1]][$sanYuan['number']];
                     break;
                 }
             }
+            
+            $sanYuanOrderNumber = [0 => '上', 1 => '中', 2 => '下'];
+            $this->_palaceResult['san_yuan_chaibu'] = implode('-', $currentJieqiName).'-'.$sanYuanOrderNumber[$sanYuanIndex];
+            $this->_yyDunNumber = $this->_jieqiSanYuanTable[$currentJieqiName[1]][$sanYuanIndex];
         }
     }
 
