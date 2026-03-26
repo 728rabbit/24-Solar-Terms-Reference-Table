@@ -342,7 +342,8 @@ class BaZiCalculator {
                         foreach ($xmlData->term as $term) {
                             $name = (string)$term->name;
                             $date = (string)$term->date;
-                            $yearData[$name] = $this->ceilToMinute($date);
+                            $yearData[$name] = $date;
+                            //$yearData[$name] = $this->ceilToMinute($date);
                         }
                         $this->solarTerms[$year] = $yearData;
                     }
