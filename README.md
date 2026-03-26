@@ -16,3 +16,5 @@ BaZiCalculator.php: 計算 1970 ~ 2100 之間的八字 (年月日時的天干地
     // 使用方法：
     $bazi = new BaZiCalculator('your_solarterms_folder_location');
     $result = $bazi->calculate('2026-02-06 13:40:50');
+
+備注： 區間 “23:00:00 ~ 00:00:00” 子時，為下一天開始，這裏特殊處理，計算天干地支時，會加 1 小時
