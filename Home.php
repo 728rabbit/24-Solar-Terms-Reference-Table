@@ -11,35 +11,35 @@ class Home extends WebController {
     protected $_ganzhiData;
     protected $_palaceResult = 
     [
-        'datetime'          =>  '',
-        'time_zone'         =>  'hong_kong',
-        'datetime_hk'       =>  '',
-        'lunar_shengxiao'   =>  '',
-        'lunar_year'        =>  0,
-        'lunar_month'       =>  0,
-        'lunar_day'         =>  0,
+        'datetime'              =>  '',
+        'time_zone'             =>  'hong_kong',
+        'datetime_hk'           =>  '',
+        'lunar_shengxiao'       =>  '',
+        'lunar_year'            =>  0,
+        'lunar_month'           =>  0,
+        'lunar_day'             =>  0,
         'lunar_year_chinese'    => '',
         'lunar_month_chinese'   => '',
         'lunar_day_chinese'     => '',
-        'ganzhi_year'       =>  '',
-        'ganzhi_month'      =>  '',
-        'ganzhi_day'        =>  '',
-        'ganzhi_hour'       =>  '',
+        'ganzhi_year'           =>  '',
+        'ganzhi_month'          =>  '',
+        'ganzhi_day'            =>  '',
+        'ganzhi_hour'           =>  '',
         
-        'san_yuan_method'   =>  '',
-        'san_yuan_chaibu'   =>  [],
+        'san_yuan_method'       =>  '',
+        'san_yuan_chaibu'       =>  [],
         
-        'dun_index'         =>  0,   // 1.陽 or 2.陰
-        'dun_number'        =>  0,   // 局數
-        'lead'              =>  '',  // 旬首
-        'zhi_ori_index'     =>  '',  // 原值符/使宮位
-        'zhi_fu'            =>  '',  // 值符
-        'zhi_shi'           =>  '',  // 值使宮位,
-        'zhi_fu_index'      =>  '',  // 值符宮位
-        'zhi_shi_index'     =>  '',
+        'dun_index'             =>  0,   // 1.陽 or 2.陰
+        'dun_number'            =>  0,   // 局數
+        'lead'                  =>  '',  // 旬首
+        'zhi_ori_index'         =>  '',  // 原值符/使宮位
+        'zhi_fu'                =>  '',  // 值符
+        'zhi_shi'               =>  '',  // 值使宮位,
+        'zhi_fu_index'          =>  '',  // 值符宮位
+        'zhi_shi_index'         =>  '',
         
         // 九宮格
-        'grid'              =>
+        'grid'                  =>
         [
             4 => ['index' => 4, 'name' => '巽', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => ''],
             9 => ['index' => 9, 'name' => '離', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => ''],
@@ -54,8 +54,15 @@ class Home extends WebController {
             6 => ['index' => 6, 'name' => '乾', 'shen' => '', 'star' => '', 'gate' => '', 'tian' => '', 'earth' => '']
         ],
         
-        'kong_wang'          =>  [],
-        'yi_ma'              =>  []
+        'kong_wang'             =>  [],
+        'yi_ma'                 =>  [], 
+        
+        'highlight_method'      =>  'self',    // 自占
+        'highlight_type'        =>  'event',   // 事情
+        'highlight_index_1'     =>  'day',     // 日天干
+        'highlight_index_2'     =>  'hour',    // 時天干
+        'highlight_grid'        =>  [],
+        'highlight_grid_shift'  =>  0,
     ];
 
     // 1. 陽： 冬至 -> 夏至
@@ -224,6 +231,21 @@ class Home extends WebController {
         6   => ['景']
     ];
     
+    // 宮逼
+    protected $_gongBiFixed =
+    [
+        4   => ['生', '死'],
+        9   => ['開', '驚'],
+        2   => ['休'],
+        
+        3   => ['生', '死'],
+        7   => ['傷', '杜'],
+        
+        8   => ['休'],
+        1   => ['景'],
+        6   => ['傷', '杜']
+    ];
+    
     // 擊刑
     protected $_jixingFixed =
     [
@@ -258,16 +280,11 @@ class Home extends WebController {
         // Point to the correct class and function
         $this->_currentRouter['class'] = 'home';
         $this->_currentRouter['function'] = 'index';
-        
-        $this->_ganzhiLib = (new \App\Libs\calendar\GanZhi());
     }
 
     public function index() {
+        
         ini_set('max_execution_time', 0);
- 
-        // Get Page data
-        $targetPage = $this->loadModel('page')->getByID(1, $this->_currentLangIndex);
-
         $testDateTime = $this->randomDate('1990-01-01', '2040-01-01');
         
         // 特殊case
@@ -280,17 +297,55 @@ class Home extends WebController {
         //$testDateTime = '2024-08-10 05:30:00'; // 隱干有問題 
         //$testDateTime = '2015-05-22 19:22:00'; // 隱干有問題 
         
-        //$testDateTime = '2001-11-28 05:39:00'  // 拆補 + 置閏
+        //$testDateTime = '2001-11-28 05:39:00'; // 拆補 + 置閏
+        
+        //$testDateTime = '2016-06-20 23:03:00'; // 轉宮
+        //$testDateTime = '2011-07-04 00:54:00';
 
   
         if(!empty($_GET['date'])) {
             $testDateTime = $_GET['date'];
         }
-        
-        $method = $this->getParamValue('method', 3);
-        $this->startProcess($testDateTime, $method);
+       
+        $this->_palaceResult['highlight_method'] =  $this->getParamValue('highlight_method', 'self');
+        $this->_palaceResult['highlight_type'] =  $this->getParamValue('highlight_type', 'event');
+        $this->_palaceResult['highlight_index_1'] =  $this->getParamValue('highlight_index_1', 'day');
+        $this->_palaceResult['highlight_index_2'] =  $this->getParamValue('highlight_index_2', 'hour');
+        $this->startProcess($testDateTime, $this->getParamValue('method', 3));
         
         //dump($this->_palaceResult);
+
+        echo '<form>';
+            echo '<table>';
+                echo '<tr><td>日期時間:</td><td><input type="text" name="date"/></td></tr>';
+                echo '<tr><td>排盤方式:</td><td><select name="method"><option value="3">陰</option><option value="1"'.(($this->getParamValue('method', 3) == 1)?' selected':'').'>陽</option></select></td></tr>';
+                
+                echo '<tr><td>場合:</td><td><select name="highlight_method"><option value="self"'.(($this->_palaceResult['highlight_method'] == 'self')?' selected':'').'>自佔</option><option value="remote"'.(($this->_palaceResult['highlight_method'] != 'self')?' selected':'').'>隔空</option></select></td></tr>';
+            
+                echo '<tr><td>類別:</td><td><select name="highlight_type"><option value="event">一般問事</option><option value="love"'.(($this->_palaceResult['highlight_type'] == 'love')?' selected':'').'>愛情</option></select></td></tr>';
+            
+                echo '<tr><td>問者天干:</td><td><select name="highlight_index_1">';
+                echo '<option value="year"'.(($this->_palaceResult['highlight_index_1'] == 'year')?' selected':'').'>年</option>';
+                echo '<option value="month"'.(($this->_palaceResult['highlight_index_1'] == 'month')?' selected':'').'>月</option>';
+                echo '<option value="day"'.(($this->_palaceResult['highlight_index_1'] == 'day')?' selected':'').'>日</option>';
+                echo '<option value="hour"'.(($this->_palaceResult['highlight_index_1'] == 'hour')?' selected':'').'>時</option>';
+                echo '</select></td></tr>';
+            
+                
+                echo '<tr><td>問事天干:</td><td><select name="highlight_index_2">';
+                echo '<option value="year"'.(($this->_palaceResult['highlight_index_2'] == 'year')?' selected':'').'>年</option>';
+                echo '<option value="month"'.(($this->_palaceResult['highlight_index_2'] == 'month')?' selected':'').'>月</option>';
+                echo '<option value="day"'.(($this->_palaceResult['highlight_index_2'] == 'day')?' selected':'').'>日</option>';
+                echo '<option value="hour"'.(($this->_palaceResult['highlight_index_2'] == 'hour')?' selected':'').'>時</option>';
+                echo '</select></td></tr>';
+                
+                
+                echo '<tr><td colspan="2"><button type="submit">排盤</button></td></tr>';
+                
+            echo '</table>';
+        echo '</form>';
+        
+        echo '<hr/>';
         
         echo '<p style="padding:0;margin:0;">陽曆: '.$this->_palaceResult['datetime_hk'].'</p>';
         echo '<p style="padding:0;margin:0;">農曆: '.implode(' - ', [$this->_palaceResult['lunar_year_chinese'], $this->_palaceResult['lunar_month_chinese'], $this->_palaceResult['lunar_day_chinese']]).'</p>';
@@ -307,7 +362,12 @@ class Home extends WebController {
         
         echo '<div style="width:600px;">';
         foreach ($this->_palaceResult['grid'] as $grid) {
-            echo '<div style="position:relative;display:inline-block;width:28%;padding:10px;border:2px solid #ddd">';
+            if($grid['index'] == $this->_palaceResult['highlight_grid_shift']) {
+                echo '<div style="position:relative;display:inline-block;width:28%;padding:10px;border:2px solid green">';
+            }
+            else {
+                echo '<div style="position:relative;display:inline-block;width:28%;padding:10px;border:2px solid #ddd">';
+            }
             
             echo $grid['index'].' | '.$grid['name'];
             echo '<br/>';
@@ -319,10 +379,26 @@ class Home extends WebController {
             echo '<br/>';
             echo '星： '.(!empty($grid['star_alias'])?$grid['star_alias']:$grid['star']);
             echo '<br/>';
-            echo '門： '.(!empty($grid['gate_alias'])?$grid['gate_alias']:$grid['gate']).(!empty($grid['men_po'])?' (門迫)':'');
+            echo '門： '.(!empty($grid['gate_alias'])?$grid['gate_alias']:$grid['gate']).(!empty($grid['men_po'])?' (門迫)':'').(!empty($grid['goog_bi'])?' (宮逼)':'');
             echo '<br/>';
             echo '<br/>';
+            
+            if(!empty($grid['highlight_1'])) {
+                echo '<div style="border:2px solid blue;">';
+            }
+            else {
+                echo '<div style="border:2px solid white;">';
+            }
+            if(!empty($grid['highlight_2'])) {
+                 echo '<div style="border:2px solid red;">';
+            }
+            else {
+                echo '<div style="border:2px solid white;">';
+            }
             echo '天： '.(!empty($grid['tian_alias'])?$grid['tian_alias']:$grid['tian']).(!empty($grid['ji_xing_tian'])?' (擊刑)':'').(!empty($grid['ru_mu_tian'])?' (入墓)':'');
+            echo '</div>';
+            echo '</div>';
+            
             echo '<br/>';
             echo '地： '.(!empty($grid['earth_alias'])?$grid['earth_alias']:$grid['earth']).(!empty($grid['ji_xing_earth'])?' (擊刑)':'').(!empty($grid['ru_mu_earth'])?' (入墓)':'');
             
@@ -337,6 +413,11 @@ class Home extends WebController {
         echo '</div>';
         
         die();
+        
+        
+        // Get Page data
+        $targetPage = $this->loadModel('page')->getByID(1, $this->_currentLangIndex);
+        
         // Load view
         return $this->pageData(
         [
@@ -385,17 +466,24 @@ class Home extends WebController {
         // 門迫
         $this->setMenPo();
         
+        // 宮逼
+        $this->setGongBi();
+        
         // 擊刑
         $this->setJiXing();
         
         // 入墓
         $this->setRuMu();
-        
+
         // 隱干
         $this->setYinGan();
+        
+        // 轉宮
+        $this->setHighlight();
     }
 
     protected function getDanZhi($currentDateTime) {
+        $this->_ganzhiLib = (new \App\Libs\calendar\GanZhi());
         $this->_ganzhiData = $this->_ganzhiLib->convert($currentDateTime);
         
         //dump($this->_ganzhiData);
@@ -617,8 +705,7 @@ class Home extends WebController {
             $this->_yyDunNumber = 9;
         }
     }
-
-    
+   
     // 排九宮格
     protected function setEarth() {
         // 以 “局數” 開始點，按洛書宮序(陽順陰逆)， 排 “戊己庚申壬癸丁丙乙”
@@ -911,6 +998,17 @@ class Home extends WebController {
         }
     }
     
+    protected function setGongBi() {
+        // 速查宮逼對照表
+        foreach ($this->_palaceResult['grid'] as $gridKey => $grid) {
+            if(!empty($this->_gongBiFixed[$grid['index']])) {
+                if(in_array($grid['gate'], $this->_gongBiFixed[$grid['index']])) {
+                    $this->_palaceResult['grid'][$gridKey]['goog_bi'] = $grid['gate'];
+                }
+            }
+        }
+    }
+    
     protected function setJiXing() {
         // 速查擊刑對照表
         foreach ($this->_palaceResult['grid'] as $gridKey => $grid) {
@@ -938,7 +1036,7 @@ class Home extends WebController {
         // 速查入墓對照表
         foreach ($this->_palaceResult['grid'] as $gridKey => $grid) {
             // 陰盤全入墓， 陽盤只有三奇入墓
-            $rumuFixedMap = ($this->_palaceResult['san_yuan_method'] == 'zhirun')?$this->_rumuFixed:$this->_rumuFixedMin;
+            $rumuFixedMap = ($this->_palaceResult['san_yuan_method'] == 'yinpan')?$this->_rumuFixed:$this->_rumuFixedMin;
             if(!empty($rumuFixedMap[$grid['index']])) {
                 foreach (['earth', 'earth_alias', 'tian', 'tian_alias'] as $findIndex) {
                     if(!empty($grid[$findIndex])) {
@@ -996,6 +1094,140 @@ class Home extends WebController {
             foreach ($circlePattern as $circleIndex => $circleValue) {
                 $this->_palaceResult['grid'][$circleValue]['yin_gan'] = $tianArr[$loop];
                 $loop++;
+            }
+        }
+    }
+    
+    protected function setHighlight() {
+        // 標記天干： 
+        // 1. 當時人 - 現場使用 “日干”, 隔空使用 “月干”
+        // 2. 查詢的事情 - 使用 “時干”
+        // 3. 問關係
+        //    3.1. 愛情： 天干相合 - 甲己合、乙庚合、丙辛合、丁壬合、戊癸合
+        //    3.2. 非愛情： 長輩使用 “年干” | 同輩現場使用 “月干”, 隔空使用 “日干” | 晚輩使用 “時干”
+        
+        // 天盤干遇「甲」
+        // 陽盤用「旬首甲」：甲子（戊）、甲戌（己）、甲申（庚）、甲午（辛）、甲辰（壬）、甲寅（癸）
+        // 陰盤用「八神的“符”」
+        
+        // 尋找 9 宮格位置
+        $ganValue1 = $this->_palaceResult['ganzhi_'.$this->_palaceResult['highlight_index_1']];
+        $ganValue1 = mb_substr($ganValue1, 0, 1);
+        
+        $ganValue2 = $this->_palaceResult['ganzhi_'.$this->_palaceResult['highlight_index_2']];
+        $ganValue2 = mb_substr($ganValue2, 0, 1);
+         
+        if($this->_palaceResult['highlight_type'] == 'love') {
+            // 天干相合
+            $mixed = [['甲', '己'], ['乙', '庚'], ['丙', '辛'], ['丁', '壬'], ['戊', '癸']];
+            
+            // 根據組合， 重新定義 $ganValue2
+            foreach ($mixed as $pair) {
+                if(in_array($ganValue1, $pair)) {
+                    $ganValue2 = (($pair[0] == $ganValue1)?$pair[1]:$pair[0]);
+                    break;   
+                }
+            }
+        }
+        else if($this->_palaceResult['highlight_type'] == 'yin2yang') {
+            // 陰陽互換
+            $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
+            
+            // 根據組合， 重新定義 $ganValue2
+            foreach ($mixed as $pair) {
+                if(in_array($ganValue2, $pair)) {
+                    $ganValue2 = (($pair[0] == $ganValue2)?$pair[1]:$pair[0]);
+                    break;  
+                }
+            }
+        }
+        
+        // 輸出結果： 位置 | 天干值 - 0:第一個字 1: 第二個字 2: 八神“符”
+        foreach ([$ganValue1, $ganValue2] as $vKey => $ganValue) {
+            // 尋找 八神的“符” 在什麽宮位
+            if($this->_palaceResult['san_yuan_method'] == 'yinpan' && $ganValue == '甲') {
+                foreach ($this->_palaceResult['grid'] as $key => $gird) {
+                    if($gird['shen'] == '符') {
+                        $this->_palaceResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
+                        $this->_palaceResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                        break;
+                    }
+                }
+            }
+            else {
+                // 旬首
+                if($ganValue == '甲') {
+                    $ganValue = mb_substr($this->_palaceResult['lead'], -1);
+                }
+                foreach ($this->_palaceResult['grid'] as $key => $grid) {
+                    if((int)$grid['index'] != 5) {
+                        $inCenter = ($ganValue == $this->_palaceResult['grid'][5]['tian']);
+                        if($inCenter && !empty($grid['tian_alias']) && (mb_substr($grid['tian_alias'], -1) == $ganValue)) {
+                            $this->_palaceResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [1, $ganValue]);
+                            $this->_palaceResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                            break;
+                        }
+                        else if(mb_substr($grid['tian'], -1) == $ganValue) {
+                            $this->_palaceResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [0, $ganValue]);
+                            $this->_palaceResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // 轉宮
+        if(!empty($this->_palaceResult['highlight_grid'][0]) && !empty($this->_palaceResult['highlight_grid'][1])) {
+            $first = explode('|', $this->_palaceResult['highlight_grid'][0]);
+            $second = explode('|', $this->_palaceResult['highlight_grid'][1]);
+            if(empty($this->_pageAction['kong_wang'])) {
+                $this->_pageAction['kong_wang'] = [-1];
+            }
+            
+            // 問者用神，落宮遇空亡不轉宮
+            if(!in_array((int)$first[0], $this->_pageAction['kong_wang'])) {
+                // 現場占：深挖轉宮
+                $shiftTable = 
+                [
+                    4 => 7, // 4巽 → 7兌
+                    9 => 6, // 9離 → 6乾
+                    2 => 4, // 2坤 → 4巽
+
+                    3 => 9, // 3震 → 9離
+                    7 => 1, // 7兌 → 1坎
+
+                    8 => 3, // 8艮 → 3震
+                    1 => 2, // 1坎 → 2坤
+                    6 => 8, // 6乾 → 8艮
+                ];
+
+                // 遙空斷：飄移轉宮
+                if($this->_palaceResult['highlight_method'] != 'self') {
+                    $shiftTable = 
+                    [
+                        4 => 7, // 4巽 → 2坤
+                        9 => 6, // 9離 → 3震
+                        2 => 4, // 2坤 → 1坎
+
+                        3 => 9, // 3震 → 8艮
+                        7 => 1, // 7兌 → 4巽
+
+                        8 => 3, // 8艮 → 6乾
+                        1 => 2, // 1坎 → 7兌
+                        6 => 8, // 6乾 → 9離
+                    ];
+                } 
+                
+                // 問事用神，落宮遇空亡，自動轉宮
+                if(in_array((int)$second[0], $this->_pageAction['kong_wang'])) {
+                    $this->_palaceResult['highlight_grid_shift'] = $shiftTable[$second[0]];
+                }
+                
+                // 同宮轉宮
+                if((int)$first[0] == (int)$second[0] && empty($this->_palaceResult['highlight_grid_shift'])) {
+                    $this->_palaceResult['highlight_grid_shift'] = $shiftTable[$second[0]];
+                }
             }
         }
     }
