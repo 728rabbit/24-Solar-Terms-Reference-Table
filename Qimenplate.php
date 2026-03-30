@@ -1201,6 +1201,105 @@ class Qimenplate {
                 $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '玉女守門'];
             }
             
+            // 歡怡 
+            // 乙 丙 丁  與 值符星 同宮
+            if(in_array($this->_plateResult['grid'][$this->_plateResult['zhi_fu_index']]['tian'], ['乙', '丙',  '丁'])) {
+                $goodBadReferences[$this->_plateResult['zhi_fu_index']][] = ['type' => 'good', 'name' => '歡怡'];
+            }
+            
+            // 三奇得使
+            if($grid['tian'] == '乙' && $grid['earth'] == '己') {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+            }
+            
+            if($grid['tian'] == '丙' && $grid['earth'] == '戊') {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+            }
+            
+            if($grid['tian'] == '丁' && $grid['earth'] == '壬') {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+            }
+            
+            // 三奇貴人 
+            // 乙 在 3 震 | 丙 在 9 離 | 丁 在 7 兌
+            if($this->_plateResult['grid'][3]['tian'] == '乙') {
+                $goodBadReferences[3][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+            
+            if($this->_plateResult['grid'][9]['tian'] == '丙') {
+                $goodBadReferences[9][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+            
+            if($this->_plateResult['grid'][7]['tian'] == '丁') {
+                $goodBadReferences[7][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+            
+            // 奇遊祿位 
+            // 乙 在 3 震 | 丙 在 4 巽 | 丁 在 7 離
+            if($this->_plateResult['grid'][3]['tian'] == '乙') {
+                $goodBadReferences[3][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+            
+            if($this->_plateResult['grid'][4]['tian'] == '丙') {
+                $goodBadReferences[4][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+            
+            if($this->_plateResult['grid'][9]['tian'] == '丁') {
+                $goodBadReferences[9][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+            
+            // 相佐
+            // 乙 丙 丁(地盤) 與 八神 “值符” 同宮
+            // 尋找 八神的“符” 在什麽宮位
+            foreach ($this->_plateResult['grid'] as $key => $gird) {
+                if($gird['shen'] == '符') {
+                    if(in_array($gird['earth'], ['乙', '丙',  '丁'])) {
+                        $goodBadReferences[$gird['index']][] = ['type' => 'good', 'name' => '相佐'];
+                    }
+                    break;
+                }
+            }
+            
+            // 相儀相合
+            $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
+            $search = array_unique([$grid['tian'], $grid['earth']]);
+            foreach ($mixed as $pair) {
+                if (empty(array_diff($search, $pair)) && count($search) == count($pair)) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '相儀相合'];
+                    break;
+                }
+            }
+            
+            // 三詐五假
+            /*
+            乙 丙 丁 + 休 生 開 + 陰
+            乙 丙 丁 + 休 生 開 + 合
+            乙 丙 丁 + 休 生 開 + 地
+            
+            乙 丙 丁 + 景 + 天
+            乙 丙 丁 + 驚 + 天
+             
+            丁 己 癸 + 杜 + 地 陰 合
+             
+            丁 己 癸 + 傷 + 地
+            丁 己 癸 + 死 + 地
+            */
+            if(in_array($grid['tian'], ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['陰', '合', '地'])) {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+            }
+            
+            if(in_array($grid['tian'], ['乙', '丙',  '丁']) && in_array($grid['gate'], ['景', '驚']) && in_array($grid['shen'], ['天'])) {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+            }
+            
+            if(in_array($grid['tian'], ['丁', '己',  '癸']) && in_array($grid['gate'], ['杜']) && in_array($grid['shen'], ['陰', '合', '地'])) {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+            }
+            
+            if(in_array($grid['tian'], ['丁', '己',  '癸']) && in_array($grid['gate'], ['傷', '死']) && in_array($grid['shen'], ['地'])) {
+                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+            }
+            
             /*----------------------------------------------------------------*/
             
             // 青龍逃走
@@ -1279,6 +1378,29 @@ class Qimenplate {
         // 其他
         $gridIndex = 99;
         $goodBadReferences[$gridIndex] = [];
+        
+        // 天顯時格
+        // 甲己日甲子/甲戌時、乙庚日甲申時、丙辛日甲午時、丁壬日甲辰時、戊癸日甲寅時
+        if(in_array(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), ['甲', '己']) && in_array($this->_plateResult['ganzhi_hour'], ['甲子', '甲戌'])) {
+            $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天顯時格'];
+        }
+        
+        if(in_array(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), ['乙', '庚']) && in_array($this->_plateResult['ganzhi_hour'], ['甲申'])) {
+            $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天顯時格'];
+        }
+        
+        if(in_array(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), ['丙', '辛']) && in_array($this->_plateResult['ganzhi_hour'], ['甲午'])) {
+            $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天顯時格'];
+        }
+        
+        if(in_array(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), ['丁', '壬']) && in_array($this->_plateResult['ganzhi_hour'], ['甲辰'])) {
+            $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天顯時格'];
+        }
+        
+        if(in_array(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), ['戊', '癸']) && in_array($this->_plateResult['ganzhi_hour'], ['甲寅'])) {
+            $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天顯時格'];
+        }
+        
         // 五不遇時(時干克日干), 陽克陽陰克陰
         if($this->isWuBuYuShi(mb_substr($this->_plateResult['ganzhi_day'], 0, 1), mb_substr($this->_plateResult['ganzhi_hour'], 0, 1))) {
             $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '五不遇時'];
@@ -1286,6 +1408,9 @@ class Qimenplate {
         
         // 時干入墓
         // 戊戌, 丙戌, 癸未, 丁丑, 己丑
+        
+        
+        
         
         // 三奇入墓
         // 乙 入 6 乾宮 | 丙 入 6 乾宮 | 丁 入 8 艮宮
@@ -1326,32 +1451,43 @@ class Qimenplate {
     }
     
     // 判斷五不遇時（時干克日干，陽克陽陰克陰）
-    private function isWuBuYuShi($dayGan, $hourGan) {
-        $ganWuXing = [
-            '甲'=>'木','乙'=>'木','丙'=>'火','丁'=>'火',
-            '戊'=>'土','己'=>'土','庚'=>'金','辛'=>'金','壬'=>'水','癸'=>'水'
+    private function isWuBuYuShi($dayGan, $hourGan, $hourZhi = null) {
+        // 1. 定義標準的日干對應時干
+        $wuBuYuMap = [
+            '甲' => '庚',
+            '乙' => '辛',
+            '丙' => '壬',
+            '丁' => '癸',
+            '戊' => '甲',
+            '己' => '乙',
+            '庚' => '丙',
+            '辛' => '丁',
+            '壬' => '戊',
+            '癸' => '己'
         ];
-        $ganYinYang = [
-            '甲'=>'陽','乙'=>'陰','丙'=>'陽','丁'=>'陰',
-            '戊'=>'陽','己'=>'陰','庚'=>'陽','辛'=>'陰','壬'=>'陽','癸'=>'陰'
+
+        // 2. 如果連時辰的地支也要嚴格比對 (強烈建議)
+        $wuBuYuFullMap = [
+            '甲' => '庚午',
+            '乙' => '辛巳',
+            '丙' => '壬辰',
+            '丁' => '癸卯',
+            '戊' => '甲寅',
+            '己' => '乙丑',
+            '庚' => '丙子',
+            '辛' => '丁酉',
+            '壬' => '戊申',
+            '癸' => '己未'
         ];
-        
-        $dayXing = $ganWuXing[$dayGan];
-        $hourXing = $ganWuXing[$hourGan];
-        
-        // 時干克日干
-        $keRelation = [
-            '木' => '土', '火' => '金', '土' => '水', '金' => '木', '水' => '火'
-        ];
-        
-        if ($keRelation[$hourXing] == $dayXing) {
-            // 陰陽相同
-            if ($ganYinYang[$dayGan] == $ganYinYang[$hourGan]) {
-                return true;
-            }
+
+        // 如果你有傳入時辰的地支，做最嚴謹的「干支」完整比對
+        if ($hourZhi !== null) {
+            return isset($wuBuYuFullMap[$dayGan]) && $wuBuYuFullMap[$dayGan] === ($hourGan . $hourZhi);
         }
-        return false;
-    }
+
+        // 如果你只拿得到時干，比對天干即可
+        return isset($wuBuYuMap[$dayGan]) && $wuBuYuMap[$dayGan] === $hourGan;
+}
 
     // 輔助功能：查旬首時天干九宮格位置
     private function findHeadGanHourGridIndex($plateIndex = 'earth') {
