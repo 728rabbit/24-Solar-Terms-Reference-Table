@@ -1019,7 +1019,8 @@ class Qimenplate {
                 }
             }
         }
-        else if($this->_plateResult['highlight_type'] == 'yin2yang') {
+        
+        if($this->_plateResult['highlight_transform'] == 1) {
             // 陰陽互換
             $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
             
