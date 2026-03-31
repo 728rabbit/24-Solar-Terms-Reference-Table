@@ -583,7 +583,7 @@ class Qimenplate {
    
     // 排地盤九宮格
     private function setEarth() {
-        // 以 “局數” 開始點，按洛書宮序(陽順陰逆)， 排 “戊己庚申壬癸丁丙乙”
+        // 以 “局數” 開始點，按洛書宮序(陽順陰逆)， 排 “戊己庚辛壬癸丁丙乙”
         $circlePattern = $this->arrayReIndex($this->arrayCircle((($this->_yyDunIndex == 1)? $this->_ascPattern: $this->_descPattern), $this->_yyDunNumber));
         foreach ($this->_sixYiThreeQi as $sixThreeKey => $sixThree) {
             $plateIndex = $circlePattern[$sixThreeKey];
@@ -948,14 +948,14 @@ class Qimenplate {
     // 排最外圍隱(天)干
     private function setYinGan() {
         // 固定時辰
-        foreach ($this->_plateResult['grid'] as $gird) {
-            $this->_plateResult['grid'][$gird['index']]['shi_chen'] = $this->_shiChenFixed[$gird['index']];
+        foreach ($this->_plateResult['grid'] as $grid) {
+            $this->_plateResult['grid'][$grid['index']]['shi_chen'] = $this->_shiChenFixed[$grid['index']];
         }
 
         $ganzhiHour = $this->_ganzhiData['ganzhi_hour'];
-        // 遇 “甲”， 中宮開始， 按洛書宮序(陽順陰逆)， 排 “旬首” 開始的 “戊己庚申壬癸丁丙乙”
+        // 遇 “甲”， 中宮開始， 按洛書宮序(陽順陰逆)， 排 “旬首” 開始的 “戊己庚辛壬癸丁丙乙”
         if(in_array($ganzhiHour, ['甲子', '甲戌', '甲申', '甲午', '甲辰', '甲寅'])) {
-            // 根據 “旬首”， 重新順序 “戊己庚申壬癸丁丙乙”
+            // 根據 “旬首”， 重新順序 “戊己庚辛壬癸丁丙乙”
             $lastChar = mb_substr($this->_plateResult['lead'], -1);
             $revisedSixYiThreeQi = $this->arrayReIndex($this->arrayCircle($this->_sixYiThreeQi, $lastChar));
             
@@ -1037,8 +1037,8 @@ class Qimenplate {
         foreach ([$ganValue1, $ganValue2] as $vKey => $ganValue) {
             // 尋找 八神的“符” 在什麽宮位
             if($this->_plateResult['san_yuan_method'] == 'yinpan' && $ganValue == '甲') {
-                foreach ($this->_plateResult['grid'] as $key => $gird) {
-                    if($gird['shen'] == '符') {
+                foreach ($this->_plateResult['grid'] as $key => $grid) {
+                    if($grid['shen'] == '符') {
                         $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
                         $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
                         break;
@@ -1127,253 +1127,274 @@ class Qimenplate {
     private function analyzeGoodBad() {
         $goodBadReferences = [];
         foreach ($this->_plateResult['grid'] as $grid) {
+            if((int)$grid['index'] == 5) {
+                continue;
+            }
+            
             // 初始化
             $gridIndex = $grid['index'];
             if(empty($goodBadReferences[$gridIndex])) {
                 $goodBadReferences[$gridIndex] = [];
             }
             
-            // 青龍返首
-            if($grid['tian'] == '戊' && $grid['earth'] == '丙') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '青龍返首'];
-            }
-            
-            // 飛鳥跌穴
-            if($grid['tian'] == '丙' && $grid['earth'] == '戊') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '飛鳥跌穴'];
-            }
-            
-            // 天遁
-            if($grid['tian'] == '丙' && $grid['earth'] == '丁' && $grid['gate'] == '生') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天遁'];
-            }
-            
-            // 地遁
-            if($grid['tian'] == '乙' && $grid['earth'] == '己' && $grid['gate'] == '開') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '地遁'];
-            }
-            
-            // 人遁
-            if($grid['tian'] == '丁' && $grid['shen'] == '陰' && $grid['gate'] == '休') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '人遁'];
-            }
-            
-            // 風遁
-            if($grid['tian'] == '乙' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 4) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '風遁'];
-            }
-            
-            // 雲遁
-            if($grid['tian'] == '乙' && $grid['earth'] == '辛' && in_array($grid['gate'], ['休', '生', '開'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '雲遁'];
-            }
-            
-            // 龍遁
-            if($grid['tian'] == '乙' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 1) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '龍遁'];
-            }
-            
-            if($grid['tian'] == '乙' && $grid['earth'] == '癸' && in_array($grid['gate'], ['休', '生', '開'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '龍遁'];
-            }
-            
-            // 虎遁
-            if($grid['tian'] == '乙' && $grid['earth'] == '辛' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 8) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '虎遁'];
-            }
-            
-            if($grid['tian'] == '庚' && $grid['gate'] == '開' && $gridIndex == 7) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '虎遁'];
-            }
-            
-            // 神遁
-            if($grid['tian'] == '丙' && $grid['gate'] == '生' && $grid['shen'] == '天') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '神遁'];
-            }
-            
-            // 鬼遁
-            if($grid['tian'] == '丁' && in_array($grid['gate'], ['杜', '開']) && $grid['shen'] == '地') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '鬼遁'];
-            }
-            
-            // 玉女守門
-            if($grid['earth'] == '丁' && in_array($this->_plateResult['ganzhi_hour'], ['庚午','己卯','戊子','丁酉','丙午','乙卯'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '玉女守門'];
-            }
-            
-            // 歡怡 
-            // 乙 丙 丁  與 值符星 同宮
-            if(in_array($this->_plateResult['grid'][$this->_plateResult['zhi_fu_index']]['tian'], ['乙', '丙',  '丁'])) {
-                $goodBadReferences[$this->_plateResult['zhi_fu_index']][] = ['type' => 'good', 'name' => '歡怡'];
-            }
-            
-            // 三奇得使
-            if($grid['tian'] == '乙' && $grid['earth'] == '己') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
-            }
-            
-            if($grid['tian'] == '丙' && $grid['earth'] == '戊') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
-            }
-            
-            if($grid['tian'] == '丁' && $grid['earth'] == '壬') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
-            }
-            
-            // 三奇貴人 
-            // 乙 在 3 震 | 丙 在 9 離 | 丁 在 7 兌
-            if($this->_plateResult['grid'][3]['tian'] == '乙') {
-                $goodBadReferences[3][] = ['type' => 'good', 'name' => '三奇貴人'];
-            }
-            
-            if($this->_plateResult['grid'][9]['tian'] == '丙') {
-                $goodBadReferences[9][] = ['type' => 'good', 'name' => '三奇貴人'];
-            }
-            
-            if($this->_plateResult['grid'][7]['tian'] == '丁') {
-                $goodBadReferences[7][] = ['type' => 'good', 'name' => '三奇貴人'];
-            }
-            
-            // 奇遊祿位 
-            // 乙 在 3 震 | 丙 在 4 巽 | 丁 在 7 離
-            if($this->_plateResult['grid'][3]['tian'] == '乙') {
-                $goodBadReferences[3][] = ['type' => 'good', 'name' => '奇遊祿位'];
-            }
-            
-            if($this->_plateResult['grid'][4]['tian'] == '丙') {
-                $goodBadReferences[4][] = ['type' => 'good', 'name' => '奇遊祿位'];
-            }
-            
-            if($this->_plateResult['grid'][9]['tian'] == '丁') {
-                $goodBadReferences[9][] = ['type' => 'good', 'name' => '奇遊祿位'];
-            }
-            
-            // 相佐
-            // 乙 丙 丁(地盤) 與 八神 “值符” 同宮
-            // 尋找 八神的“符” 在什麽宮位
-            foreach ($this->_plateResult['grid'] as $key => $gird) {
-                if($gird['shen'] == '符') {
-                    if(in_array($gird['earth'], ['乙', '丙',  '丁'])) {
-                        $goodBadReferences[$gird['index']][] = ['type' => 'good', 'name' => '相佐'];
+            foreach (['', '_alias'] as $suffix) {
+                $gridTian = (!empty($grid['tian'.$suffix])?mb_substr($grid['tian'.$suffix], -1):'#');
+                $gridEarth = (!empty($grid['earth'.$suffix])?mb_substr($grid['earth'.$suffix], -1):'#');
+
+                // 青龍返首
+                if($gridTian == '戊' && $gridEarth == '丙') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '青龍返首'];
+                }
+
+                // 飛鳥跌穴
+                if($gridTian == '丙' && $gridEarth == '戊') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '飛鳥跌穴'];
+                }
+
+                // 天遁
+                if($gridTian == '丙' && $gridEarth == '丁' && $grid['gate'] == '生') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天遁'];
+                }
+
+                // 地遁
+                if($gridTian == '乙' && $gridEarth == '己' && $grid['gate'] == '開') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '地遁'];
+                }
+
+                // 人遁
+                if($gridTian == '丁' && $grid['shen'] == '陰' && $grid['gate'] == '休') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '人遁'];
+                }
+
+                // 風遁
+                if($gridTian == '乙' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 4) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '風遁'];
+                }
+
+                // 雲遁
+                if($gridTian == '乙' && $gridEarth == '辛' && in_array($grid['gate'], ['休', '生', '開'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '雲遁'];
+                }
+
+                // 龍遁
+                if($gridTian == '乙' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 1) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '龍遁'];
+                }
+
+                if($gridTian == '乙' && $gridEarth == '癸' && in_array($grid['gate'], ['休', '生', '開'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '龍遁'];
+                }
+
+                // 虎遁
+                if($gridTian == '乙' && $gridEarth == '辛' && in_array($grid['gate'], ['休', '生', '開']) && $gridIndex == 8) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '虎遁'];
+                }
+
+                if($gridTian == '庚' && $grid['gate'] == '開' && $gridIndex == 7) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '虎遁'];
+                }
+
+                // 神遁
+                if($gridTian == '丙' && $grid['gate'] == '生' && $grid['shen'] == '天') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '神遁'];
+                }
+
+                // 鬼遁
+                if($gridTian == '丁' && in_array($grid['gate'], ['杜', '開']) && $grid['shen'] == '地') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '鬼遁'];
+                }
+
+                // 玉女守門
+                if($gridEarth == '丁' && in_array($this->_plateResult['ganzhi_hour'], ['庚午','己卯','戊子','丁酉','丙午','乙卯'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '玉女守門'];
+                }
+
+                // 三奇得使
+                if($gridTian == '乙' && $gridEarth == '己') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+                }
+
+                if($gridTian == '丙' && $gridEarth == '戊') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+                }
+
+                if($gridTian == '丁' && $gridEarth == '壬') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三奇得使'];
+                }
+
+                // 相儀相合
+                $mixed = [['乙', '庚'], ['丙', '辛'], ['丁', '壬'], ['戊', '癸']];
+                $search = array_unique([$gridTian, $gridEarth]);
+                foreach ($mixed as $pair) {
+                    if (empty(array_diff($search, $pair)) && count($search) == count($pair)) {
+                        $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '相儀相合'];
+                        break;
                     }
-                    break;
                 }
-            }
-            
-            // 相儀相合
-            $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
-            $search = array_unique([$grid['tian'], $grid['earth']]);
-            foreach ($mixed as $pair) {
-                if (empty(array_diff($search, $pair)) && count($search) == count($pair)) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '相儀相合'];
-                    break;
+
+                // 三詐五假
+                /*
+                乙 丙 丁 + 休 生 開 + 陰
+                乙 丙 丁 + 休 生 開 + 合
+                乙 丙 丁 + 休 生 開 + 地
+
+                乙 丙 丁 + 景 + 天
+                乙 丙 丁 + 驚 + 天
+
+                丁 己 癸 + 杜 + 地 陰 合
+
+                丁 己 癸 + 傷 + 地
+                丁 己 癸 + 死 + 地
+                */
+                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['陰', '合', '地'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
                 }
-            }
-            
-            // 三詐五假
-            /*
-            乙 丙 丁 + 休 生 開 + 陰
-            乙 丙 丁 + 休 生 開 + 合
-            乙 丙 丁 + 休 生 開 + 地
-            
-            乙 丙 丁 + 景 + 天
-            乙 丙 丁 + 驚 + 天
-             
-            丁 己 癸 + 杜 + 地 陰 合
-             
-            丁 己 癸 + 傷 + 地
-            丁 己 癸 + 死 + 地
-            */
-            if(in_array($grid['tian'], ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['陰', '合', '地'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
-            }
-            
-            if(in_array($grid['tian'], ['乙', '丙',  '丁']) && in_array($grid['gate'], ['景', '驚']) && in_array($grid['shen'], ['天'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
-            }
-            
-            if(in_array($grid['tian'], ['丁', '己',  '癸']) && in_array($grid['gate'], ['杜']) && in_array($grid['shen'], ['陰', '合', '地'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
-            }
-            
-            if(in_array($grid['tian'], ['丁', '己',  '癸']) && in_array($grid['gate'], ['傷', '死']) && in_array($grid['shen'], ['地'])) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
-            }
-            
-            /*----------------------------------------------------------------*/
-            
-            // 青龍逃走
-            if($grid['tian'] == '乙' && $grid['earth'] == '辛') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '青龍逃走'];
-            }
-            
-            // 白虎猖狂
-            if($grid['tian'] == '辛' && $grid['earth'] == '乙') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '白虎猖狂'];
-            }
-            
-            // 朱雀投江
-            if($grid['tian'] == '丁' && $grid['earth'] == '癸') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '朱雀投江'];
-            }
-            
-            // 螣蛇夭矯
-            if($grid['tian'] == '癸' && $grid['earth'] == '丁') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '螣蛇夭矯'];
-            }
-            
-            // 太白入熒
-            if($grid['tian'] == '庚' && $grid['earth'] == '丙') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '太白入熒'];
-            }
-            
-            // 熒入太白
-            if($grid['tian'] == '丙' && $grid['earth'] == '庚') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '熒入太白'];
-            }
-            
-            // 飛宮格
-            if($grid['tian'] == '戊' && $grid['earth'] == '庚') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '飛宮格'];
-            }
-            
-            // 伏宮格
-            if($grid['tian'] == '庚' && $grid['earth'] == '戊') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '伏宮格'];
-            }
-            
-            // 大格
-            if($grid['tian'] == '庚' && $grid['earth'] == '癸') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '大格'];
-            }
-            
-            // 小格
-            if($grid['tian'] == '庚' && $grid['earth'] == '壬') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '小格'];
-            }
-            
-            // 刑格
-            if($grid['tian'] == '庚' && $grid['earth'] == '己') {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '刑格'];
-            }
-            
-            // 年月日時格
-            if($grid['tian'] == '庚' && mb_substr($this->_plateResult['ganzhi_year'], 0, 1) == $grid['tian']) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '年格'];
-            }
-            
-            if($grid['tian'] == '庚' && mb_substr($this->_plateResult['ganzhi_month'], 0, 1) == $grid['tian']) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '月格'];
-            }
-            
-            if($grid['tian'] == '庚' && mb_substr($this->_plateResult['ganzhi_day'], 0, 1) == $grid['tian']) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '日格'];
-            }
-            
-            if($grid['tian'] == '庚' && mb_substr($this->_plateResult['ganzhi_hour'], 0, 1) == $grid['tian']) {
-                $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '時格'];
+
+                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['景', '驚']) && in_array($grid['shen'], ['天'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                }
+
+                if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['杜']) && in_array($grid['shen'], ['陰', '合', '地'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                }
+
+                if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['傷', '死']) && in_array($grid['shen'], ['地'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                }
+
+                /*----------------------------------------------------------------*/
+
+                // 青龍逃走
+                if($gridTian == '乙' && $gridEarth == '辛') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '青龍逃走'];
+                }
+
+                // 白虎猖狂
+                if($gridTian == '辛' && $gridEarth == '乙') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '白虎猖狂'];
+                }
+
+                // 朱雀投江
+                if($gridTian == '丁' && $gridEarth == '癸') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '朱雀投江'];
+                }
+
+                // 螣蛇夭矯
+                if($gridTian == '癸' && $gridEarth == '丁') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '螣蛇夭矯'];
+                }
+
+                // 太白入熒
+                if($gridTian == '庚' && $gridEarth == '丙') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '太白入熒'];
+                }
+
+                // 熒入太白
+                if($gridTian == '丙' && $gridEarth == '庚') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '熒入太白'];
+                }
+
+                // 飛宮格
+                if($gridTian == '戊' && $gridEarth == '庚') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '飛宮格'];
+                }
+
+                // 伏宮格
+                if($gridTian == '庚' && $gridEarth == '戊') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '伏宮格'];
+                }
+
+                // 大格
+                if($gridTian == '庚' && $gridEarth == '癸') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '大格'];
+                }
+
+                // 小格
+                if($gridTian == '庚' && $gridEarth == '壬') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '小格'];
+                }
+
+                // 刑格
+                if($gridTian == '庚' && $gridEarth == '己') {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '刑格'];
+                }
+
+                // 年月日時格
+                if($gridTian == '庚' && mb_substr($this->_plateResult['ganzhi_year'], 0, 1) == $gridTian) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '年格'];
+                }
+
+                if($gridTian == '庚' && mb_substr($this->_plateResult['ganzhi_month'], 0, 1) == $gridTian) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '月格'];
+                }
+
+                if($gridTian == '庚' && mb_substr($this->_plateResult['ganzhi_day'], 0, 1) == $gridTian) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '日格'];
+                }
+
+                if($gridTian == '庚' && mb_substr($this->_plateResult['ganzhi_hour'], 0, 1) == $gridTian) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'bad', 'name' => '時格'];
+                }
             }
         }
+        
+        // 歡怡 
+        // 乙 丙 丁  與 值符星 同宮
+        if(in_array($this->_plateResult['grid'][$this->_plateResult['zhi_fu_index']]['tian'], ['乙', '丙',  '丁'])) {
+            $goodBadReferences[$this->_plateResult['zhi_fu_index']][] = ['type' => 'good', 'name' => '歡怡'];
+        }
+        if(!empty($this->_plateResult['grid'][$this->_plateResult['zhi_fu_index']]['tian_alias'])) {
+            if(in_array(mb_substr($this->_plateResult['grid'][$this->_plateResult['zhi_fu_index']]['tian_alias'], -1), ['乙', '丙',  '丁'])) {
+                $goodBadReferences[$this->_plateResult['zhi_fu_index']][] = ['type' => 'good', 'name' => '歡怡'];
+            }
+        }
+        
+        // 三奇貴人 
+        // 乙 在 3 震 | 丙 在 9 離 | 丁 在 7 兌
+        foreach (['', '_alias'] as $suffix) {
+            if(!empty($this->_plateResult['grid'][3]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][3]['tian'], -1) == '乙') {
+                $goodBadReferences[3][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+
+            if(!empty($this->_plateResult['grid'][9]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][9]['tian'], -1) == '丙') {
+                $goodBadReferences[9][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+
+            if(!empty($this->_plateResult['grid'][7]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][7]['tian'], -1) == '丁') {
+                $goodBadReferences[7][] = ['type' => 'good', 'name' => '三奇貴人'];
+            }
+        }
+
+        // 奇遊祿位 
+        // 乙 在 3 震 | 丙 在 4 巽 | 丁 在 7 離
+        foreach (['', '_alias'] as $suffix) {
+            if(!empty($this->_plateResult['grid'][3]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][3]['tian'.$suffix], -1) == '乙') {
+                $goodBadReferences[3][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+
+            if(!empty($this->_plateResult['grid'][4]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][4]['tian'.$suffix], -1) == '丙') {
+                $goodBadReferences[4][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+
+            if(!empty($this->_plateResult['grid'][9]['tian'.$suffix]) && mb_substr($this->_plateResult['grid'][9]['tian'.$suffix], -1) == '丁') {
+                $goodBadReferences[9][] = ['type' => 'good', 'name' => '奇遊祿位'];
+            }
+        }
+        
+        // 相佐
+        // 乙 丙 丁(地盤) 與 八神 “值符” 同宮
+        // 尋找 八神的“符” 在什麽宮位
+        foreach ($this->_plateResult['grid'] as $key => $grid) {
+            if($grid['shen'] == '符') {
+                foreach (['', '_alias'] as $suffix) {
+                    if(!empty($grid['earth'.$suffix]) && in_array(mb_substr($grid['earth'.$suffix], -1), ['乙', '丙',  '丁'])) {
+                        $goodBadReferences[$grid['index']][] = ['type' => 'good', 'name' => '相佐'];
+                    }
+                }
+                break;
+            }
+        }
+        
         
         // 其他
         $gridIndex = 99;
@@ -1445,6 +1466,20 @@ class Qimenplate {
             }
 
             $goodBadReferences[$id] = $uniqueItems;
+        }
+        
+        // Sort
+        foreach ($goodBadReferences as &$subArray) {
+            usort($subArray, function($a, $b) {
+                $lenA = mb_strlen($a['name']); // 使用 mb_strlen 支援中文
+                $lenB = mb_strlen($b['name']);
+
+                if ($lenA != $lenB) {
+                    return $lenB <=> $lenA;
+                }
+
+                return $b['name'] <=> $a['name'];
+            });
         }
         
         $this->_plateResult['good_bad_references'] = $goodBadReferences;
