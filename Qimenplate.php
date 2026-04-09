@@ -1031,12 +1031,9 @@ class Qimenplate {
             $lastChar = mb_substr($this->_plateResult['lead'], -1);
             $revisedSixYiThreeQi = $this->arrayReIndex($this->arrayCircle($this->_sixYiThreeQi, $lastChar));
             
-            dump($revisedSixYiThreeQi);
-            
             // 洛書宮序, 陽順陰逆
             $circlePattern = $this->arrayReIndex($this->arrayCircle((($this->_yyDunIndex == 1)? $this->_ascPattern: $this->_descPattern), 5));
             
-            dump($circlePattern);
             foreach ($circlePattern as $circleIndex => $circleValue) {
                 $this->_plateResult['grid'][$circleValue]['yin_gan'] = $revisedSixYiThreeQi[$circleIndex];
             }
