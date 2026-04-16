@@ -74,22 +74,20 @@ class Qimenplate {
     
     // 日干支到元索引的映射表（符頭定局）
     protected $_ganZhiToYuanMap = [
-        // 上元
         11 => ['甲子', '乙丑', '丙寅', '丁卯', '戊辰'],
-        12 => ['己卯', '庚辰', '辛巳', '壬午', '癸未'],
-        13 => ['甲午', '乙未', '丙申', '丁酉', '戊戌'],
-        14 => ['己酉', '庚戌', '辛亥', '壬子', '癸丑'],
-
-        // 中元
         21 => ['己巳', '庚午', '辛未', '壬申', '癸酉'],
-        22 => ['甲申', '乙酉', '丙戌', '丁亥', '戊子'],
-        23 => ['己亥', '庚子', '辛丑', '壬寅', '癸卯'],
-        24 => ['甲寅', '乙卯', '丙辰', '丁巳', '戊午'],
-
-        // 下元
         31 => ['甲戌', '乙亥', '丙子', '丁丑', '戊寅'],
+
+        12 => ['己卯', '庚辰', '辛巳', '壬午', '癸未'],
+        22 => ['甲申', '乙酉', '丙戌', '丁亥', '戊子'],
         32 => ['己丑', '庚寅', '辛卯', '壬辰', '癸巳'],
+
+        13 => ['甲午', '乙未', '丙申', '丁酉', '戊戌'],
+        23 => ['己亥', '庚子', '辛丑', '壬寅', '癸卯'],
         33 => ['甲辰', '乙巳', '丙午', '丁未', '戊申'],
+
+        14 => ['己酉', '庚戌', '辛亥', '壬子', '癸丑'],
+        24 => ['甲寅', '乙卯', '丙辰', '丁巳', '戊午'],
         34 => ['己未', '庚申', '辛酉', '壬戌', '癸亥']
     ];
 
@@ -508,7 +506,7 @@ class Qimenplate {
             $this->calculateChaiBuMethod();
         }
         elseif($method == 2) {
-            $this->calculateZhiRunMethod($this->_ganzhiData['jieqi_table']);
+            $this->calculateZhiRunMethod();
         }
         else {
             $this->calculateYinPanMethod();
@@ -522,9 +520,12 @@ class Qimenplate {
     private function calculateChaiBuMethod() {
         $this->_plateResult['san_yuan_method'] = 'chaibu';
         $this->_yyDunNumber = 9;
+        
+        $sanYuanOrderNumber = [0 => '上', 1 => '中', 2 => '下'];
         if(!empty($this->_ganzhiData['jieqi_range'])) {
             $currentJieqiName = explode('_', $this->_ganzhiData['jieqi_range']['current']['name']);
             if(!empty($currentJieqiName)) {
+                
                 // 根據日天干，查找其索引
                 $sanYuanIndex = 0;
                 foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
@@ -539,7 +540,7 @@ class Qimenplate {
                     }
                 }
 
-                $sanYuanOrderNumber = [0 => '上', 1 => '中', 2 => '下'];
+                
                 $this->_plateResult['san_yuan_remark'] = implode('-', $currentJieqiName).'-'.$sanYuanOrderNumber[$sanYuanIndex];
                 $this->_yyDunNumber = $this->_jieqiSanYuanTable[$currentJieqiName[1]][$sanYuanIndex];
             }
@@ -547,81 +548,145 @@ class Qimenplate {
     }
 
     // 置閏法：依據 “符頭” 與 “節氣” 的交接狀況來動態定局
-    private function calculateZhiRunMethod($allSTS) {
-        $this->_plateResult['san_yuan_method'] = 'zhirun';
+    private function calculateZhiRunMethod() {
+        //dump($this->_ganzhiData['jieqi_table']);
         
-        // 根據日天干，查找其符頭
-        /*
-        11 => ['甲子', '乙丑', '丙寅', '丁卯', '戊辰'],
-        21 => ['己巳', '庚午', '辛未', '壬申', '癸酉'],
-        31 => ['甲戌', '乙亥', '丙子', '丁丑', '戊寅'],
-
-        12 => ['己卯', '庚辰', '辛巳', '壬午', '癸未'],
-        22 => ['甲申', '乙酉', '丙戌', '丁亥', '戊子'],
-        32 => ['己丑', '庚寅', '辛卯', '壬辰', '癸巳'],
-
-        13 => ['甲午', '乙未', '丙申', '丁酉', '戊戌'],
-        23 => ['己亥', '庚子', '辛丑', '壬寅', '癸卯'],
-        33 => ['甲辰', '乙巳', '丙午', '丁未', '戊申'],
-
-        14 => ['己酉', '庚戌', '辛亥', '壬子', '癸丑'],
-        24 => ['甲寅', '乙卯', '丙辰', '丁巳', '戊午'],
-        34 => ['己未', '庚申', '辛酉', '壬戌', '癸亥']
-        */
-        $fuTou = '甲子';
-        $fuTouDateDiff = 0;
+        dump($this->_ganzhiData['jieqi_range']);
+        
+        // 2006-01-20 13:10:00 |  大寒上元第1天
+        // 1991-02-23 00:35:00 |  雨水上元第1天
+        // 2027-10-31 20:49:00 |  立冬上元第5天
+        // 
+        // 1993-09-23 02:42:00 |  白露下元第4天
+        // 2007-08-21 04:29:00 |  立秋中元第4天
+        $this->_plateResult['san_yuan_method'] = 'zhirun';
+        $sanYuanOrderNumber = [0 => '上', 1 => '中', 2 => '下'];
+        
+        $currentDateTime = date('Y-m-d', strtotime($this->_ganzhiData['datetime_hk']));
+        $currentYear = date('Y', strtotime($currentDateTime));
+        
+        $lastYearDongzhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear-1).'_冬至']));
+        $thisYearXiazhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_夏至']));
+        $thisYearDongzhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_冬至']));
+        
+        // 目標日期小於本年夏至，則已上年冬至為起點，建立三元對照表
+        // 例如: 
+        // 1999年02月23日(丙午日)，未到本年 “夏至” ，需查看上年的 “冬至”
+        // 1999年 “冬至” 為1998年12月22日(癸卯日)，根據 “冬至” 推算其 “上元符頭(1998年12年13日|甲午日)” 與 “冬至” 相差天數
+        // 如果 < 9, 則 “冬至” 上元由 “1998年12年13日” 開始
+        // 如果 >= 9, 則需要重複上一個節氣 “大雪” 一次，(+15天)從而推斷 “冬至” 上元正式開始的日期
+        // 由“冬至” 上元開始，每15天(上中下)排
+        dump('上年冬至: '.$lastYearDongzhiDatetime);
+        $baziResult = $this->_biziLib->calculate($lastYearDongzhiDatetime);
+        $lastYearDongzhiGanzhi = $baziResult['ganzhi_day'];
+        
+        // 推算上元符頭
+        $rowArr = [];
+        $row = 1;
         foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
-            if(in_array($this->_ganzhiData['ganzhi_day'], $arrValues)) {
-                if(in_array($key, [21, 22, 23, 24])) {
-                    $fuTou = $this->_ganZhiToYuanMap[(10 + ($key%20))][0];
-                    $fuTouDateDiff = array_search($this->_ganzhiData['ganzhi_day'], $arrValues) + 5;
-                }
-                else if(in_array($key, [31, 32, 33, 34])) {
-                    $fuTou = $this->_ganZhiToYuanMap[(10 + ($key%30))][0];
-                    $fuTouDateDiff = array_search($this->_ganzhiData['ganzhi_day'], $arrValues) + 10;
-                }
-                else {
-                    $fuTou = $this->_ganZhiToYuanMap[(10 + ($key%10))][0];
-                    $fuTouDateDiff = array_search($this->_ganzhiData['ganzhi_day'], $arrValues);
-                }
+            if(in_array($lastYearDongzhiGanzhi, $arrValues)) {
+                $row = ($key % 10);
                 break;
             }
         }
-        $fuTouDate = date('Y-m-d H:i:s', (strtotime($this->_plateResult['datetime_hk']) - $fuTouDateDiff*24*3600));
-        dump($fuTou.' => '.$fuTouDateDiff.' => '.$fuTouDate.' | '.$this->_plateResult['datetime_hk']);
-        
-        // “符頭” 所在 “節氣”
-        $currentJieqiName  = [];
-        $fuTouJieqiRange = $this->getSolarTermsRange($fuTouDate, $allSTS);
-        if($fuTouDateDiff <= 9) {
-            $currentJieqiName = explode('_', $fuTouJieqiRange['next']['name']);
+        for($i = 1; $i <= 3; $i++) {
+            foreach ($this->_ganZhiToYuanMap[($i*10+$row)] as $ganzhi) {
+                $rowArr[] = $ganzhi;
+            }
         }
+        $futouDiff = max(0, array_search($lastYearDongzhiGanzhi, $rowArr));
+        dump('Diff Donzhi:'.$futouDiff);
+        
+        $futouDate = date('Y-m-d', strtotime($lastYearDongzhiDatetime) - $futouDiff*24*3600);
+        dump('Donzhi Futou Date: '.$futouDate);
+        if($futouDiff >= 8) { 
+            $futouDate = date('Y-m-d', strtotime($futouDate) + 15*24*3600); 
+            dump('Revised Donzhi Futou Date: '.$futouDate);
+        }
+        
+        $futouBaziResult = $this->_biziLib->calculate($futouDate);
+        dump($futouBaziResult);
 
-        if(!empty($currentJieqiName)) {
-            // 根據日天干，查找其索引
-            $sanYuanIndex = 0;
-            foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
-                if(in_array($this->_ganzhiData['ganzhi_day'], $arrValues)) {
-                    if(in_array($key, [21, 22, 23, 24])) {
-                        $sanYuanIndex = 1;
+        $sixtyGanZhiToYuanArr = [];
+        foreach ($this->_ganZhiToYuanMap as $node) {
+            foreach ($node as $value) {
+                $sixtyGanZhiToYuanArr[] = $value;
+            }
+        }
+        $sixtyGanZhiToYuanArr = $this->arrayReIndex($sixtyGanZhiToYuanArr);
+        $sixtyGanZhiToYuanArr = $this->arrayReIndex($this->arrayCircle($sixtyGanZhiToYuanArr, $futouBaziResult['ganzhi_day']));
+
+        $twentyFourJieqiArr = [];
+        foreach ($this->_jieqiSanYuanTable as $nodeKey => $node) {
+            $twentyFourJieqiArr[] = $nodeKey;
+        }
+        $twentyFourJieqiArr = $this->arrayReIndex($twentyFourJieqiArr);
+        $twentyFourJieqiArr = $this->arrayReIndex($this->arrayCircle($twentyFourJieqiArr, '冬至'));
+        
+        //dump($sixtyGanZhiToYuanArr);
+        //dump($twentyFourJieqiArr);
+        
+        $referenceTable = [];
+        $loopDate = date('Y-m-d', strtotime($futouDate));
+        $loopIndex = 0;
+        $extractedIndex = 0;
+        $hadCheckedZhirun = false;
+        
+        dump('Start Loop Date: '.$loopDate);
+        do {
+            $loopIndex++;
+            if($loopIndex > 60) {
+                $loopIndex = 1;
+            }
+            if(max(0, ($loopIndex-1))%15 == 0) {
+                $extractedIndex++;
+            }
+            
+            if($extractedIndex > 24) {
+                $extractedIndex = 1;
+            }
+            
+            if($twentyFourJieqiArr[$extractedIndex] == '夏至' && !$hadCheckedZhirun) {
+                $hadCheckedZhirun = true;
+                dump('本年夏至: '.$thisYearXiazhiDatetime);
+                $baziResult = $this->_biziLib->calculate($thisYearXiazhiDatetime);
+                $thisYearXiazhiGanzhi = $baziResult['ganzhi_day'];
+
+                // 推算上元符頭
+                $rowArr = [];
+                $row = 1;
+                foreach ($this->_ganZhiToYuanMap as $key => $arrValues) {
+                    if(in_array($thisYearXiazhiGanzhi, $arrValues)) {
+                        $row = ($key % 10);
+                        break;
                     }
-                    else if(in_array($key, [31, 32, 33, 34])) {
-                        $sanYuanIndex = 2;
+                }
+                for($i = 1; $i <= 3; $i++) {
+                    foreach ($this->_ganZhiToYuanMap[($i*10+$row)] as $ganzhi) {
+                        $rowArr[] = $ganzhi;
                     }
-                    break;
+                }
+                $futouDiff = max(0, array_search($thisYearXiazhiGanzhi, $rowArr));
+                dump('Diff 夏至:'.$futouDiff);
+                if($futouDiff >= 8) {
+                    $extractedIndex--;
                 }
             }
-
-            $sanYuanOrderNumber = [0 => '上', 1 => '中', 2 => '下'];
-            $this->_plateResult['san_yuan_remark'] = implode('-', $currentJieqiName).'-'.$sanYuanOrderNumber[$sanYuanIndex].' | '.(($fuTouDateDiff%5) + 1);
-            $this->_yyDunNumber = $this->_jieqiSanYuanTable[$currentJieqiName[1]][$sanYuanIndex];
-
-
             
+            
+            $referenceTable[$loopDate] = ['jieqi' => $twentyFourJieqiArr[$extractedIndex], 'ganzhi' => $sixtyGanZhiToYuanArr[$loopIndex]];
+            $referenceTable[$loopDate]['jieqi'].= '|'.($loopIndex%15);
+            
+            $loopDate = date('Y-m-d', strtotime($loopDate) + 24* 3600);
         }
+        while (strtotime($loopDate) <= strtotime($thisYearDongzhiDatetime));
+
+        echo '<pre>';
+        print_r($referenceTable);
+        echo '</pre>';
+            
         
-        dump($fuTouJieqiRange);
-        dump($allSTS);
+        
     }
 
     // 陰盤 - 取局數方法：年支序數 + 舊曆月數 + 舊曆日數 + 時支序數，總數以 9 除之，取餘數。 其餘數必少於 9，整除作 9 數。
@@ -1463,7 +1528,7 @@ class Qimenplate {
         foreach ($this->_plateResult['grid'] as $key => $grid) {
             if($key == $headGridIndex) {
                 foreach (['', '_alias'] as $suffix) {
-                    if(!empty($grid['tian'.$suffix]) && in_array(mb_substr($grid['earth'.$suffix], -1), ['乙', '丙',  '丁'])) {
+                    if(!empty($grid['earth'.$suffix]) && in_array(mb_substr($grid['earth'.$suffix], -1), ['乙', '丙',  '丁'])) {
                         $goodBadReferences[$grid['index']][] = ['type' => 'good', 'name' => '相佐'];
                     }
                 }
