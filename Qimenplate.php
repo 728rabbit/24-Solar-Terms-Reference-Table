@@ -547,7 +547,7 @@ class Qimenplate {
     }
 
     // 置閏法：依據 “符頭” 與 “節氣” 的交接狀況來動態定局
-    private function calculateZhiRunMethod() {
+    private function calculateZhiRunMethod() { 
         //dump($this->_ganzhiData['jieqi_table']);
         
         // 2006-01-20 13:10:00 |  大寒上元第1天
@@ -560,23 +560,23 @@ class Qimenplate {
         $this->_yyDunNumber = 9;
         
         // 參考時間點
-        $currentDateTime = date('Y-m-d', strtotime($this->_ganzhiData['datetime_hk']));
-        $currentYear = date('Y', strtotime($currentDateTime));
-        $lastYearDongzhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear-1).'_冬至']));
-        $thisYearXiazhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_夏至']));
-        $thisYearDongzhiDatetime = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_冬至']));
+        $currentDate = date('Y-m-d', strtotime($this->_ganzhiData['datetime_hk']));
+        $currentYear = date('Y', strtotime($currentDate));
+        $lastYearDongzhiDate = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear-1).'_冬至']));
+        $thisYearXiazhiDate = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_夏至']));
+        $thisYearDongzhiDate = date('Y-m-d', strtotime($this->_ganzhiData['jieqi_table'][($currentYear).'_冬至']));
         
         // A 與 B 之間，包括其兩者，如果 A 與 B 之間相差 3， 則為 5;
         $breakPointDays = 9;
         
-        // 目標日期小於本年夏至，則已上年冬至為起點，建立三元對照表
+        // 目標日期上年冬至為起點，建立三元對照表
         // 例如: 
         // 1999年02月23日(丙午日)，未到本年 “夏至” ，需查看上年的 “冬至”
         // 1999年 “冬至” 為1998年12月22日(癸卯日)，根據 “冬至” 推算其 “上元符頭(1998年12年13日|甲午日)” 與 “冬至” 相差天數
         // 如果 < 9, 則 “冬至” 上元由 “1998年12年13日” 開始
         // 如果 >= 9, 則需要重複上一個節氣 “大雪” 一次，(+15天)從而推斷 “冬至” 上元正式開始的日期
         // 由“冬至” 上元開始，每15天(上中下)排
-        $baziResult = $this->_biziLib->calculate($lastYearDongzhiDatetime);
+        $baziResult = $this->_biziLib->calculate($lastYearDongzhiDate);
         $lastYearDongzhiGanzhi = $baziResult['ganzhi_day'];
         
         // 推算上元符頭
@@ -595,7 +595,7 @@ class Qimenplate {
         }
         $dongzhiFutouDiff = max(0, array_search($lastYearDongzhiGanzhi, $rowArr));
 
-        $futouDate = date('Y-m-d', strtotime($lastYearDongzhiDatetime) - $dongzhiFutouDiff*24*3600);
+        $futouDate = date('Y-m-d', strtotime($lastYearDongzhiDate) - $dongzhiFutouDiff*24*3600);
         // 順延 15 天
         if(($dongzhiFutouDiff+1) >= $breakPointDays) { 
             $futouDate = date('Y-m-d', strtotime($futouDate) + 15*24*3600); 
@@ -644,7 +644,7 @@ class Qimenplate {
             $xiazhiFutouDiff = 0;
             if((($dongzhiFutouDiff + 1) < $breakPointDays) && !$hadCheckedXiazhiZhirun && $twentyFourJieqiArr[$extractedIndex] == '夏至') {
                 $hadCheckedXiazhiZhirun = true;
-                $baziResult = $this->_biziLib->calculate($thisYearXiazhiDatetime);
+                $baziResult = $this->_biziLib->calculate($thisYearXiazhiDate);
                 $thisYearXiazhiGanzhi = $baziResult['ganzhi_day'];
 
                 // 推算上元符頭
@@ -662,7 +662,7 @@ class Qimenplate {
                     }
                 }
                 $xiazhiFutouDiff = max(0, array_search($thisYearXiazhiGanzhi, $rowArr));
-
+                
                 // 順延 15 天， 重複上一個節氣
                 if(($xiazhiFutouDiff + 1) >= $breakPointDays) {
                     $extractedIndex--;
@@ -675,7 +675,7 @@ class Qimenplate {
             // 如本年夏至已置閏，跳過
             if(($hadCheckedXiazhiZhirun && (($xiazhiFutouDiff + 1) < $breakPointDays)) && !$hadCheckedDongzhiZhirun && $twentyFourJieqiArr[$extractedIndex] == '冬至') {
                 $hadCheckedDongzhiZhirun = true;
-                $baziResult = $this->_biziLib->calculate($thisYearDongzhiDatetime);
+                $baziResult = $this->_biziLib->calculate($thisYearDongzhiDate);
                 $thisYearDongzhiGanzhi = $baziResult['ganzhi_day'];
 
                 // 推算上元符頭
@@ -692,8 +692,10 @@ class Qimenplate {
                         $rowArr[] = $ganzhi;
                     }
                 }
-                $xiazhiFutouDiff = max(0, array_search($thisYearDongzhiGanzhi, $rowArr));
-                if(($xiazhiFutouDiff + 1) >= $breakPointDays) {
+                $dongzhiFutouDiff = max(0, array_search($thisYearDongzhiGanzhi, $rowArr));
+                
+                // 順延 15 天， 重複上一個節氣
+                if(($dongzhiFutouDiff + 1) >= $breakPointDays) {
                     $extractedIndex--;
                     if($extractedIndex == 0) {
                         $extractedIndex = 24;
@@ -706,7 +708,7 @@ class Qimenplate {
             
             $loopDate = date('Y-m-d', strtotime($loopDate) + 24* 3600);
         }
-        while (strtotime($loopDate) <= max(strtotime($thisYearDongzhiDatetime), strtotime($currentDateTime)));
+        while (strtotime($loopDate) <= max(strtotime($thisYearDongzhiDate), strtotime($currentDate)));
 
         $findData = $referenceTable[date('Y-m-d',(strtotime($this->_plateResult['datetime_hk'])))] ?? null;
         if(!empty($findData)) {
