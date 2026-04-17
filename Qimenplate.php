@@ -652,7 +652,7 @@ class Qimenplate {
                     }
                 }
                 $xiazhiFutouDiff = max(0, array_search($thisYearXiazhiGanzhi, $rowArr));
-                
+
                 // 相差超過9天，需要順延 15 天， 重複上一個節氣
                 if(($xiazhiFutouDiff + 1) >= $breakPointDays) {
                     $extractedIndex--;
