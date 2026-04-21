@@ -593,7 +593,6 @@ class Qimenplate {
         }
         // 根據與上元符頭距離計算出上元符頭日期
         $lastDongzhiFutouDiff = max(0, array_search($lastYearDongzhiGanzhi, $rowArr));
-        dump('上年冬至: '.$lastDongzhiFutouDiff + 1);
         $futouDate = date('Y-m-d', strtotime(($lastDongzhiFutouDiff*-1).' days', strtotime($lastYearDongzhiDate)));
         // 相差超過9天，需要順延 15 天
         if(($lastDongzhiFutouDiff + 1) >= $breakPointDays || !empty($adjustmentArr[$currentYear-1]['zhirun'])) { 
@@ -617,8 +616,6 @@ class Qimenplate {
             }
         }
         $thisXiazhiFutouDiff = max(0, array_search($thisYearXiazhiGanzhi, $rowArr));
-        dump('本年夏至: '.$thisXiazhiFutouDiff + 1);
-
         
         // 推算 “本年冬至” 與 上元符頭 相差天數
         $baziResult = $this->_biziLib->calculate($thisYearDongzhiDate);
@@ -637,8 +634,6 @@ class Qimenplate {
             }
         }
         $thisDongzhiFutouDiff = max(0, array_search($thisYearDongzhiGanzhi, $rowArr));
-        dump('本年冬至: '.$thisDongzhiFutouDiff + 1);
-         
 
         // 建立全年映射表
         $futouBaziResult = $this->_biziLib->calculate($futouDate);
@@ -732,19 +727,6 @@ class Qimenplate {
             $loopDate = date('Y-m-d', strtotime('+1 days', strtotime($loopDate)));
         }
         while (!$isEnd);
-        
-        
-        foreach ($referenceTable as $key => $data) {
-            $jieqi = explode('|', $data['jieqi']);
-            if(in_array($jieqi[0], ['冬至', '芒種', '夏至', '大雪']) && (int)$jieqi[1] == 1) {
-                echo '<p><h3>'.$key. ' => '.$data['jieqi'].' +  '.$data['ganzhi'].'</h3></p>';
-                
-            }
-        }
-        
-        /*echo '<pre>';
-        print_r($referenceTable);
-        echo '</pre>';*/
         
         $findData = $referenceTable[date('Y-m-d',(strtotime($this->_plateResult['datetime_hk'])))] ?? null;
         if(!empty($findData)) {
