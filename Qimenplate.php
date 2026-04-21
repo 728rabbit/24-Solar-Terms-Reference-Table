@@ -6,7 +6,7 @@ class Qimenplate {
     protected $_ganzhiLib;
     protected $_biziLib;
     
-    protected $_ganzhiData;
+    protected $_ganzhiData = [];
     protected $_plateResult = 
     [
         'datetime'              =>  '',
@@ -352,51 +352,41 @@ class Qimenplate {
 
     // 計算天干地支
     private function getDanZhi($currentDateTime, $zone = 'hong_kong') {
-        $this->_ganzhiLib = (new \App\Libs\calendar\GanZhi());
-        $this->_ganzhiData = $this->_ganzhiLib->convert($currentDateTime, $zone);
+        $this->_biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path()));
+        $baziResult = $this->_biziLib->calculate($currentDateTime, $zone);
+        if(!empty($baziResult)) {
+            $this->_ganzhiData = $baziResult;
+            $this->_ganzhiData['lunar_shengxiao'] = $baziResult['lunar']['zodiac'];
+            $this->_ganzhiData['lunar_year'] = $baziResult['lunar']['year'];
+            $this->_ganzhiData['lunar_month'] = (!empty($baziResult['lunar']['is_leap'])?($baziResult['lunar']['month']*-1):$baziResult['lunar']['month']);
+            $this->_ganzhiData['lunar_day'] = $baziResult['lunar']['day'];
+            $this->_ganzhiData['lunar_year_chinese'] = $baziResult['lunar']['year_chinese'];
+            $this->_ganzhiData['lunar_month_chinese'] = $baziResult['lunar']['month_chinese'];
+            $this->_ganzhiData['lunar_day_chinese'] = $baziResult['lunar']['day_chinese'];
 
-        // overwirte if need
-        if(true) {
-            $this->_biziLib = (new \App\Libs\calendar\BaZiCalculator(storage_path()));
-            $baziResult = $this->_biziLib->calculate($currentDateTime, $zone);
-            if(!empty($baziResult)) {
-                $this->_ganzhiData['ganzhi_year'] = $baziResult['ganzhi_year'];
-                $this->_ganzhiData['ganzhi_month'] = $baziResult['ganzhi_month'];
-                $this->_ganzhiData['ganzhi_day'] = $baziResult['ganzhi_day'];
-                $this->_ganzhiData['ganzhi_hour'] = $baziResult['ganzhi_hour'];
-                
-                $this->_ganzhiData['lunar_shengxiao'] = $baziResult['lunar']['zodiac'];
-                $this->_ganzhiData['lunar_year'] = $baziResult['lunar']['year'];
-                $this->_ganzhiData['lunar_month'] = (!empty($baziResult['lunar']['is_leap'])?($baziResult['lunar']['month']*-1):$baziResult['lunar']['month']);
-                $this->_ganzhiData['lunar_day'] = $baziResult['lunar']['day'];
-                $this->_ganzhiData['lunar_year_chinese'] = $baziResult['lunar']['year_chinese'];
-                $this->_ganzhiData['lunar_month_chinese'] = $baziResult['lunar']['month_chinese'];
-                $this->_ganzhiData['lunar_day_chinese'] = $baziResult['lunar']['day_chinese'];
-                
-                $listSolarTerms = $baziResult['jieqi_table'];
-                if(!empty($listSolarTerms)) {
-                    // 本年夏至
-                    $this->_ganzhiData['jieqi_xiazhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['夏至'];
+            $listSolarTerms = $baziResult['jieqi_table'];
+            if(!empty($listSolarTerms)) {
+                // 本年夏至
+                $this->_ganzhiData['jieqi_xiazhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['夏至'];
 
-                    // 本年冬至
-                    $this->_ganzhiData['jieqi_dongzhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至']; 
-                    
-                    // 本年芒種
-                    $this->_ganzhiData['jieqi_mangzhong'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['芒種'];
-                    
-                    // 本年大雪
-                    $this->_ganzhiData['jieqi_daxue'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['大雪'];
+                // 本年冬至
+                $this->_ganzhiData['jieqi_dongzhi'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['冬至']; 
 
-                    // 所在前後節氣資料
-                    $allSTS = [];
-                    foreach ($listSolarTerms as $year => $st) {
-                        foreach ($st as $name => $time) {
-                            $allSTS[$year.'_'.$name] = $time;
-                        }
+                // 本年芒種
+                $this->_ganzhiData['jieqi_mangzhong'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['芒種'];
+
+                // 本年大雪
+                $this->_ganzhiData['jieqi_daxue'] = $listSolarTerms[date('Y', strtotime($currentDateTime))]['大雪'];
+
+                // 所在前後節氣資料
+                $allSTS = [];
+                foreach ($listSolarTerms as $year => $st) {
+                    foreach ($st as $name => $time) {
+                        $allSTS[$year.'_'.$name] = $time;
                     }
-                    $this->_ganzhiData['jieqi_table'] = $allSTS;
-                    $this->_ganzhiData['jieqi_range'] = $this->getSolarTermsRange($this->_ganzhiData['datetime_hk'], $allSTS); 
                 }
+                $this->_ganzhiData['jieqi_table'] = $allSTS;
+                $this->_ganzhiData['jieqi_range'] = $this->getSolarTermsRange($this->_ganzhiData['datetime_hk'], $allSTS); 
             }
         }
 
