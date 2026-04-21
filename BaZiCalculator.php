@@ -329,27 +329,12 @@ class BaZiCalculator {
         
         $result = [];
         $selectedYear = intval(date('Y', strtotime($hkDateTime)));
- 
+        
         // 限制範圍
         if($selectedYear >= 1970 && $selectedYear <= 2100) {
             // 獲得 24 節氣參考資料
-            foreach ([($selectedYear-1), $selectedYear, ($selectedYear+1)] as $year) {
-                $xmlFile = (implode('/', array_filter([$this->xmlFolder, 'solarterms', $year])).'.xml');
-                if(file_exists($xmlFile)) {
-                    $xmlData = simplexml_load_file($xmlFile);
-                    if(!empty($xmlData)) {
-                        $yearData = [];
-                        foreach ($xmlData->term as $term) {
-                            $name = (string)$term->name;
-                            $date = (string)$term->date;
-                            $yearData[$name] = $date;
-                            //$yearData[$name] = $this->ceilToMinute($date);
-                        }
-                        $this->solarTerms[$year] = $yearData;
-                    }
-                }
-            }
-            
+            $this->solarTerms = $this->getSolarTermsByYears([($selectedYear-1), $selectedYear, ($selectedYear+1)]);
+
             // 開始計算
             if(!empty($this->solarTerms)) {
                 if(!empty($this->solarTerms[($selectedYear-1)]) && !empty($this->solarTerms[$selectedYear]) && !empty($this->solarTerms[($selectedYear+1)])) {
@@ -394,6 +379,29 @@ class BaZiCalculator {
             }
         }
 
+        return $result;
+    }
+    
+    public function getSolarTermsByYears($selectedYears = []) {
+        // 獲得 24 節氣參考資料
+        $result = [];
+        foreach ($selectedYears as $year) {
+            if($year >= 1969 && $year <= 2101) {
+                $xmlFile = (implode('/', array_filter([$this->xmlFolder, 'solarterms', $year])).'.xml');
+                if(file_exists($xmlFile)) {
+                    $xmlData = simplexml_load_file($xmlFile);
+                    if(!empty($xmlData)) {
+                        $yearData = [];
+                        foreach ($xmlData->term as $term) {
+                            $name = (string)$term->name;
+                            $date = (string)$term->date;
+                            $yearData[$name] = $date;
+                        }
+                        $result[$year] = $yearData;
+                    }
+                }
+            }
+        }
         return $result;
     }
 
