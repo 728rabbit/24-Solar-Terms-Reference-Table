@@ -57,12 +57,14 @@ class Qimenplate {
         
         'highlight_method'      =>  'self',    // 自占
         'highlight_type'        =>  'event',   // 事情
+        'highlight_type_value'  =>  '',
         'highlight_index_1'     =>  'day',     // 日天干
         'highlight_index_2'     =>  'hour',    // 時天干
         'highlight_transform'   =>  0,         // 陰陽轉換
+        'highlight_transform_value'   =>  '',
         'highlight_grid'        =>  [],
         'highlight_grid_shift'  =>  0,
-        
+        'highlight_grid_shift_again' => 0,
         'good_bad_references'   =>  []
     ];
 
@@ -327,16 +329,12 @@ class Qimenplate {
         $this->setYinGan();
         
         /****************** 額外轉宮功能 ******************/
-        // 1. 拆補 | 2. 置閏 | 3. 陰盤 
+        // 現場 or 隔空
         $this->_plateResult['highlight_method'] = (!empty($options['highlight_method'])?$options['highlight_method']:'self');
         
         // 問事類型
         $this->_plateResult['highlight_type'] = (!empty($options['highlight_type'])?$options['highlight_type']:'event');
-        
-        // 參照天干
-        $this->_plateResult['highlight_index_1'] = (!empty($options['highlight_index_1'])?$options['highlight_index_1']:'day');
-        $this->_plateResult['highlight_index_2'] = (!empty($options['highlight_index_2'])?$options['highlight_index_2']:'hour');
-        
+
         // 是否陰陽轉換
         $this->_plateResult['highlight_transform'] = (!empty($options['highlight_transform'])?1:0);
 
@@ -1191,12 +1189,44 @@ class Qimenplate {
         // 陽盤用「旬首甲」：甲子（戊）、甲戌（己）、甲申（庚）、甲午（辛）、甲辰（壬）、甲寅（癸）
         // 陰盤用「八神的“符”」
         
+        // 參照天干
+        $this->_plateResult['highlight_index_1'] = 'day';
+        if($this->_plateResult['highlight_method'] != 'self') {
+            $this->_plateResult['highlight_index_1'] = 'month';
+        }
+        
+        $this->_plateResult['highlight_index_2'] = 'hour';
+        
+        if($this->_plateResult['highlight_type'] == 'elder') {
+            $this->_plateResult['highlight_index_2'] = 'year';
+        }
+        else if($this->_plateResult['highlight_method'] == 'self' && $this->_plateResult['highlight_type'] == 'peer') {
+            $this->_plateResult['highlight_index_2'] = 'month';
+        }
+        else if($this->_plateResult['highlight_method'] != 'self' && $this->_plateResult['highlight_type'] == 'peer') {
+            $this->_plateResult['highlight_index_2'] = 'day';
+        }
+        
         // 尋找 9 宮格位置
         $ganValue1 = $this->_plateResult['ganzhi_'.$this->_plateResult['highlight_index_1']];
         $ganValue1 = mb_substr($ganValue1, 0, 1);
         
         $ganValue2 = $this->_plateResult['ganzhi_'.$this->_plateResult['highlight_index_2']];
         $ganValue2 = mb_substr($ganValue2, 0, 1);
+
+        if($this->_plateResult['highlight_transform'] == 1) {
+            // 陰陽互換
+            $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
+            
+            // 根據組合， 重新定義 $ganValue1
+            foreach ($mixed as $pair) {
+                if(in_array($ganValue1, $pair)) {
+                    $ganValue1 = (($pair[0] == $ganValue1)?$pair[1]:$pair[0]);
+                    $this->_plateResult['highlight_transform_value'] = $ganValue1;
+                    break;  
+                }
+            }
+        }
          
         if($this->_plateResult['highlight_type'] == 'love') {
             // 天干相合
@@ -1206,53 +1236,89 @@ class Qimenplate {
             foreach ($mixed as $pair) {
                 if(in_array($ganValue1, $pair)) {
                     $ganValue2 = (($pair[0] == $ganValue1)?$pair[1]:$pair[0]);
+                    $this->_plateResult['highlight_index_2'] = 'nil';
+                    $this->_plateResult['highlight_type_value'] = $ganValue2;
                     break;   
                 }
             }
         }
-        
-        if($this->_plateResult['highlight_transform'] == 1) {
-            // 陰陽互換
-            $mixed = [['甲', '乙'], ['丙', '丁'], ['戊', '己'], ['庚', '辛'], ['壬', '癸']];
-            
-            // 根據組合， 重新定義 $ganValue2
-            foreach ($mixed as $pair) {
-                if(in_array($ganValue2, $pair)) {
-                    $ganValue2 = (($pair[0] == $ganValue2)?$pair[1]:$pair[0]);
-                    break;  
-                }
-            }
+        else if($this->_plateResult['highlight_type'] == 'wealth') {
+            $ganValue2 = '生';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
+        }
+        else if($this->_plateResult['highlight_type'] == 'career') {
+            $ganValue2 = '開';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
+        }
+        else if($this->_plateResult['highlight_type'] == 'marriage') {
+            $ganValue2 = '合';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
+        }
+        else if($this->_plateResult['highlight_type'] == 'academic') {
+            $ganValue2 = '景';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
+        }
+        else if($this->_plateResult['highlight_type'] == 'legaltrouble') {
+            $ganValue2 = '驚';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
+        }
+        else if($this->_plateResult['highlight_type'] == 'sickness') {
+            $ganValue2 = '芮禽';
+            $this->_plateResult['highlight_index_2'] = 'nil';
+            $this->_plateResult['highlight_type_value'] = $ganValue2;  
         }
         
+
         // 輸出結果： 位置 | 天干值 - 0:第一個字 1: 第二個字 2: 八神“符”
         foreach ([$ganValue1, $ganValue2] as $vKey => $ganValue) {
-            // 尋找 八神的“符” 在什麽宮位
-            if($this->_plateResult['san_yuan_method'] == 'yinpan' && $ganValue == '甲') {
-                foreach ($this->_plateResult['grid'] as $key => $grid) {
-                    if($grid['shen'] == '符') {
-                        $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
-                        $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
-                        break;
-                    }
-                }
-            }
-            else {
-                // 旬首
-                if($ganValue == '甲') {
-                    $ganValue = mb_substr($this->_plateResult['lead'], -1);
-                }
-                foreach ($this->_plateResult['grid'] as $key => $grid) {
-                    if((int)$grid['index'] != 5) {
-                        $inCenter = ($ganValue == $this->_plateResult['grid'][5]['tian']);
-                        if($inCenter && !empty($grid['tian_alias']) && (mb_substr($grid['tian_alias'], -1) == $ganValue)) {
-                            $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [1, $ganValue]);
+            if(!empty($ganValue)) {
+                // 尋找 八神的“符” 在什麽宮位
+                if($this->_plateResult['san_yuan_method'] == 'yinpan' && $ganValue == '甲') {
+                    foreach ($this->_plateResult['grid'] as $key => $grid) {
+                        if($grid['shen'] == '符') {
+                            $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, '符']);
                             $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
                             break;
                         }
-                        else if(mb_substr($grid['tian'], -1) == $ganValue) {
-                            $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [0, $ganValue]);
-                            $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
-                            break;
+                    }
+                }
+                else {
+                    // 旬首
+                    if($ganValue == '甲') {
+                        $ganValue = mb_substr($this->_plateResult['lead'], -1);
+                    }
+                    foreach ($this->_plateResult['grid'] as $key => $grid) {
+                        if((int)$grid['index'] != 5) {
+                            if(in_array($ganValue, ['生', '開', '景', '驚']) && ($grid['gate'] == $ganValue)) {
+                                $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
+                                $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                            }
+                            else if(in_array($ganValue, ['合']) && ($grid['shen'] == $ganValue)) {
+                                $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
+                                $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                            }
+                            else if(in_array($ganValue, ['芮禽']) && (!empty($grid['star_alias']) && $grid['star_alias'] == $ganValue)) {
+                                $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [2, $ganValue]);
+                                $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                            }
+                            else {
+                                $inCenter = ($ganValue == $this->_plateResult['grid'][5]['tian']);
+                                if($inCenter && !empty($grid['tian_alias']) && (mb_substr($grid['tian_alias'], -1) == $ganValue)) {
+                                    $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [1, $ganValue]);
+                                    $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                                    break;
+                                }
+                                else if(mb_substr($grid['tian'], -1) == $ganValue) {
+                                    $this->_plateResult['grid'][$key]['highlight_'.($vKey+1)] = implode('|', [0, $ganValue]);
+                                    $this->_plateResult['highlight_grid'][] = implode('|', [$key, $ganValue]);
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
@@ -1309,6 +1375,11 @@ class Qimenplate {
                 // 同宮轉宮
                 if((int)$first[0] == (int)$second[0] && empty($this->_plateResult['highlight_grid_shift'])) {
                     $this->_plateResult['highlight_grid_shift'] = $shiftTable[$second[0]];
+                }
+                
+                // 轉宮後繼續同宮，嘗試在一次轉宮
+                if((int)$first[0] == $this->_plateResult['highlight_grid_shift']) {
+                    $this->_plateResult['highlight_grid_shift_again'] = $shiftTable[$first[0]];
                 }
             }
         }
