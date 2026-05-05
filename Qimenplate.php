@@ -1731,6 +1731,11 @@ class Qimenplate {
             $goodBadReferences[$id] = $uniqueItems;
         }
         
+        // 5 宮轉到2宮
+        if(!empty($goodBadReferences[5])) {
+            $goodBadReferences[2] = array_merge($goodBadReferences[2], $goodBadReferences[5]);
+        }
+        
         // Sort
         foreach ($goodBadReferences as &$subArray) {
             usort($subArray, function($a, $b) {
