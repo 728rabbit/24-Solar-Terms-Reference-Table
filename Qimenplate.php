@@ -1497,36 +1497,50 @@ class Qimenplate {
 
                 // 三詐五假
                 /*
-                乙 丙 丁 + 休 生 開 + 陰
-                乙 丙 丁 + 休 生 開 + 合
-                乙 丙 丁 + 休 生 開 + 地
+                乙 丙 丁 + 休 生 開 + 陰 -- 真詐
+                乙 丙 丁 + 休 生 開 + 地 -- 重詐
+                乙 丙 丁 + 休 生 開 + 合 -- 休詐
+                
+                乙 丙 丁 + 景 + 天 -- 天假
+               
+                丁 己 癸 + 杜 + 地 -- 地假
 
-                乙 丙 丁 + 景 + 天
-                乙 丙 丁 + 驚 + 天
-
-                丁 己 癸 + 杜 + 地 陰 合
-
-                丁 己 癸 + 傷 + 地
-                丁 己 癸 + 死 + 地
+                丁 己 癸 + 傷 + 合 -- 物假
+                 
+                丁 己 癸 + 死 + 地 -- 鬼假
+                 
+                壬 + 驚 + 天 -- 人假
                 */
-                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['陰', '合', '地'])) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['陰'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '真詐'];
+                }
+                
+                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['地'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '重詐'];
+                }
+                
+                if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['休', '生', '開']) && in_array($grid['shen'], ['合'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '休詐'];
                 }
 
                 if(in_array($gridTian, ['乙', '丙',  '丁']) && in_array($grid['gate'], ['景']) && in_array($grid['shen'], ['天'])) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '天假'];
                 }
 
                 if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['杜']) && in_array($grid['shen'], ['地'])) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '地假'];
                 }
 
-                if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['傷', '死']) && in_array($grid['shen'], ['合', '地'])) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['傷']) && in_array($grid['shen'], ['合'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '物假'];
+                }
+                
+                if(in_array($gridTian, ['丁', '己',  '癸']) && in_array($grid['gate'], ['死']) && in_array($grid['shen'], ['地'])) {
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '鬼假'];
                 }
                 
                 if(in_array($gridTian, ['壬']) && in_array($grid['gate'], ['驚']) && in_array($grid['shen'], ['天'])) {
-                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '三詐五假'];
+                    $goodBadReferences[$gridIndex][] = ['type' => 'good', 'name' => '人假'];
                 }
 
 
